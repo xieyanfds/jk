@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+		<property name="dialect">
+            <!-- org.hibernate.dialect.Oracle10gDialect -->
+            org.hibernate.dialect.MySQLDialect
+        </property>
+
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		<property name="hbm2ddl.auto">none</property>
+		<!-- 懒加载，配合web.xml中配置的 openSessionInViewFilter -->
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
+        <!--校验模式  JPA  java persistent api-->
+		<property name="javax.persistence.validation.mode">none</property>
+		
+		<!--  加载映射文件-->
+		<mapping resource="com/xy/domain/Dept.hbm.xml"/>
+		<mapping resource="com/xy/domain/Role.hbm.xml"/>
+		<mapping resource="com/xy/domain/User.hbm.xml"/>
+		<mapping resource="com/xy/domain/Userinfo.hbm.xml"/>
+		<mapping resource="com/xy/domain/Module.hbm.xml"/>
+		
+		<mapping resource="com/xy/domain/Contract.hbm.xml"/>
+		<mapping resource="com/xy/domain/ContractProduct.hbm.xml"/>
+		<mapping resource="com/xy/domain/ExtCproduct.hbm.xml"/>
+		<mapping resource="com/xy/domain/Factory.hbm.xml"/>
+		
+		<mapping resource="com/xy/domain/Export.hbm.xml"/>
+		<mapping resource="com/xy/domain/ExportProduct.hbm.xml"/>
+		<mapping resource="com/xy/domain/ExtEproduct.hbm.xml"/>
+		<mapping resource="com/xy/domain/PackingList.hbm.xml"/>
+	</session-factory>
+	</hibernate-configuration>
