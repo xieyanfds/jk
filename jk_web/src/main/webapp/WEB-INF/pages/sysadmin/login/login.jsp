@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<form id="login_main" method="post">
+<form id="login_main" method="post" target="_parent">
 <div id="png">
 	<div class="box">
 			<div class="inputstyle">

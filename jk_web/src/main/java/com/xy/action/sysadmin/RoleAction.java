@@ -15,18 +15,26 @@ import com.xy.domain.Role;
 import com.xy.service.ModuleService;
 import com.xy.service.RoleService;
 import com.xy.utils.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author xieyan
+ * @description 角色管理
+ * @date 2017/12/26.
+ */
 public class RoleAction extends BaseAction implements ModelDriven<Role>{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Role model = new Role();
-	
+	@Override
 	public Role getModel() {
 		return model;
 	}
-	
-	//分页查询
+
+	/**
+	 * 分页查询
+	 */
 	private Page<Role> page = new Page<Role>();;
 	public Page<Role> getPage() {
 		return page;
@@ -34,15 +42,12 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 	public void setPage(Page<Role> page) {
 		this.page = page;
 	}
-	
+
+	@Autowired
 	private RoleService roleService;
-	public void setRoleService(RoleService roleService) {
-		this.roleService = roleService;
-	}
+
+	@Autowired
 	private ModuleService moduleService;
-	public void setModuleService(ModuleService moduleService) {
-		this.moduleService = moduleService;
-	}
 	/**
 	 * 分页查询
 	 * @return

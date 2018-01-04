@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
@@ -11,21 +12,24 @@ import com.xy.domain.Contract;
 import com.xy.service.ContractService;
 
 public class MailJob {
-	
-	private ContractService contractService;
-	private SimpleMailMessage simpleMailMessage;
-	private JavaMailSender javaMailSender;
-	public void setContractService(ContractService contractService) {
-		this.contractService = contractService;
-	}
-	
-	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
-		this.simpleMailMessage = simpleMailMessage;
-	}
 
-	public void setJavaMailSender(JavaMailSender javaMailSender) {
-		this.javaMailSender = javaMailSender;
-	}
+	@Autowired
+	private ContractService contractService;
+	@Autowired
+	private SimpleMailMessage simpleMailMessage;
+	@Autowired
+	private JavaMailSender javaMailSender;
+//	public void setContractService(ContractService contractService) {
+//		this.contractService = contractService;
+//	}
+//
+//	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
+//		this.simpleMailMessage = simpleMailMessage;
+//	}
+//
+//	public void setJavaMailSender(JavaMailSender javaMailSender) {
+//		this.javaMailSender = javaMailSender;
+//	}
 	
 	/**
 	 * 以当前时间为标准，查询出交期到期的购销合同，并进行邮件发送，以提醒负责人

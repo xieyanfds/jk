@@ -8,13 +8,14 @@ import com.xy.dao.BaseDao;
 import com.xy.domain.Role;
 import com.xy.service.RoleService;
 import com.xy.utils.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RoleServiceImpl implements RoleService{
-	
+
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	@Override
 	public List<Role> find(String hql, Class<Role> entityClass, Object[] params) {

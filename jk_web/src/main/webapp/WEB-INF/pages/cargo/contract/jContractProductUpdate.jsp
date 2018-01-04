@@ -9,12 +9,17 @@
 		function setFactoryName(val){
 			document.getElementById("factoryName").value = val;
 		}
+        window.onload=function(){
+            var index = document.getElementsByName("factory.id")[0].selectedIndex;
+            var val = document.getElementsByName("factory.id")[0].options[index].innerText;
+            document.getElementById("factoryName").value = val;
+        };
 	</script>
 </head>
 
 <body>
 <form name="icform" method="post">
-	<input type="hidden" name="id" value="${id}"/>
+	<input type=" " name="id" value="${id}"/>
 	<input type="hidden" name="contract.id" value="${contract.id}"/>
 
 <div id="menubar">

@@ -1,78 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"  
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
-	xmlns:p="http://www.springframework.org/schema/p"  
-	xmlns:context="http://www.springframework.org/schema/context"   
-	xmlns:tx="http://www.springframework.org/schema/tx"  
-	xmlns:aop="http://www.springframework.org/schema/aop"  
-	xsi:schemaLocation="http://www.springframework.org/schema/beans    
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    
-	http://www.springframework.org/schema/aop    
-	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd    
-	http://www.springframework.org/schema/tx    
-	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd    
-	http://www.springframework.org/schema/context    
-	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	
 	<bean id="loginAction" class="com.xy.action.LoginAction" scope="prototype"></bean>
 	<bean id="homeAction" class="com.xy.action.HomeAction" scope="prototype"></bean>
-	<bean id="deptAction" class="com.xy.action.sysadmin.DeptAction" scope="prototype">
-		<property name="deptService" ref="deptService"></property>
-	</bean>
+	<!-- dept -->
+	<bean id="deptAction" class="com.xy.action.sysadmin.DeptAction" scope="prototype"></bean>
 	<!-- user -->
-	<bean id="userAction" class="com.xy.action.sysadmin.UserAction" scope="prototype">
-		<property name="userService" ref="userService"></property>
-		<property name="deptService" ref="deptService"></property>
-		<property name="roleService" ref="roleService"></property>
-	</bean>
+	<bean id="userAction" class="com.xy.action.sysadmin.UserAction" scope="prototype"></bean>
 	<!-- role -->
-	<bean id="roleAction" class="com.xy.action.sysadmin.RoleAction" scope="prototype">
-		<property name="roleService" ref="roleService"></property>
-		<property name="moduleService" ref="moduleService"></property>
-	</bean>
-	
+	<bean id="roleAction" class="com.xy.action.sysadmin.RoleAction" scope="prototype"></bean>
 	<!-- module -->
-	<bean id="moduleAction" class="com.xy.action.sysadmin.ModuleAction" scope="prototype">
-		<property name="moduleService" ref="moduleService"></property>
-	</bean>
+	<bean id="moduleAction" class="com.xy.action.sysadmin.ModuleAction" scope="prototype"></bean>
 	
-	<!-- contract -->
-	<bean id="contractAction" class="com.xy.action.cargo.ContractAction" scope="prototype">
-		<property name="contractService" ref="contractService"></property>
-	</bean>
+	<!-- contract,购销合同 -->
+	<bean id="contractAction" class="com.xy.action.cargo.ContractAction" scope="prototype"></bean>
+	<!-- contractProduct,购销合同下的货物 -->
+	<bean id="contractProductAction" class="com.xy.action.cargo.ContractProductAction" scope="prototype"></bean>
+	<!-- extCproduct 购销合同下货物附件-->
+	<bean id="extCproductAction" class="com.xy.action.cargo.ExtCproductAction" scope="prototype"></bean>
 	
-	<!-- contractProduct -->
-	<bean id="contractProductAction" class="com.xy.action.cargo.ContractProductAction" scope="prototype">
-		<property name="contractProductService" ref="contractProductService"></property>
-		<property name="factoryService" ref="factoryService"></property>
-	</bean>
-	
-	<!-- extCproduct -->
-	<bean id="extCproductAction" class="com.xy.action.cargo.ExtCproductAction" scope="prototype">
-		<property name="extCproductService" ref="extCproductService"></property>
-		<property name="factoryService" ref="factoryService"></property>
-	</bean>
-	
-	<!-- outProductAction -->
-	<bean id="outProductAction" class="com.xy.action.cargo.OutProductAction" scope="prototype">
-		<property name="contractProductService" ref="contractProductService"></property>
-	</bean>
-	<!-- exportAction -->
-	<bean id="exportAction" class="com.xy.action.cargo.ExportAction" scope="prototype">
-		<property name="exportService" ref="exportService"></property>
-		<property name="contractService" ref="contractService"></property>
-		<property name="exportProductService" ref="exportProductService"></property>
-		<property name="epService" ref="exportClient"></property>
-	</bean>
-	<!-- statChartAction -->
-	<bean id="statChartAction" class="com.xy.action.stat.StatChartAction" scope="prototype">
-		<property name="statChartService" ref="statChartService"></property>
-	</bean>
-	<!-- packingListAction -->
-	<bean id="packingListAction" class="com.xy.action.cargo.PackingListAction" scope="prototype">
-		<property name="packingListService" ref="packingListService"></property>
-		<property name="exportService" ref="exportService"></property>
-	</bean>
+	<!-- outProductAction,出货表 -->
+	<bean id="outProductAction" class="com.xy.action.cargo.OutProductAction" scope="prototype"></bean>
+
+	<!-- exportAction,报运单 -->
+	<bean id="exportAction" class="com.xy.action.cargo.ExportAction" scope="prototype"></bean>
+	<!-- packingListAction 装箱单-->
+	<bean id="packingListAction" class="com.xy.action.cargo.PackingListAction" scope="prototype"></bean>
+
+	<!-- shippingOrderAction 委托单-->
+	<bean id="shippingOrderAction" class="com.xy.action.cargo.ShippingOrderAction" scope="prototype"></bean>
+
+	<!-- statChartAction,统计分析 -->
+	<bean id="statChartAction" class="com.xy.action.stat.StatChartAction" scope="prototype"></bean>
+
 </beans>
 
 

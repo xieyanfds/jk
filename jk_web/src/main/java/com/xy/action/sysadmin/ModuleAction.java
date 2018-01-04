@@ -7,13 +7,19 @@ import com.xy.action.BaseAction;
 import com.xy.domain.Module;
 import com.xy.service.ModuleService;
 import com.xy.utils.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author xieyan
+ * @description 模块管理
+ * @date 2017/12/26.
+ */
 public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Module model = new Module();
-	
+	@Override
 	public Module getModel() {
 		return model;
 	}
@@ -26,11 +32,9 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	public void setPage(Page<Module> page) {
 		this.page = page;
 	}
-	
+
+	@Autowired
 	private ModuleService moduleService;
-	public void setModuleService(ModuleService moduleService) {
-		this.moduleService = moduleService;
-	}
 	/**
 	 * 分页查询
 	 * @return

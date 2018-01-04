@@ -9,14 +9,14 @@ import com.xy.domain.ExportProduct;
 import com.xy.service.ExportProductService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ExportProductServiceImpl implements ExportProductService {
 
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	public List<ExportProduct> find(String hql, Class<ExportProduct> entityClass, Object[] params) {
 		return baseDao.find(hql, entityClass, params);

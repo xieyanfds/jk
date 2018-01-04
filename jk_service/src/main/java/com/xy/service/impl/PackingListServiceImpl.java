@@ -9,21 +9,18 @@ import com.xy.domain.Export;
 import com.xy.domain.PackingList;
 import com.xy.service.PackingListService;
 import com.xy.utils.Page;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
- * @Description:	PackingList
- * @Author:			
- * @Company:		
- * @CreateDate:		2016-8-15 16:07:10
+ * @author xieyan
+ * @description 装箱单
+ * @date 2017/12/26.
  */
-
+@Service
 public class PackingListServiceImpl implements PackingListService {
-	//spring注入dao
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	public List<PackingList> find(String hql, Class<PackingList> entityClass, Object[] params) {
 		return baseDao.find(hql, PackingList.class, params);
@@ -37,13 +34,14 @@ public class PackingListServiceImpl implements PackingListService {
 		return baseDao.findPage(hql, page, PackingList.class, params);
 	}
 
+	@Override
 	public void saveOrUpdate(PackingList entity) {
 		if(entity.getId()==null){	
 			entity.setState(0);//代表新增
 			String [] ids = entity.getExportIds().split(", ");
 			for (String id : ids) {
 				Export export = baseDao.get(Export.class, id);
-				export.setState(2);
+				export.setState(3);
 			}
 		}
 		baseDao.saveOrUpdate(entity);

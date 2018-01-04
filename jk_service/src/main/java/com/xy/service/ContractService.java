@@ -7,6 +7,11 @@ import java.util.List;
 import com.xy.domain.Contract;
 import com.xy.utils.Page;
 
+/**
+ * @author xieyan
+ * @description 购销合同
+ * @date 2017/12/26.
+ */
 public interface ContractService {
 	//查询所有，带条件查询
 	public  List<Contract> find(String hql, Class<Contract> entityClass, Object[] params);

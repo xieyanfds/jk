@@ -11,28 +11,26 @@ import com.xy.service.ExportService;
 import com.xy.service.PackingListService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
- * @Description:	PackingList
- * @Author:			
- * @Company:		
- * @CreateDate:		2016-8-15 16:07:10
+ * @author xieyan
+ * @description 装箱单
+ * @date 2017/12/26.
  */
-
 public class PackingListAction extends BaseAction implements ModelDriven<PackingList> {
-	//注入service
+
+	@Autowired
 	private PackingListService packingListService;
-	public void setPackingListService(PackingListService packingListService) {
-		this.packingListService = packingListService;
-	}
+
 	//注入报运单
+	@Autowired
 	private ExportService exportService;
-	public void setExportService(ExportService exportService) {
-		this.exportService = exportService;
-	}
+
 	//model驱动
 	private PackingList model = new PackingList();
+	@Override
 	public PackingList getModel() {
 		return this.model;
 	}
@@ -46,18 +44,21 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 
 	//列表展示
 	public String list(){
-		String hql = "from PackingList o";			//查询所有内容
+		String hql = "from PackingList ";			//查询所有内容
 		//给页面提供分页数据
 		page.setUrl("packingListAction_list");		//配置分页按钮的转向链接
 		page = packingListService.findPage(hql, page, PackingList.class, null);
 		pushVS(page);
 		return "plist";						//page list
 	}
-	
-	//转向新增页面
+
+	/**
+	 * 转向新增页面,查询出所有已电子报运的报运单
+	 * @return
+	 */
 	public String tocreate(){
-		//准备数据
-		List<Export> list = exportService.find("from Export where state = 1", Export.class, null);
+		//准备数据,已报运但未装船的
+		List<Export> list = exportService.find("from Export where state = 2", Export.class, null);
 		putContext("results", list);
 		return "pcreate";
 	}

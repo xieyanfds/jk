@@ -16,7 +16,16 @@ import com.xy.service.ExportService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
 import com.xy.webservice.EpService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
+import javax.annotation.Resource;
+
+/**
+ * @author xieyan
+ * @description 合同管理
+ * @date 2017/12/26.
+ */
 public class ExportAction extends BaseAction implements ModelDriven<Export>{
 private static final long serialVersionUID = 1L;
 	
@@ -25,8 +34,10 @@ private static final long serialVersionUID = 1L;
 	public Export getModel() {
 		return model;
 	}
-	
-	//分页查询
+
+	/**
+	 * 分页查询
+	 */
 	private Page page = new Page();;
 	public Page getPage() {
 		return page;
@@ -35,24 +46,18 @@ private static final long serialVersionUID = 1L;
 		this.page = page;
 	}
 	
-	//注入ContractService
+	@Autowired
 	private ExportService exportService;
-	public void setExportService(ExportService exportService) {
-		this.exportService = exportService;
-	}
+
+	@Autowired
 	private ContractService contractService;
-	public void setContractService(ContractService contractService) {
-		this.contractService = contractService;
-	}
+
+	@Autowired
 	private ExportProductService exportProductService;
-	public void setExportProductService(ExportProductService exportProductService) {
-		this.exportProductService = exportProductService;
-	}
-	
+
+	@Resource(name="exportClient")
 	private EpService epService;
-	public void setEpService(EpService epService) {
-		this.epService = epService;
-	}
+
 	/**
 	 * 查询状态唯一的所有购销合同
 	 * @return
@@ -63,7 +68,6 @@ private static final long serialVersionUID = 1L;
 		String hql = "from Contract where state=1";
 		//分页查询
 		contractService.findPage(hql, page, Contract.class, null);
-		  
 		page.setUrl("exportAction_contractList");
 		 
 		//放入值栈
@@ -257,9 +261,7 @@ private static final long serialVersionUID = 1L;
         		ep.setSizeHeight(mr_sizeHeight[i]);
         		ep.setExPrice(mr_exPrice[i]);
         		ep.setTax(mr_tax[i]);
-        		
         	}
-        	
         	epSet.add(ep);
         }
         

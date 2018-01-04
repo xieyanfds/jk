@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="../../baselist.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -54,7 +54,7 @@
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
-${links}
+	${links}
 	
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
@@ -80,9 +80,10 @@ ${links}
 		<td>${o.priceCondition}</td>
 		<td><fmt:formatDate value="${o.inputDate }" pattern="yyyy-MM-dd"/></td>
 		<td>
-			<c:if test="${o.state==0}">草稿</c:if>
-			<c:if test="${o.state==1}">已上报</c:if>
-			<c:if test="${o.state==2}">已报运</c:if>
+			<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
+			<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>
+			<c:if test="${o.state==2}"><font color="#00bfff">已电子报运</font></c:if>
+			<c:if test="${o.state==3}"><font color="#00ff7f">已装船</font></c:if>
 		</td>
 	</tr>
 	</c:forEach>

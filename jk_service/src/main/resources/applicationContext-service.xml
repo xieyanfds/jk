@@ -13,9 +13,13 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd    
 	http://www.springframework.org/schema/context    
 	http://www.springframework.org/schema/context/spring-context.xsd">
-	
+
+	<context:component-scan base-package="com.xy.service"/>
+	<context:annotation-config/>
+	<tx:annotation-driven></tx:annotation-driven>
+
 	<!-- service -->
-	<bean id="deptService" class="com.xy.service.impl.DeptServiceImpl">
+	<!--<bean id="deptService" class="com.xy.service.impl.DeptServiceImpl">
 		<property name="baseDao" ref="baseDao"></property>
 	</bean>
 	<bean id="userService" class="com.xy.service.impl.UserServiceImpl">
@@ -56,6 +60,7 @@
 	</bean>
 	<bean id="packingListService" class="com.xy.service.impl.PackingListServiceImpl">
 		<property name="baseDao" ref="baseDao"></property>
-	</bean>
+
+	</bean>-->
 </beans>
 	

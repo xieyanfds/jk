@@ -5,10 +5,15 @@
 	<title></title>
 	<script type="text/javascript" src="../../js/datepicker/WdatePicker.js"></script>
 	<script type="text/javascript">
-		//动态设置生产厂家的名称 
+		//动态设置生产厂家的名称
 		function setFactoryName(val){
 			document.getElementById("factoryName").value = val;
 		}
+		window.onload=function(){
+		    var index = document.getElementsByName("factory.id")[0].selectedIndex;
+            var val = document.getElementsByName("factory.id")[0].options[index].innerText;
+            document.getElementById("factoryName").value = val;
+		};
 	</script>
 </head>
 
@@ -45,7 +50,7 @@
 	            				listKey="id" listValue="factoryName" 
 	            				headerKey="" headerValue="--请选择--"/>
 	            				
-	            	<input type="hidden" id="factoryName" name="factoryName" value=""/>
+	            	<input type="hidden" id="factoryName" name="factory.factoryName" value=""/>
 	            </td>
 	            <td class="columnTitle">货号：</td>
 	            <td class="tableContentAuto"><input type="text" name="productNo" value=""/></td>

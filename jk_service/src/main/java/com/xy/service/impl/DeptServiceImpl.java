@@ -9,13 +9,14 @@ import com.xy.domain.Dept;
 import com.xy.service.DeptService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DeptServiceImpl implements DeptService {
-	
+
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	@Override
 	public List<Dept> find(String hql, Class<Dept> entityClass, Object[] params) {

@@ -46,7 +46,7 @@
 	
     <!-- 自定义权限认证 -->
     <bean id="authRealm" class="com.xy.shiro.AuthRealm">
-		<property name="userService" ref="userService"/>
+		<!--<property name="userService" ref="userService"/>-->
 		<!-- 自定义密码加密算法  -->
 		<property name="credentialsMatcher" ref="passwordMatcher"/>
 	</bean>

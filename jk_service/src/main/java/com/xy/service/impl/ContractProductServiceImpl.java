@@ -12,13 +12,14 @@ import com.xy.domain.ExtCproduct;
 import com.xy.service.ContractProductService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ContractProductServiceImpl implements ContractProductService {
-	
+
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	@Override
 	public List<ContractProduct> find(String hql, Class<ContractProduct> entityClass, Object[] params) {

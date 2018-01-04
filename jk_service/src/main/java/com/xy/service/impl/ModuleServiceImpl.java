@@ -9,13 +9,14 @@ import com.xy.domain.Module;
 import com.xy.service.ModuleService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ModuleServiceImpl implements ModuleService {
-	
+
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	@Override
 	public List<Module> find(String hql, Class<Module> entityClass, Object[] params) {

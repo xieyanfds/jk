@@ -8,6 +8,11 @@ import com.xy.domain.User;
 import com.xy.utils.SysConstant;
 import com.xy.utils.UtilFuns;
 
+/**
+ * @author xieyan
+ * @description 登录
+ * @date 2017/12/26.
+ */
 public class LoginAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
@@ -33,6 +38,9 @@ public class LoginAction extends BaseAction {
 //			return SUCCESS;
 //		}
 //		return "login";
+		if(UtilFuns.isNotEmpty(getCurrUser())){
+			return SUCCESS;
+		}
 		if(UtilFuns.isEmpty(username)){
 			return "login";
 		}

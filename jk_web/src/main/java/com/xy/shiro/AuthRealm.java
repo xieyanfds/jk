@@ -18,12 +18,12 @@ import com.xy.domain.Module;
 import com.xy.domain.Role;
 import com.xy.domain.User;
 import com.xy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AuthRealm extends AuthorizingRealm{
+
+	@Autowired
 	private UserService userService;
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
 
 	//授权   当jsp页面出现Shiro标签时，就会执行授权方法
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {

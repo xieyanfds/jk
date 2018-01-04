@@ -11,13 +11,14 @@ import com.xy.domain.ExtCproduct;
 import com.xy.service.ExtCproductService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ExtCproductServiceImpl implements ExtCproductService {
-	
+
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	@Override
 	public List<ExtCproduct> find(String hql, Class<ExtCproduct> entityClass, Object[] params) {

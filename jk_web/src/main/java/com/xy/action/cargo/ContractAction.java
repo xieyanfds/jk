@@ -10,17 +10,28 @@ import com.xy.domain.Contract;
 import com.xy.domain.User;
 import com.xy.service.ContractService;
 import com.xy.utils.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
+/**
+ * @author xieyan
+ * @description 购销合同
+ * @date 2017/12/26.
+ */
 public class ContractAction extends BaseAction implements ModelDriven<Contract>{
 private static final long serialVersionUID = 1L;
 	
 	private Contract model = new Contract();
 	
+	@Override
 	public Contract getModel() {
 		return model;
 	}
-	
-	//分页查询
+
+	/**
+	 * 分页查询
+	 */
 	private Page<Contract> page = new Page<Contract>();;
 	public Page<Contract> getPage() {
 		return page;
@@ -28,11 +39,9 @@ private static final long serialVersionUID = 1L;
 	public void setPage(Page<Contract> page) {
 		this.page = page;
 	}
-	
+
+	@Autowired
 	private ContractService contractService;
-	public void setContractService(ContractService contractService) {
-		this.contractService = contractService;
-	}
 	/**
 	 * 分页查询
 	 * @return
@@ -140,6 +149,8 @@ private static final long serialVersionUID = 1L;
         contract.setTradeTerms(model.getTradeTerms());
         contract.setCrequest(model.getCrequest());
         contract.setRemark(model.getRemark());
+		contract.setUpdateBy(super.getCurrUser().getId());
+		contract.setUpdateTime(new Date());
         
         //更新
 		contractService.saveOrUpdate(contract);
@@ -179,8 +190,9 @@ private static final long serialVersionUID = 1L;
 		Contract contract = contractService.get(Contract.class, model.getId());
 		
 		//2.指定path
-		String path = ServletActionContext.getServletContext().getRealPath("/");//应用程序的根路径
-		
+		//应用程序的根路径
+		String path = ServletActionContext.getServletContext().getRealPath("/");
+
 		//3.指定response
 		HttpServletResponse response = ServletActionContext.getResponse();
 		

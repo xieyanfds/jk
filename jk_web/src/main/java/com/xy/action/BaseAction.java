@@ -14,8 +14,13 @@ import com.xy.domain.User;
 import com.xy.utils.SysConstant;
 
 
-//通过RequestAware, SessionAware, ApplicationAware实行接口获得request,session,application对象，action中就可直接调用
-
+//通过RequestAware, SessionAware, ApplicationAware
+//实行接口获得request,session,application对象，action中就可直接调用
+/**
+ * @author xieyan
+ * @description 通用action
+ * @date 2017/12/26.
+ */
 public class BaseAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware{
 	private static Logger log = Logger.getLogger(BaseAction.class);
 	

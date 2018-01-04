@@ -13,18 +13,26 @@ import com.xy.service.DeptService;
 import com.xy.service.RoleService;
 import com.xy.service.UserService;
 import com.xy.utils.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author xieyan
+ * @description 用户管理
+ * @date 2017/12/26.
+ */
 public class UserAction extends BaseAction implements ModelDriven<User>{
 
 	private static final long serialVersionUID = 1L;
 	
 	private User model = new User();
-	
+	@Override
 	public User getModel() {
 		return model;
 	}
-	
-	//分页查询
+
+	/**
+	 * 分页查询
+	 */
 	private Page<User> page = new Page<User>();;
 	public Page<User> getPage() {
 		return page;
@@ -32,19 +40,15 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	public void setPage(Page<User> page) {
 		this.page = page;
 	}
-	
+
+	@Autowired
 	private UserService userService;
-	public void setUserService(UserService UserService) {
-		this.userService = UserService;
-	}
+
+	@Autowired
 	private DeptService deptService;
-	public void setDeptService(DeptService deptService) {
-		this.deptService = deptService;
-	}
+
+	@Autowired
 	private RoleService roleService;
-	public void setRoleService(RoleService roleService) {
-		this.roleService = roleService;
-	}
 	/**
 	 * 分页查询
 	 * @return

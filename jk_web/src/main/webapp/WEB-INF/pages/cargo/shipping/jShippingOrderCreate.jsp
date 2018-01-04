@@ -1,10 +1,9 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="../../baselist.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ include file="../../base.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
-	<script type="text/javascript" src="${ctx }/js/datepicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${ctx }/js/datepicker/WdatePicker.js""></script>
 </head>
 
 <body>
@@ -60,9 +59,7 @@
 	        
 		</table>
 	</div>
-
-
-<div class="eXtremeTable" >
+ <div class="eXtremeTable" >
 <table id="ec_table" class="tableRegion" width="98%" >
 	<thead>
 	<tr>
@@ -81,7 +78,7 @@
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
-	${links}
+${links}
 	
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
@@ -106,11 +103,7 @@
 		<td>${o.transportMode}</td>
 		<td>${o.priceCondition}</td>
 		<td><fmt:formatDate value="${o.inputDate }" pattern="yyyy-MM-dd"/></td>
-		<td>
-			<c:if test="${o.state==0}"><font color="red">未报运</font></c:if>
-			<c:if test="${o.state==1}"><font color="green">已报运</font></c:if>
-			<c:if test="${o.state==2}"><font color="#00bfff">已装船</font></c:if>
-		</td>
+		<td>${o.state==0?"草稿":"已上报"}</td>
 	</tr>
 	</c:forEach>
 	

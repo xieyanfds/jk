@@ -18,9 +18,9 @@
    
    <!-- 定义一个任务 -->
    <bean id="mailJob" class="com.xy.job.MailJob">
-   		<property name="contractService" ref="contractService"></property>
-   		<property name="simpleMailMessage" ref="simpleMailMessage"></property>
-   		<property name="javaMailSender" ref="javaMailSender"></property>
+   		<!--<property name="contractService" ref="contractService"></property>-->
+   		<!--<property name="simpleMailMessage" ref="simpleMailMessage"></property>-->
+   		<!--<property name="javaMailSender" ref="javaMailSender"></property>-->
    </bean>
    
    <!-- 定义一个MethodInvoingJobDetailFactoryBean -->

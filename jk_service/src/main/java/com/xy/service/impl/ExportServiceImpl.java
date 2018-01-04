@@ -19,14 +19,14 @@ import com.xy.domain.ExtEproduct;
 import com.xy.service.ExportService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ExportServiceImpl implements ExportService {
 
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	public List<Export> find(String hql, Class<Export> entityClass, Object[] params) {
 		return baseDao.find(hql, entityClass, params);
@@ -43,7 +43,7 @@ public class ExportServiceImpl implements ExportService {
 	public void saveOrUpdate(Export entity) {
 		if(UtilFuns.isEmpty(entity.getId())){
 			//新增报运单
-			entity.setState(0);//状态
+			entity.setState(0);//草稿状态
 			
 			String ids [] = entity.getContractIds().split(", ");
 			StringBuilder sb  = new StringBuilder();
@@ -62,7 +62,8 @@ public class ExportServiceImpl implements ExportService {
 			//通过购销合同的集合，跳跃查询出购销合同下面的货物列表   11111,22222------------->'11111','22222'
 		    String hql = "from ContractProduct where contract.id in ("+UtilFuns.joinInStr(ids)+")";
 		    List<ContractProduct> list = baseDao.find(hql, ContractProduct.class, null);
-		    
+
+
 		    //数据搬家
 		    Set<ExportProduct> epSet = new HashSet<ExportProduct>();
 		    for(ContractProduct cp :list){
@@ -134,27 +135,10 @@ public class ExportServiceImpl implements ExportService {
 	public void changeState(String[] ids, Integer state) {
 		 for(String id :ids){
 			Export export =  baseDao.get(Export.class, id);
-			export.setState(state);
+			if(export.getState() != 2) {
+				export.setState(state);
+			}
 			baseDao.saveOrUpdate(export);//可以不写
-			/*if(state==1){
-				//提交
-				String[] split = export.getContractIds().split(",");
-				//遍历每个购销合同的id,得到每个购销合同对象，并修改状态为2
-				for(String cid :split){
-					Contract contract = baseDao.get(Contract.class, cid);
-					contract.setState(2);  //修改状态
-					baseDao.saveOrUpdate(contract);//更新状态
-				}
-			}else{
-				//取消
-				String[] split = export.getContractIds().split(",");
-				//遍历每个购销合同的id,得到每个购销合同对象，并修改状态为1
-				for(String cid :split){
-					Contract contract = baseDao.get(Contract.class, cid);
-					contract.setState(1);  //修改状态
-					baseDao.saveOrUpdate(contract);//更新状态
-				}
-			}*/
 		 }
 	}
 

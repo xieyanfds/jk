@@ -9,17 +9,26 @@ import com.xy.domain.Factory;
 import com.xy.service.ContractProductService;
 import com.xy.service.FactoryService;
 import com.xy.utils.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author xieyan
+ * @description 购销合同下货物
+ * @date 2017/12/26.
+ */
 public class ContractProductAction extends BaseAction implements ModelDriven<ContractProduct>{
 private static final long serialVersionUID = 1L;
 	
 	private ContractProduct model = new ContractProduct();
 	
+	@Override
 	public ContractProduct getModel() {
 		return model;
 	}
-	
-	//分页查询
+
+	/**
+	 * 分页查询
+	 */
 	private Page<ContractProduct> page = new Page<ContractProduct>();;
 	public Page<ContractProduct> getPage() {
 		return page;
@@ -27,16 +36,12 @@ private static final long serialVersionUID = 1L;
 	public void setPage(Page<ContractProduct> page) {
 		this.page = page;
 	}
-	
+
+	@Autowired
 	private ContractProductService contractProductService;
-	public void setContractProductService(ContractProductService contractProductService) {
-		this.contractProductService = contractProductService;
-	}
-	
+
+	@Autowired
 	private FactoryService factoryService;
-	public void setFactoryService(FactoryService factoryService) {
-		this.factoryService = factoryService;
-	}
 	/**
 	 * 根据购销合同查询生产货物
 	 * @return
@@ -62,7 +67,6 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
-		//实现细粒度的权限控制，设置创建人以及部门
 		contractProductService.saveOrUpdate(model);
 		
 		return tocreateAndList();

@@ -9,8 +9,9 @@ import com.xy.domain.ExtEproduct;
 import com.xy.service.ExtEproductService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ExtEproductServiceImpl implements ExtEproductService {
 
 	private BaseDao baseDao;

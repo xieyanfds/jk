@@ -48,6 +48,7 @@
 		<td class="tableHeader">总金额</td>
 	</tr>
 	</thead>
+
 	<tbody class="tableBody" >
 	${links }
 	<c:forEach items="${results}" var="o" varStatus="status">

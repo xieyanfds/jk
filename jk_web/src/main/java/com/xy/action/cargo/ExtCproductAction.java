@@ -1,27 +1,28 @@
 package com.xy.action.cargo;
 
-import java.util.List;
-
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.ExtCproduct;
-import com.xy.domain.ExtCproduct;
 import com.xy.domain.Factory;
-import com.xy.service.ExtCproductService;
 import com.xy.service.ExtCproductService;
 import com.xy.service.FactoryService;
 import com.xy.utils.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public class ExtCproductAction extends BaseAction implements ModelDriven<ExtCproduct>{
 private static final long serialVersionUID = 1L;
 	
 	private ExtCproduct model = new ExtCproduct();
-	
+	@Override
 	public ExtCproduct getModel() {
 		return model;
 	}
-	
-	//分页查询
+
+	/**
+	 * 分页查询
+	 */
 	private Page<ExtCproduct> page = new Page<ExtCproduct>();;
 	public Page<ExtCproduct> getPage() {
 		return page;
@@ -29,16 +30,11 @@ private static final long serialVersionUID = 1L;
 	public void setPage(Page<ExtCproduct> page) {
 		this.page = page;
 	}
-	
+
+	@Autowired
 	private ExtCproductService extCproductService;
-	public void setExtCproductService(ExtCproductService extCproductService) {
-		this.extCproductService = extCproductService;
-	}
-	
+	@Autowired
 	private FactoryService factoryService;
-	public void setFactoryService(FactoryService factoryService) {
-		this.factoryService = factoryService;
-	}
 	/**
 	 * 根据购销合同查询生产货物
 	 * @return

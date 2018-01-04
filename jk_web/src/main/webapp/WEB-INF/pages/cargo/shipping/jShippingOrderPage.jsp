@@ -26,7 +26,7 @@
    
   <div class="textbox-title">
 	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
-    装箱单列表
+    委托单列表
   </div> 
   
 <div>
@@ -38,10 +38,23 @@
 	<tr align="center">
 		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 		<td class="tableHeader">序号</td>
-		<td class="tableHeader">卖方</td>
-		<td class="tableHeader">买方</td>
-		<td class="tableHeader">发票号</td>
-		<td class="tableHeader">发票日期</td>
+		<td class="tableHeader">运输方式</td>
+		<td class="tableHeader">货主</td>
+		<td class="tableHeader">提单抬头</td>
+		<td class="tableHeader">正本通知人</td>
+		<td class="tableHeader">信用证</td>
+		<td class="tableHeader">装运港</td>
+		<td class="tableHeader">转船港</td>
+		<td class="tableHeader">卸货港</td>
+		<td class="tableHeader">装期</td>
+		<td class="tableHeader">效期</td>
+		<td class="tableHeader">是否分批</td>
+		<td class="tableHeader">是否转船</td>
+		<td class="tableHeader">份数</td>
+		<td class="tableHeader">扼要说明</td>
+		<td class="tableHeader">运输要求</td>
+		<td class="tableHeader">运费说明</td>
+		<td class="tableHeader">复核人</td>
 		<td class="tableHeader">状态</td>
 	</tr>
 	</thead>
@@ -52,13 +65,32 @@ ${links}
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center">
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
 		<td>${status.index+1}</td>
-		<td>${o.seller}</td>
-		<td>${o.buyer}</td>
-		<td>${o.invoiceNo}</td>
-		<td>${o.invoiceDate}</td>
+		<td>${o.order_type}</td>
+		<td>${o.shipper}</td>
+		<td>${o.consignee}</td>
+		<td>${o.notify_party}</td>
+		<td>${o.lc_no}</td>
+		<td>${o.port_of_loading}</td>
+		<td>${o.port_of_trans}</td>
+		<td>${o.port_of_discharge}</td>
+		<td>${o.loading_date}</td>
+		<td>${o.limit_date}</td>
 		<td>
-		<c:if test="${o.state==0}">草稿</c:if>
-		<c:if test="${o.state==1}"><b><font color="green">已上报</font></b></c:if>
+			<c:if test="${o.is_batch==1}">是</c:if>
+			<c:if test="${o.is_batch==0}">不是</c:if>
+		</td>
+		<td>
+			<c:if test="${o.is_trans==1}">是</c:if>
+			<c:if test="${o.is_trans==0}">不是</c:if>
+		</td>
+		<td>${o.copy_num}</td>
+		<td>${o.remark}</td>
+		<td>${o.special_condition}</td>
+		<td>${o.freight}</td>
+		<td>${o.check_by}</td>
+		<td>
+			<c:if test="${o.state==0}">草稿</c:if>
+			<c:if test="${o.state==1}"><b><font color="green">已上报</font></b></c:if>
 		</td>
 	</tr>
 	</c:forEach>

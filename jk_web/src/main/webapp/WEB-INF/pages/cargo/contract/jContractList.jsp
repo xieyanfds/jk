@@ -64,7 +64,7 @@
 	<tbody class="tableBody" >
 	${links }
 	<c:forEach items="${results}" var="o" varStatus="status">
-	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
+		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
 		<td>${status.index+1}</td>
 		<td>${o.customName}</td>
@@ -90,9 +90,9 @@
 		<td>${o.tradeTerms}</td>
 		<td>${o.totalAmount}</td>
 		<td>
-		<c:if test="${o.state==0}">草稿</c:if>
-		<c:if test="${o.state==1}"><font color="green">已上报</font></c:if>
-		<c:if test="${o.state==2}"><font color="red">已报运</font></c:if>
+			<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
+			<c:if test="${o.state==1}"><font color="green">已上报</font></c:if>
+			<c:if test="${o.state==2}"><font color="#00bfff">已报运</font></c:if>
 		</td>
 		<td><a href="${ctx }/cargo/contractProductAction_tocreateAndList?contract.id=${o.id}">[货物]</a></td>
 	</tr>

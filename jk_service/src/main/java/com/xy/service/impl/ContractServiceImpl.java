@@ -9,13 +9,14 @@ import com.xy.domain.Contract;
 import com.xy.service.ContractService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ContractServiceImpl implements ContractService {
-	
+
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	@Override
 	public List<Contract> find(String hql, Class<Contract> entityClass, Object[] params) {
@@ -64,8 +65,10 @@ public class ContractServiceImpl implements ContractService {
 		for (String s : ids) {
 			//获取修改的购销合同
 			Contract contract = baseDao.get(Contract.class, s);
-			//修改它的状态
-			contract.setState(state);
+			//修改它的状态,如果此时已报运就不能修改
+			if(contract.getState()!=2) {
+				contract.setState(state);
+			}
 			//持久化到数据库
 			//baseDao.saveOrUpdate(contract);//可以不写
 		}

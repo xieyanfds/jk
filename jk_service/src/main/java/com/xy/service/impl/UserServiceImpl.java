@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
@@ -15,23 +16,28 @@ import com.xy.utils.Encrypt;
 import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
 import com.xy.utils.UtilFuns;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService{
-	
+
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
+//	public void setBaseDao(BaseDao baseDao) {
+//		this.baseDao = baseDao;
+//	}
+	@Autowired
 	private SimpleMailMessage simpleMailMessage;
+	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
-		this.simpleMailMessage = simpleMailMessage;
-	}
+//	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
+//		this.simpleMailMessage = simpleMailMessage;
+//	}
 
-	public void setJavaMailSender(JavaMailSender javaMailSender) {
-		this.javaMailSender = javaMailSender;
-	}
+//	public void setJavaMailSender(JavaMailSender javaMailSender) {
+//		this.javaMailSender = javaMailSender;
+//	}
 
 	@Override
 	public List<User> find(String hql, Class<User> entityClass, Object[] params) {

@@ -143,14 +143,14 @@ function msgstate( id , flag ){
 }
  
 function changRowColor(obj){
-	//obj.removeAttribute("className");
-	//alert(obj.className);
-	//obj.setAttribute("bgcolor","#FFECB0");
-	//obj.sytle.backgroundColor = "#FFECB0";
+//	obj.removeAttribute("className");
+//	alert(obj.className);
+//	obj.setAttribute("bgcolor","#FFECB0");
+//	obj.sytle.backgroundColor = "#FFECB0";
 }
  
 function removeOverRowColor(obj){
-	//alert(obj.getAttribute("style"));
+//	alert(obj.getAttribute("style"));
 }
  
 function killErrors() {

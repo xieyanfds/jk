@@ -9,12 +9,10 @@ import com.xy.utils.Page;
 
 
 /**
- * @Description:	PackingList
- * @Author:			
- * @Company:		
- * @CreateDate:		2016-8-15 16:07:10
+ * @author xieyan
+ * @description 装箱单
+ * @date 2017/12/26.
  */
-
 public interface PackingListService {
 
 	public List<PackingList> find(String hql, Class<PackingList> entityClass, Object[] params);

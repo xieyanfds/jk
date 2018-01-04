@@ -10,13 +10,14 @@ import com.xy.service.FactoryService;
 import com.xy.service.FactoryService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FactoryServiceImpl implements FactoryService {
-	
+
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	@Override
 	public List<Factory> find(String hql, Class<Factory> entityClass, Object[] params) {

@@ -7,18 +7,26 @@ import com.xy.action.BaseAction;
 import com.xy.domain.Dept;
 import com.xy.service.DeptService;
 import com.xy.utils.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author xieyan
+ * @description 部门管理
+ * @date 2017/12/26.
+ */
 public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Dept model = new Dept();
-	
+	@Override
 	public Dept getModel() {
 		return model;
 	}
-	
-	//分页查询
+
+	/**
+	 * 分页查询
+	 */
 	private Page<Dept> page = new Page<Dept>();;
 	public Page<Dept> getPage() {
 		return page;
@@ -26,11 +34,9 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	public void setPage(Page<Dept> page) {
 		this.page = page;
 	}
-	
+
+	@Autowired
 	private DeptService deptService;
-	public void setDeptService(DeptService deptService) {
-		this.deptService = deptService;
-	}
 	/**
 	 * 分页查询
 	 * @return

@@ -9,15 +9,14 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.service.StatChartService;
 import com.xy.utils.file.FileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class StatChartAction extends BaseAction{
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Autowired
 	private StatChartService statChartService;
-	public void setStatChartService(StatChartService statChartService) {
-		this.statChartService = statChartService;
-	}
 	/**
 	 * 生产厂家销售情况
 	 * @return
