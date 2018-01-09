@@ -14,10 +14,12 @@
 <div id="innerMenubar">
   <div id="navMenubar">
 <ul>
-<li id="view"><a href="#" onclick="formSubmit('packingListAction_toview','_self');this.blur();">查看</a></li>
-<li id="new"><a href="#" onclick="formSubmit('packingListAction_tocreate','_self');this.blur();">新增</a></li>
-<li id="update"><a href="#" onclick="formSubmit('packingListAction_toupdate','_self');this.blur();">修改</a></li>
-<li id="delete"><a href="#" onclick="formSubmit('packingListAction_delete','_self');this.blur();">删除</a></li>
+<li id="view"><a href="#" onclick="formSubmit('shippingOrderAction_toview','_self');this.blur();">查看</a></li>
+<li id="new"><a href="#" onclick="formSubmit('shippingOrderAction_tocreate','_self');this.blur();">新增</a></li>
+<li id="update"><a href="#" onclick="formSubmit('shippingOrderAction_toupdate','_self');this.blur();">修改</a></li>
+<li id="delete"><a href="#" onclick="formSubmit('shippingOrderAction_delete','_self');this.blur();">删除</a></li>
+<li id="submit"><a href="#" onclick="formSubmit('shippingOrderAction_submit','_self');this.blur();">提交</a></li>
+<li id="cancel"><a href="#" onclick="formSubmit('shippingOrderAction_cancel','_self');this.blur();">取消</a></li>
 </ul>
   </div>
 </div>
@@ -65,29 +67,29 @@ ${links}
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center">
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
 		<td>${status.index+1}</td>
-		<td>${o.order_type}</td>
+		<td>${o.orderType}</td>
 		<td>${o.shipper}</td>
 		<td>${o.consignee}</td>
-		<td>${o.notify_party}</td>
-		<td>${o.lc_no}</td>
-		<td>${o.port_of_loading}</td>
-		<td>${o.port_of_trans}</td>
-		<td>${o.port_of_discharge}</td>
-		<td>${o.loading_date}</td>
-		<td>${o.limit_date}</td>
+		<td>${o.notifyParty}</td>
+		<td>${o.lcNo}</td>
+		<td>${o.portOfLoading}</td>
+		<td>${o.portOfTrans}</td>
+		<td>${o.portOfDischarge}</td>
+		<td>${o.loadingDate}</td>
+		<td>${o.limitDate}</td>
 		<td>
-			<c:if test="${o.is_batch==1}">是</c:if>
-			<c:if test="${o.is_batch==0}">不是</c:if>
+			<c:if test="${o.isBatch==1}">是</c:if>
+			<c:if test="${o.isBatch==0}">不是</c:if>
 		</td>
 		<td>
-			<c:if test="${o.is_trans==1}">是</c:if>
-			<c:if test="${o.is_trans==0}">不是</c:if>
+			<c:if test="${o.isTrans==1}">是</c:if>
+			<c:if test="${o.isTrans==0}">不是</c:if>
 		</td>
-		<td>${o.copy_num}</td>
+		<td>${o.copyNum}</td>
 		<td>${o.remark}</td>
-		<td>${o.special_condition}</td>
+		<td>${o.specialCondition}</td>
 		<td>${o.freight}</td>
-		<td>${o.check_by}</td>
+		<td>${o.checkBy}</td>
 		<td>
 			<c:if test="${o.state==0}">草稿</c:if>
 			<c:if test="${o.state==1}"><b><font color="green">已上报</font></b></c:if>

@@ -20,10 +20,13 @@
 		<property name="exportIds" column="EXPORT_IDS" type="string"/>
 		<property name="exportNos" column="EXPORT_NOS" type="string"/>
 		<property name="state" column="STATE" type="int"/>
+
 		<property name="createBy" column="CREATE_BY" type="string"/>
 		<property name="createDept" column="CREATE_DEPT" type="string"/>
-		<property name="createTime" column="CREATE_TIME" type="date"/>
+		<property name="createTime" column="CREATE_TIME" type="timestamp"/>
 
+		<!-- private ShippingOrder shippingOrder;  //装箱单与委托单    一对一 -->
+		<one-to-one name="shippingOrder" class="ShippingOrder" cascade="none"></one-to-one>
 	</class>
 
 </hibernate-mapping>

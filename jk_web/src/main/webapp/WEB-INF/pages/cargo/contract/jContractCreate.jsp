@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
-	<script type="text/javascript" src="${ctx }/js/datepicker/WdatePicker.js""></script>
+	<script type="text/javascript" src="${ctx }/js/datepicker/WdatePicker.js"></script>
 </head>
 
 <body>

@@ -38,7 +38,6 @@
 
 	<include file="struts2/struts-sysadmin.xml"></include>
 	<include file="struts2/struts-cargo.xml"></include>
-	<include file="struts2/struts-export.xml"></include>
 	<include file="struts2/struts-stat.xml"></include>
 </struts>
 	

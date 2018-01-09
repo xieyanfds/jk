@@ -38,27 +38,49 @@ public class PackingListServiceImpl implements PackingListService {
 	public void saveOrUpdate(PackingList entity) {
 		if(entity.getId()==null){	
 			entity.setState(0);//代表新增
-			String [] ids = entity.getExportIds().split(", ");
-			for (String id : ids) {
-				Export export = baseDao.get(Export.class, id);
-				export.setState(3);
-			}
 		}
+		String [] ids = entity.getExportIds().split(", ");
+		for (String id : ids) {
+			Export export = baseDao.get(Export.class, id);
+			export.setState(3);
+		}
+		entity.setExportNos(entity.getExportNos().substring(0,entity.getExportNos().length()-2));
 		baseDao.saveOrUpdate(entity);
 	}
 
-
+	@Override
+	public void changeState(String [] ids, Integer state) {
+		for(String id :ids){
+			PackingList packingList = baseDao.get(PackingList.class, id);
+			packingList.setState(state);
+			//可以不写
+			baseDao.saveOrUpdate(packingList);
+		}
+	}
 
 	public void saveOrUpdateAll(Collection<PackingList> entitys) {
 		baseDao.saveOrUpdateAll(entitys);
 	}
 
+	@Override
 	public void deleteById(Class<PackingList> entityClass, Serializable id) {
+		//修改装箱单下每个报运单的状态，将已装箱改为已电子报运
+		PackingList packingList = baseDao.get(PackingList.class, id);
+		String exportIds = packingList.getExportIds();
+		String[] split = exportIds.split(", ");
+		for(String eid : split){
+			Export export = baseDao.get(Export.class, eid);
+			export.setState(2);
+			//快照机制自动保存
+		}
 		baseDao.deleteById(PackingList.class, id);
 	}
 
+	@Override
 	public void delete(Class<PackingList> entityClass, Serializable[] ids) {
-		baseDao.delete(PackingList.class, ids);
+		for(Serializable id:ids){
+			this.deleteById(PackingList.class,id);
+		}
 	}
 
 }

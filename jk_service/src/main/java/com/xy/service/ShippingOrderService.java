@@ -21,7 +21,12 @@ public interface ShippingOrderService {
 	
 	public void saveOrUpdate(ShippingOrder entity);
 	public void saveOrUpdateAll(Collection<ShippingOrder> entitys);
-	
+
+	/**
+	 * 修改状态
+	 */
+	public void changeState(String [] ids,Integer state);
+
 	public void deleteById(Class<ShippingOrder> entityClass, Serializable id);
 	public void delete(Class<ShippingOrder> entityClass, Serializable[] ids);
 }

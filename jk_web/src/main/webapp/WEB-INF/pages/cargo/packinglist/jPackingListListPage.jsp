@@ -13,12 +13,14 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-<ul>
-<li id="view"><a href="#" onclick="formSubmit('packingListAction_toview','_self');this.blur();">查看</a></li>
-<li id="new"><a href="#" onclick="formSubmit('packingListAction_tocreate','_self');this.blur();">新增</a></li>
-<li id="update"><a href="#" onclick="formSubmit('packingListAction_toupdate','_self');this.blur();">修改</a></li>
-<li id="delete"><a href="#" onclick="formSubmit('packingListAction_delete','_self');this.blur();">删除</a></li>
-</ul>
+	<ul>
+		<li id="view"><a href="#" onclick="formSubmit('packingListAction_toview','_self');this.blur();">查看</a></li>
+		<li id="new"><a href="#" onclick="formSubmit('packingListAction_tocreate','_self');this.blur();">新增</a></li>
+		<li id="update"><a href="#" onclick="formSubmit('packingListAction_toupdate','_self');this.blur();">修改</a></li>
+		<li id="delete"><a href="#" onclick="formSubmit('packingListAction_delete','_self');this.blur();">删除</a></li>
+		<li id="submit"><a href="#" onclick="formSubmit('packingListAction_submit','_self');this.blur();">提交</a></li>
+		<li id="cancel"><a href="#" onclick="formSubmit('packingListAction_cancel','_self');this.blur();">取消</a></li>
+	</ul>
   </div>
 </div>
 </div>
@@ -57,8 +59,9 @@ ${links}
 		<td>${o.invoiceNo}</td>
 		<td>${o.invoiceDate}</td>
 		<td>
-		<c:if test="${o.state==0}">草稿</c:if>
-		<c:if test="${o.state==1}"><b><font color="green">已上报</font></b></c:if>
+			<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
+			<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>
+			<c:if test="${o.state==2}"><font color="#00bfff">已委托</font></c:if>
 		</td>
 	</tr>
 	</c:forEach>

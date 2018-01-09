@@ -7,16 +7,23 @@
   </parent>
   <artifactId>jk_web</artifactId>
   <packaging>war</packaging>
-  <dependencies>
-  	<dependency>
-  		<groupId>com.xy.jk</groupId>
-  		<artifactId>jk_service</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.10</version>
-  	</dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.xy.jk</groupId>
+            <artifactId>jk_service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jaxb_2.2_spec</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
 </project>

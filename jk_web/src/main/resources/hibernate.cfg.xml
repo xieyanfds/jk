@@ -37,5 +37,7 @@
 		<mapping resource="com/xy/domain/PackingList.hbm.xml"/>
 
 		<mapping resource="com/xy/domain/ShippingOrder.hbm.xml"/>
+		<mapping resource="com/xy/domain/Invoice.hbm.xml"/>
+		<mapping resource="com/xy/domain/Finance.xml"/>
 	</session-factory>
 	</hibernate-configuration>

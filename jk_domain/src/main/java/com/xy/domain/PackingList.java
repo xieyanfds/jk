@@ -12,7 +12,10 @@ import java.util.Date;
 public class PackingList extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
-	private String id;	  	
+	private String id;
+
+	private ShippingOrder shippingOrder;
+
 	private String seller;			
 	private String buyer;			
 	private String invoiceNo;			//选择
@@ -30,8 +33,15 @@ public class PackingList extends BaseEntity {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
+
+	public ShippingOrder getShippingOrder() {
+		return shippingOrder;
+	}
+
+	public void setShippingOrder(ShippingOrder shippingOrder) {
+		this.shippingOrder = shippingOrder;
+	}
+
 	public String getSeller() {
 		return this.seller;
 	}

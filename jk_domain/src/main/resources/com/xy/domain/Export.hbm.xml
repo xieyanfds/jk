@@ -25,11 +25,11 @@
 		<property name="boxNums" column="BOX_NUMS" type="integer"/>
 		<property name="grossWeights" column="GROSS_WEIGHTS" type="double"/>
 		<property name="measurements" column="MEASUREMENTS" type="double"/>
-		<property name="state" column="STATE" type="integer"/>
+		<property name="state" column="STATE" type="int"/>
 
-		<property name="createBy" column="CREATE_BY"/>
-		<property name="createDept" column="CREATE_DEPT"/>
-		<property name="createTime" column="CREATE_TIME"/>
+		<property name="createBy" column="CREATE_BY" type="string"/>
+		<property name="createDept" column="CREATE_DEPT" type="string"/>
+		<property name="createTime" column="CREATE_TIME" type="timestamp"/>
 
 		<!-- 3.配置对象关联关系； -->
 		<set name="exportProducts" cascade="all" inverse="true" order-by="ORDER_NO">

@@ -11,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+/**
+ * @author xieyan
+ * @description 合同附件管理
+ * @date 2017/12/26.
+ */
 public class ExtCproductAction extends BaseAction implements ModelDriven<ExtCproduct>{
 private static final long serialVersionUID = 1L;
 	

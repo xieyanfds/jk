@@ -34,7 +34,32 @@
 			
 			<result name="toedit">/WEB-INF/pages/cargo/outproduct/jOutProduct.jsp</result>
 		</action>
-		
+
+		<!-- 出口报运单 -->
+		<action name="exportAction_*" class="exportAction" method="{1}">
+			<result name="contractList">/WEB-INF/pages/cargo/export/jContractList.jsp</result>
+			<result name="list">/WEB-INF/pages/cargo/export/jExportList.jsp</result>
+			<result name="toview">/WEB-INF/pages/cargo/export/jExportView.jsp</result>
+			<result name="tocreate">/WEB-INF/pages/cargo/export/jExportCreate.jsp</result>
+			<result name="toupdate">/WEB-INF/pages/cargo/export/jExportUpdate.jsp</result>
+			<result name="contractList">/WEB-INF/pages/cargo/export/jContractList.jsp</result>
+		</action>
+		<!-- 装箱单 -->
+		<action name="packingListAction_*" method="{1}" class="packingListAction">
+			<result name="alist" type="redirect">packingListAction_list</result>
+			<result name="plist">/WEB-INF/pages/cargo/packinglist/jPackingListListPage.jsp</result>
+			<result name="pcreate">/WEB-INF/pages/cargo/packinglist/jPackingListCreate.jsp</result>
+			<result name="pupdate">/WEB-INF/pages/cargo/packinglist/jPackingListUpdate.jsp</result>
+			<result name="pview">/WEB-INF/pages/cargo/packinglist/jPackingListView.jsp</result>
+		</action>
+		<!-- 委托单 -->
+		<action name="shippingOrderAction_*" method="{1}" class="shippingOrderAction">
+			<result name="alist" type="redirect">shippingOrderAction_list</result>
+			<result name="list">/WEB-INF/pages/cargo/shipping/jShippingOrderPage.jsp</result>
+			<result name="create">/WEB-INF/pages/cargo/shipping/jShippingOrderCreate.jsp</result>
+			<result name="update">/WEB-INF/pages/cargo/shipping/jShippingOrderUpdate.jsp</result>
+			<result name="view">/WEB-INF/pages/cargo/shipping/jShippingOrderView.jsp</result>
+		</action>
 	</package>
 	
 </struts>

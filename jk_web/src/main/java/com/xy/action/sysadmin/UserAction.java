@@ -1,5 +1,6 @@
 package com.xy.action.sysadmin;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -90,6 +91,13 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
+		//添加细粒度权限控制
+		//获取当前用户
+		User user = super.getCurrUser();
+		model.setCreateBy(user.getId());
+		model.setCreateDept(user.getDept().getId());
+		model.setCreateTime(new Date());
+
 		userService.saveOrUpdate(model);
 		return "ulist";
 	}
@@ -113,11 +121,15 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	public String update()throws Exception{
 		// 先查询
 		User user = userService.get(User.class, model.getId());
-		
+		User currUser = super.getCurrUser();
+
 		//设置修改的属性
 		user.setDept(model.getDept());
 		user.setUserName(model.getUserName());
 		user.setState(model.getState());
+		user.setUpdateBy(currUser.getId());
+		user.setUpdateTime(new Date());
+
 		userService.saveOrUpdate(user);
 		return "ulist";
 	}

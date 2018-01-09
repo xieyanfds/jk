@@ -13,7 +13,7 @@
         ">
 	<description>cxf与spring整合配置文件</description>
 	
-	<jaxws:client id="exportClient" address="http://localhost/jk_ws1/ws/export?wsdl" 
+	<jaxws:client id="exportClient" address="http://localhost/ws/export?wsdl"
 	serviceClass="com.xy.webservice.EpService"></jaxws:client>
 		
 </beans>

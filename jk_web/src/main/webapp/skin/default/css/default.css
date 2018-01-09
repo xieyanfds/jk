@@ -17,7 +17,7 @@ textarea, input{ padding:2px; border:1px solid; border-color:#369e92;font-size:1
 select{ padding:2px; border:1px solid; border-color:#369e92;font-size:12px;*height:30px;}
 label{ cursor:hand; }
 td{ font:9pt 宋体; }
-th{ font:9pt 微软雅黑; font-weight:bord; text-align:left; }
+th{ font:9pt 微软雅黑; font-weight:bold; text-align:left; }
 .gzdt_list_date{float:right; font-size:12px; font-weight:normal; margin-top:-22px; padding-right:6px; color:#EA9634;}
 
 .tip{float:left;font-size:12px;color:gray;font-weight:normal;margin:22px;padding-left:20px;text-align:left;background:url(../images/notice.gif) no-repeat;}
@@ -710,6 +710,7 @@ menu a:hover,menu a:active{
 #navMenubar #stop {margin:0 3px;width:45px;height:21px;padding-left:4px;padding-top:4px;background:url("../images/button/iconbg.jpg") no-repeat left 1px;}
 #navMenubar #save {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/save.gif") no-repeat;}
 #navMenubar #submit {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/save.gif") no-repeat;}
+#navMenubar #cancel {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/cancel.gif") no-repeat;}
 #navMenubar #view {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/view.gif") no-repeat;}
 #navMenubar #accept { width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/accept.gif") no-repeat;}
 #navMenubar #reject { width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/reject.gif") no-repeat;}

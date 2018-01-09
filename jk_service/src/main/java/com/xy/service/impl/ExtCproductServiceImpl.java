@@ -14,6 +14,11 @@ import com.xy.utils.UtilFuns;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author xieyan
+ * @description 合同附件管理
+ * @date 2017/12/26.
+ */
 @Service
 public class ExtCproductServiceImpl implements ExtCproductService {
 
@@ -41,25 +46,30 @@ public class ExtCproductServiceImpl implements ExtCproductService {
 		if(UtilFuns.isEmpty(entity.getId())){
 			//新增
 			if(UtilFuns.isNotEmpty(entity.getPrice())&& UtilFuns.isNotEmpty(entity.getCnumber())){
-				amount= entity.getPrice()*entity.getCnumber();//附件总金额
+				//附件总金额
+				amount= entity.getPrice()*entity.getCnumber();
 				entity.setAmount(amount);
 			}
 			
 			//修改购销合同的总金额 
-			Contract contract = baseDao.get(Contract.class, entity.getContractProduct().getContract().getId());//根据购销合同的id,得到购销合同对象
+			//根据购销合同的id,得到购销合同对象
+			Contract contract = baseDao.get(Contract.class, entity.getContractProduct().getContract().getId());
 			contract.setTotalAmount(contract.getTotalAmount()+amount);
 			
 			//保存购销合同的总金额 
 			//快照机制，可以不写
 		}else{
 			//修改
-			double oldAmount = entity.getAmount();//取出货物的原有总金额 
+			//取出货物的原有总金额
+			double oldAmount = entity.getAmount();
 			if(UtilFuns.isNotEmpty(entity.getPrice())&& UtilFuns.isNotEmpty(entity.getCnumber())){
-				amount= entity.getPrice()*entity.getCnumber();//货物总金额
+				//货物总金额
+				amount= entity.getPrice()*entity.getCnumber();
 				entity.setAmount(amount);
 			}
-			
-			Contract contract = baseDao.get(Contract.class, entity.getContractProduct().getContract().getId());//根据购销合同的id,得到购销合同对象
+
+			//根据购销合同的id,得到购销合同对象
+			Contract contract = baseDao.get(Contract.class, entity.getContractProduct().getContract().getId());
 			contract.setTotalAmount(contract.getTotalAmount()-oldAmount+amount);
 		}
 		//5.保存附件
@@ -83,6 +93,7 @@ public class ExtCproductServiceImpl implements ExtCproductService {
 		}
 	}
 
+	@Override
 	public void delete(Class<ExtCproduct> entityClass, ExtCproduct entity) {
 		//1.获取购销合同
 		Contract contract = baseDao.get(Contract.class, entity.getContractProduct().getContract().getId());

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
-	<script type="text/javascript" src="../../js/datepicker/WdatePicker.js"></script>
+	<%--<script type="text/javascript" src="../../js/datepicker/WdatePicker.js"></script>--%>
 	<script type="text/javascript">
 		//动态设置生产厂家的名称
 		function setFactoryName(val){

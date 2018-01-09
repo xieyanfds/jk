@@ -20,8 +20,12 @@ public interface PackingListService {
 	public Page<PackingList> findPage(String hql, Page<PackingList> page, Class<PackingList> entityClass, Object[] params);
 	
 	public void saveOrUpdate(PackingList entity);
-	public void saveOrUpdateAll(Collection<PackingList> entitys);
-	
+
+	/**
+	 * 修改状态
+	 */
+	public void changeState(String [] ids,Integer state);
+
 	public void deleteById(Class<PackingList> entityClass, Serializable id);
 	public void delete(Class<PackingList> entityClass, Serializable[] ids);
 }

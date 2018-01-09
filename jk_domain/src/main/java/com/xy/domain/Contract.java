@@ -20,14 +20,14 @@ public class Contract extends BaseEntity implements Serializable {
 	private String crequest;		//要求
 	private String customName;		//客户名称
 	private Date shipTime;			//船期
-	private Integer ImportNum;		//重要程度
+	private Integer ImportNum;		//重要程度,打印时标识几个星,对应说明中的内容
 	private Date deliveryPeriod;	//交货期限
-	private Integer oldState;		//旧的状态，报运
-	private Integer outState;		//出货状态，报运
+	private Integer oldState;		//旧的状态，归档前状态, 方便回退
+	private Integer outState;		//出货状态，0未走货 1部分 2全部
 	private String tradeTerms;		//贸易条款
 	private String printStyle;		//打印板式，1打印一个货物2打印两个货物
 	private String remark;			//备注
-	private Integer state;			//状态：0草稿 1已上报待报运
+	private Integer state;			//状态：0草稿 1已上报待报运， 归档后, 其他选择合同的地方均去除.\r\n
 	public String getId() {
 		return id;
 	}

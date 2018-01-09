@@ -18,9 +18,9 @@
 <li id="new"><a href="#" onclick="formSubmit('contractAction_tocreate','_self');this.blur();">新增</a></li>
 <li id="update"><a href="#" onclick="formSubmit('contractAction_toupdate','_self');this.blur();">修改</a></li>
 <li id="delete"><a href="#" onclick="formSubmit('contractAction_delete','_self');this.blur();">删除</a></li>
-<li id="new"><a href="#" onclick="formSubmit('contractAction_submit','_self');this.blur();">提交</a></li>
-<li id="new"><a href="#" onclick="formSubmit('contractAction_cancel','_self');this.blur();">取消</a></li>
-<li id="new"><a href="#" onclick="formSubmit('contractAction_print','_self');this.blur();">打印</a></li>
+<li id="submit"><a href="#" onclick="formSubmit('contractAction_submit','_self');this.blur();">提交</a></li>
+<li id="cancel"><a href="#" onclick="formSubmit('contractAction_cancel','_self');this.blur();">取消</a></li>
+<li id="print"><a href="#" onclick="formSubmit('contractAction_print','_self');this.blur();">打印</a></li>
 </ul>
   </div>
 </div>

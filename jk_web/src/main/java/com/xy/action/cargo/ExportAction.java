@@ -1,5 +1,6 @@
 package com.xy.action.cargo;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -141,7 +142,8 @@ private static final long serialVersionUID = 1L;
 		User user = super.getCurrUser();
 		model.setCreateBy(user.getId());
 		model.setCreateDept(user.getDept().getId());
-		
+		model.setCreateTime(new Date());
+
 		exportService.saveOrUpdate(model);
 		return contractList();
 	}

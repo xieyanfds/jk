@@ -28,7 +28,9 @@ import com.xy.utils.file.PoiUtil;
 
 
 /**
- * @Description: 手工POI写excel文件
+ * @author xieyan
+ * @description 打印出货表
+ * @date 2017/12/26.
  */
 public class ContractPrint{
 	

@@ -1,12 +1,15 @@
 package com.xy.action.cargo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Export;
 import com.xy.domain.PackingList;
+import com.xy.domain.ShippingOrder;
+import com.xy.domain.User;
 import com.xy.service.ExportService;
 import com.xy.service.PackingListService;
 import com.xy.utils.Page;
@@ -18,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author xieyan
  * @description 装箱单
  * @date 2017/12/26.
+ * toview always need to optimize
  */
 public class PackingListAction extends BaseAction implements ModelDriven<PackingList> {
 
@@ -65,6 +69,13 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 	
 	//新增保存
 	public String insert(){
+		//添加细粒度权限控制
+		//获取当前用户
+		User user = super.getCurrUser();
+		model.setCreateBy(user.getId());
+		model.setCreateDept(user.getDept().getId());
+		model.setCreateTime(new Date());
+
 		packingListService.saveOrUpdate(model);
 		
 		return "alist";			//返回列表，重定向action_list
@@ -76,15 +87,16 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 		//准备修改的数据
 		PackingList obj = packingListService.get(PackingList.class, model.getId());
 		pushVS(obj);
-		String exportids = obj.getExportIds();
-		System.out.println(exportids);
-		String ids[] = exportids.split(", ");
-		List<Export> exports = new ArrayList<Export>();
-		for (String id : ids) {
+		//查询还没有装船的
+		List<Export> list = exportService.find("from Export where state = 2", Export.class, null);
+		String exportIds = obj.getExportIds();
+		String idS[] = exportIds.split(", ");
+		//将自己装船的报运查询出来添加到集合中
+		for (String id : idS) {
 			Export export = exportService.get(Export.class, id);
-			exports.add(export);
+			list.add(export);
 		}
-		putContext("exports", exports);
+		putContext("exports", list);
 		return "pupdate";
 	}
 	
@@ -101,32 +113,18 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 		packingList.setDescriptions(model.getDescriptions());
 		packingList.setExportIds(model.getExportIds());
 		packingList.setExportNos(model.getExportNos());
-		packingList.setState(model.getState());
-		packingList.setCreateBy(model.getCreateBy());
-		packingList.setCreateDept(model.getCreateDept());
-		packingList.setCreateTime(model.getCreateTime());
-		//获取装箱单下的原来的报运单
+
+		//获取装箱单下的原来的报运单,将状态修改为已报运，未装船
 		String exportIds = packingList.getExportIds();
 		String[] oldid = exportIds.split(", ");
+		exportService.changeState(oldid, 2);
 	
-		//获取新的勾选后的报运单
-		String exportids = model.getExportIds();
-		String[] newid = exportids.split(", ");
-		exportService.changeState(newid, 1);
-		
 		packingListService.saveOrUpdate(packingList);
 		
 		return "alist";
 	}
 	
-	//删除一条
-	public String deleteById(){
-		packingListService.deleteById(PackingList.class, model.getId());
-		
-		return "alist";
-	}
-	
-	
+
 	//删除多条
 	public String delete(){
 		packingListService.delete(PackingList.class, model.getId().split(", "));
@@ -137,7 +135,7 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 	//查看
 	public String toview(){
 		PackingList obj = packingListService.get(PackingList.class, model.getId());
-		pushVS(obj);
+        pushVS(obj);
 		String exportIds = obj.getExportIds();
 		if (!UtilFuns.isEmpty(exportIds)) {
 			String[] split = exportIds.split(", ");
@@ -153,18 +151,16 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 	}
 	
 	//提交
-		public String submit(){
-			PackingList pl = packingListService.get(PackingList.class, model.getId());
-			pl.setState(1);
-			packingListService.saveOrUpdate(pl);
-			return "alist";
-		}
-		
-		//取消
-		public String cancel(){
-			PackingList pl = packingListService.get(PackingList.class, model.getId());
-			pl.setState(0);
-			packingListService.saveOrUpdate(pl);
-			return "alist";
-		}
+	public String submit(){
+        String[] split = model.getId().split(", ");
+        packingListService.changeState(split,1);
+        return "alist";
+    }
+
+	//取消
+	public String cancel(){
+        String[] split = model.getId().split(", ");
+        packingListService.changeState(split,0);
+		return "alist";
+	}
 }

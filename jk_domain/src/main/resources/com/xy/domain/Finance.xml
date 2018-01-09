@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.xy.domain">
+	<class name="Finance" table="FINANCE_C" dynamic-insert="true" dynamic-update="true">
+		<id name="id" column="FINANCE_ID">
+			<!--hibernate主键生成策略：native, increment,sequence,uuid,assigned,identity  -->
+			<generator class="assigned"></generator>
+		</id>
+
+		<property name="inputDate" column="INPUT_DATE"></property>
+		<property name="inputBy" column="INPUT_BY"></property>
+		<property name="state" column="STATE"></property>
+
+		<property name="createBy" column="CREATE_BY"></property>
+		<property name="createDept" column="CREATE_DEPT"></property>
+		<property name="createTime" column="CREATE_TIME"></property>
+
+		<!-- private PackingList packingList;//一对一的装箱单 -->
+		<one-to-one name="packingList" class="PackingList" cascade="none"></one-to-one>
+		
+	</class>
+</hibernate-mapping>
+
+
+
+
