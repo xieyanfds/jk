@@ -1,30 +1,17 @@
-package com.xy.action.cargo;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFPatriarch;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
+package com.xy.action.print;
 
 import com.xy.domain.Contract;
 import com.xy.domain.ContractProduct;
 import com.xy.utils.DownloadUtil;
 import com.xy.utils.UtilFuns;
 import com.xy.utils.file.PoiUtil;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.CellRangeAddress;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.util.*;
 
 
 /**
@@ -32,7 +19,7 @@ import com.xy.utils.file.PoiUtil;
  * @description 打印出货表
  * @date 2017/12/26.
  */
-public class ContractPrint{
+public class ContractPrint {
 	
 	
 	

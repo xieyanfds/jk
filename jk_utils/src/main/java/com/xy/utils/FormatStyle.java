@@ -7,6 +7,7 @@ public class FormatStyle {
 		// TODO: Add your code here
 		FormatStyle formatStyle = new FormatStyle();
 		System.out.println(formatStyle.fileSize("10737418240"));
+		System.out.println(new java.text.DecimalFormat(".00").format(16d/10d));
 	}
 
 
@@ -18,7 +19,8 @@ public class FormatStyle {
 			if(s1.trim().compareTo("")==0){
 				return "";
 			}
-			long g = Long.parseLong("1099511627776");//数字太大，JAVA直接写会无法识别，会引起下面比较失败
+			//数字太大，JAVA直接写会无法识别，会引起下面比较失败
+			long g = Long.parseLong("1099511627776");
 			//int i = Integer.parseInt(s1);
 			double i = Double.parseDouble(s1);
 

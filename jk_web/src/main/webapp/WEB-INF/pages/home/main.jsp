@@ -5,8 +5,11 @@
 <head>
 	<title></title>
     <link rel="stylesheet" rev="stylesheet" type="text/css" href="${ctx}/skin/default/css/default.css" media="all"/>
-<script type="text/javascript" src="/components/jquery-ui/jquery-1.2.6.js"></script>
-	<script language="javascript" src="${ctx}/js/common.js"></script> 
+	<script type="text/javascript" src="/components/jquery-ui/jquery-1.2.6.js"></script>
+	<script language="javascript" src="${ctx}/js/common.js"></script>
+	<link rel="stylesheet" href="${ctx }/skin/default/css/index.css" />
+	<script type="text/javascript" src='${ctx }/skin/js/jquery-1.7.2.min.js'></script>
+	<script type="text/javascript" src='${ctx }/skin/js/index.js'></script>
 <style> 
 	.curbody{ CURSOR: url(${ctx}/images/olmsg/shubiao.ani);background:url(${ctx}/images/olmsg/pic738x571.jpg); }
 	.msgcontent{ width:218px;overflow:hidden;word-break:break-all;padding:10px;font-size:14px;color:#339966;font-family:Tahoma;line-height:180%; }
@@ -194,7 +197,6 @@ window.onerror = killErrors;
 						<input type="hidden" name="posX" class="input" value="122" />
 						<input type="hidden" name="posY" class="input" value="97" />
 						&nbsp;
-						
 					</td>
 				</tr>
 				<tr>
@@ -203,11 +205,11 @@ window.onerror = killErrors;
 							2013-02-22 13:37
 						</div>
 						<div style="float:right;width:80px;text-align:right;padding-right:7px;">
-							
+
 							<a style='cursor:pointer;' title="编辑" onclick="msgupdate('ff8080813d00613e013d0067909e0009','edit')"><img src="${ctx}/images/olmsg/doc_edit.gif"/></a>
-							
+
 							<a style='cursor:pointer;' title="删除" onclick="msgdel('ff8080813d00613e013d0067909e0009')"><img src="${ctx}/images/olmsg/doc_del.gif"/></a>
-							
+
 						</div>
 					</td>
 				</tr>
@@ -216,8 +218,6 @@ window.onerror = killErrors;
 					<div class="msgcontent">
 					欢迎使用杰管理平台
 					</div>
-					
-					
 					</td>
 				</tr>
 				<tr>
@@ -229,18 +229,6 @@ window.onerror = killErrors;
 								</td>
 								<td style="text-align:right;padding-right:8px;" nowrap>
 								[备忘]
-								
-								
-								
-								 <!-- [回复] -->
-								
-								
-										<!-- [回执] -->
-								
-								
-													<!-- [撤销原因] -->
-								
-								<!-- state==99[完成] -->
 								</td>
 							</tr>
 						</table>
@@ -259,7 +247,6 @@ window.onerror = killErrors;
 						<input type="hidden" name="posX" class="input" value="442" />
 						<input type="hidden" name="posY" class="input" value="91" />
 						&nbsp;
-						
 					</td>
 				</tr>
 				<tr>
@@ -268,31 +255,8 @@ window.onerror = killErrors;
 							2013-02-22 13:37
 						</div>
 						<div style="float:right;width:80px;text-align:right;padding-right:7px;">
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-																					
-							
 							<a style='cursor:pointer;' title="编辑" onclick="msgupdate('ff8080813d00613e013d00681494000a','edit')"><img src="${ctx}/images/olmsg/doc_edit.gif"/></a>
-							
-							
-							
-							
-							
-							
-							
 							<a style='cursor:pointer;' title="删除" onclick="msgdel('ff8080813d00613e013d00681494000a')"><img src="${ctx}/images/olmsg/doc_del.gif"/></a>
-							
-							
-							
 						</div>
 					</td>
 				</tr>
@@ -302,8 +266,6 @@ window.onerror = killErrors;
 					本系统实现货运企业日常管理<br />
 包括合同、报运、装箱、委托、发票等业务
 					</div>
-					
-					
 					</td>
 				</tr>
 				<tr>
@@ -315,18 +277,6 @@ window.onerror = killErrors;
 								</td>
 								<td style="text-align:right;padding-right:8px;" nowrap>
 								[备忘]
-								
-								
-								
-								 <!-- [回复] -->
-								
-								
-										<!-- [回执] -->
-								
-								
-													<!-- [撤销原因] -->
-								
-								<!-- state==99[完成] -->
 								</td>
 							</tr>
 						</table>
@@ -334,7 +284,101 @@ window.onerror = killErrors;
 				</tr>
 			</table>
 		</div>
-	
+
+	<div id='main'>
+		<c:forEach items="${megList }" var="meg" varStatus="v">
+			<dl class='paper a${v.count }' style="height: 63px;">
+				<dt>
+					<span class='username'></span>${meg.createBy } <span class='num'><fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd' /></span>
+				</dt>
+				<dd class='content'>${meg.content } </dd>
+
+			</dl>
+
+		</c:forEach>
+		<table border=0 cellspacing="0" cellpadding="0" width="220" class="paper a7">
+			<tr>
+				<td style='cursor:move;'  background="${ctx}/images/olmsg/FFE7E81.gif" height="45">
+					<input type="hidden" name="id" class="input" value="ff8080813d00613e013d00681494000a" />
+					<input type="hidden" name="isChange" class="input" value="0" />
+					<input type="hidden" name="posX" class="input" value="442" />
+					<input type="hidden" name="posY" class="input" value="91" />
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td class='username' 	style='cursor:move;white-space:nowrap;' width='100%' onmousedown="MDown('ff8080813d00613e013d00681494000a')" background="${ctx}/images/olmsg/FFE7E82.gif" >
+					<div style="float:left;width:130px;padding-left:7px;font-family:Tahoma;color:gray;font-style : oblique;">
+						2013-02-22 13:37
+					</div>
+					<div style="float:right;width:80px;text-align:right;padding-right:7px;">
+						<a style='cursor:pointer;' title="编辑" onclick="msgupdate('ff8080813d00613e013d00681494000a','edit')"><img src="${ctx}/images/olmsg/doc_edit.gif"/></a>
+						<a style='cursor:pointer;' title="删除" onclick="msgdel('ff8080813d00613e013d00681494000a')"><img src="${ctx}/images/olmsg/doc_del.gif"/></a>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class='content' background="${ctx}/images/olmsg/FFE7E82.gif">
+					<div class="msgcontent">
+						本系统实现货运企业日常管理<br />
+						包括合同、报运、装箱、委托、发票等业务
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td id="tagBPic" background="${ctx}/images/olmsg/FFE7E83.gif" height="63">
+					<table border="0" width="100%" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="50" align="center">
+								<img border="0" src="${ctx}/images/olmsg/0.gif">
+							</td>
+							<td style="text-align:right;padding-right:8px;" nowrap>
+								[备忘]
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div id='send-form'>
+		<p class='title'>
+			<span>写下你的留言</span><a href="" id='close'></a>
+		</p>
+		<form action="" name='wish' id="message_form" method="post">
+			<p>
+				<label for="content">留言：(您还可以输入&nbsp;<span id='font-num'>50</span>&nbsp;个字)
+				</label>
+				<textarea name="content" id='content'></textarea>
+
+					<%-- 	<div id='phiz'>
+                    <img src="${ctx }/skin/images/phiz/zhuakuang.gif" alt="抓狂" /> <img
+                        src="${ctx }/skin/images/phiz/baobao.gif" alt="抱抱" /> <img
+                        src="${ctx }/skin/images/phiz/haixiu.gif" alt="害羞" /> <img
+                        src="${ctx }/skin/images/phiz/ku.gif" alt="酷" /> <img
+                        src="${ctx }/skin/images/phiz/xixi.gif" alt="嘻嘻" /> <img
+                        src="${ctx }/skin/images/phiz/taikaixin.gif" alt="太开心" /> <img
+                        src="${ctx }/skin/images/phiz/touxiao.gif" alt="偷笑" /> <img
+                        src="${ctx }/skin/images/phiz/qian.gif" alt="钱" /> <img
+                        src="${ctx }/skin/images/phiz/huaxin.gif" alt="花心" /> <img
+                        src="${ctx }/skin/images/phiz/jiyan.gif" alt="挤眼" />
+                </div> --%>
+
+
+			</p>
+			<span id='send-btn'
+				  onclick="formSubmit('messageAction_insert','_self');this.blur();"></span>
+		</form>
+	</div>
+
+	<!--[if IE 6]>
+	<script type="text/javascript" src="js/iepng.js"></script>
+	<script type="text/javascript">
+	DD_belatedPNG.fix('#send,#close,.close');
+	</script>
+	<![endif]-->
+
 </logic:notEmpty>
  
  

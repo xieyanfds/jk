@@ -7,7 +7,8 @@
 	<script src="${ctx}/components/pngfix/DD_belatedPNG.js"></script>
 	<script> DD_belatedPNG.fix('*'); </script>
 </head>
-
+<link rel="stylesheet" type="text/css"
+	  href="${pageContext.request.contextPath }/loginCss/style.css" />
 <body>
 <form id="login_main" method="post" target="_parent">
 <div id="png">
@@ -44,7 +45,7 @@
 </form>
 
 <script type="text/JavaScript">
-	document.getElementById('login_main').userName.focus();
+	document.getElementById('login_main').username.focus();
 </script>
 
 </body>

@@ -174,4 +174,8 @@ public class SqlDao {
 		log.debug(sql);
 		return jdbcTemplate.batchUpdate(sql);
 	}
+
+	public List executeSQLforListMap(String sql) {
+		return jdbcTemplate.queryForList(sql);
+	}
 }

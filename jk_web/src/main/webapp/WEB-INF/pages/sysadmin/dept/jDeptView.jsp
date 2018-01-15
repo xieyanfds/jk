@@ -32,12 +32,12 @@
 	        <tr>
 	            <td class="columnTitle">上级部门：</td>
 	            <td class="tableContent">
-	            	${parent.deptName }
+					<input type="text" name="parent.deptName" value="${parent.deptName }" readonly/>
 	            </td>
 	        </tr>		
 	        <tr>
 	            <td class="columnTitle">部门名称：</td>
-	            <td class="tableContent">${deptName }</td>
+	            <td class="tableContent"><input type="text" name="deptName" value="${deptName }" readonly/></td>
 	        </tr>		
 		</table>
 	</div>

@@ -2,6 +2,8 @@ package com.xy.action.cargo;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
+import com.xy.action.print.InvoicePrint;
+import com.xy.action.print.ShippingOrderPrint;
 import com.xy.domain.Export;
 import com.xy.domain.PackingList;
 import com.xy.domain.ShippingOrder;
@@ -9,8 +11,12 @@ import com.xy.domain.User;
 import com.xy.service.PackingListService;
 import com.xy.service.ShippingOrderService;
 import com.xy.utils.Page;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -183,5 +189,16 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
         shippingOrderService.changeState(split,0);
 
 		return "alist";
+	}
+
+	/**
+	 * 打印委托单
+	 */
+	public String print() throws Exception {
+		//调用print方法
+		WebApplicationContext currentWebApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+		ShippingOrderPrint shippingOrderPrint = (ShippingOrderPrint)currentWebApplicationContext.getBean("shippingOrderPrint");
+		shippingOrderPrint.print(model);
+		return NONE;
 	}
 }

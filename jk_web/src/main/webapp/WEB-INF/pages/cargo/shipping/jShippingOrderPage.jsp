@@ -13,14 +13,16 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-<ul>
+  <%@include file="/WEB-INF/pages/button.jsp" %>
+<%--<ul>
 <li id="view"><a href="#" onclick="formSubmit('shippingOrderAction_toview','_self');this.blur();">查看</a></li>
 <li id="new"><a href="#" onclick="formSubmit('shippingOrderAction_tocreate','_self');this.blur();">新增</a></li>
 <li id="update"><a href="#" onclick="formSubmit('shippingOrderAction_toupdate','_self');this.blur();">修改</a></li>
 <li id="delete"><a href="#" onclick="formSubmit('shippingOrderAction_delete','_self');this.blur();">删除</a></li>
 <li id="submit"><a href="#" onclick="formSubmit('shippingOrderAction_submit','_self');this.blur();">提交</a></li>
 <li id="cancel"><a href="#" onclick="formSubmit('shippingOrderAction_cancel','_self');this.blur();">取消</a></li>
-</ul>
+<li id="print"><a href="#" onclick="formSubmit('shippingOrderAction_print','_self');this.blur();">打印</a></li>
+</ul>--%>
   </div>
 </div>
 </div>
@@ -33,7 +35,7 @@
   
 <div>
 
-
+<br/>
 <div class="eXtremeTable" >
 <table id="ec_table" class="tableRegion" width="98%" >
 	<thead>
@@ -66,7 +68,7 @@ ${links}
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center">
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td>${status.index+1}</td>
+		<td><a href="shippingOrderAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 		<td>${o.orderType}</td>
 		<td>${o.shipper}</td>
 		<td>${o.consignee}</td>
@@ -91,8 +93,9 @@ ${links}
 		<td>${o.freight}</td>
 		<td>${o.checkBy}</td>
 		<td>
-			<c:if test="${o.state==0}">草稿</c:if>
-			<c:if test="${o.state==1}"><b><font color="green">已上报</font></b></c:if>
+			<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
+			<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>
+			<c:if test="${o.state==2}"><font color="#00bfff">已报账</font></c:if>
 		</td>
 	</tr>
 	</c:forEach>

@@ -1,11 +1,11 @@
 package com.xy.service;
 
+import com.xy.domain.Contract;
+import com.xy.utils.Page;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-
-import com.xy.domain.Contract;
-import com.xy.utils.Page;
 
 /**
  * @author xieyan

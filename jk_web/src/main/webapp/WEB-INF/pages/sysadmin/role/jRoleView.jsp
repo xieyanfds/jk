@@ -35,11 +35,11 @@
 		<table class="commonTable" cellspacing="1">
 	        <tr>
 	            <td class="columnTitle">名称：</td>
-	            <td class="tableContent">${name}</td>
+	            <td class="tableContent"><input type="text" name="name" value="${name}" readonly/></td>
 	        </tr>		
 	        <tr>
 	            <td class="columnTitle">说明：</td>
-	            <td class="tableContent">${remark}</td>
+	            <td class="tableContent"><input type="text" name="remark" value="${remark}" readonly/></td>
 	        </tr>		
 		</table>
 	</div>

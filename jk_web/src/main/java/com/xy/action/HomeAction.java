@@ -1,5 +1,16 @@
 package com.xy.action;
 
+import com.xy.dao.springdao.SqlDao;
+import com.xy.domain.Dept;
+import com.xy.domain.Message;
+import com.xy.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author xieyan
  * @description 分发操作
@@ -7,7 +18,10 @@ package com.xy.action;
  */
 public class HomeAction extends BaseAction{
 	private static final long serialVersionUID = 1L;
-	
+
+	@Autowired
+	private SqlDao sqlDao;
+
 	private String moduleName;		//动态指定跳转的模块，在struts.xml中配置动态的result
 	public String getModuleName() {
 		return moduleName;
@@ -30,10 +44,26 @@ public class HomeAction extends BaseAction{
 
 	//转向moduleName指向的模块
 	public String tomain(){
-		//获取request
-		String moduleName = (String)request.get("moduleName");
-		
-		this.setModuleName(moduleName);
+		// 加载最新6条留言
+		// 获取当前用户
+		User user = super.getCurrUser();
+		// 获取用户所在部门
+		Dept dept = user.getDept();
+		// 查询当前部门下最新的6条留言
+		String sql = "select * from MESSAGE_B where CREATE_DEPT = '"+dept.getId()+"' order by create_time desc limit 0,6";
+		List<Map<String, Object>> result = sqlDao.executeSQLforListMap(sql);
+		List<Message> megList = new ArrayList<>();
+		for (Map<String, Object> map : result) {
+
+			Message message = new Message();
+//			message.setContent((String) map.get("CONTENT"));
+			message.setCreateBy((String) map.get("CREATE_BY"));
+			message.setCreateTime((Date) map.get("CREATE_TIME"));
+			megList.add(message);
+		}
+
+		super.putContext("megList", megList);
+
 		return "tomain";
 	}
 	public String toleft(){
@@ -42,6 +72,11 @@ public class HomeAction extends BaseAction{
 		
 		//this.setModuleName(moduleName);
 		return "toleft";
+	}
+	public void tomodule(){
+		session.put("moduleId",moduleName);
+		System.out.println(moduleName);
+		System.out.println("im here-------------------------------");
 	}
 
 }

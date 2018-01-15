@@ -126,9 +126,9 @@
 	        </tr>
 	        <tr>
 	            <td class="columnTitle">唛头：</td>
-	            <td class="tableContent"><textarea name="marks" style="height:120px;">${marks}</textarea></td>
+	            <td class="tableContent"><input type="text" name="marks" value="${marks}"/></td>
 	            <td class="columnTitle">备注：</td>
-	            <td class="tableContent"><textarea name="remark" style="height:120px;">${remark}</textarea></td>
+	            <td class="tableContent"><input type="text" name="remark" value="${remark}"/></td>
 	        </tr>
 		</table>
 	</div>

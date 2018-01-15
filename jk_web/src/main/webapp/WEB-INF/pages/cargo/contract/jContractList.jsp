@@ -12,8 +12,9 @@
 <div id="menubar">
 <div id="middleMenubar">
 <div id="innerMenubar">
-  <div id="navMenubar">
-<ul>
+	<div id="navMenubar">
+	<%@include file="/WEB-INF/pages/button.jsp" %>
+<%--<ul>
 <li id="view"><a href="#" onclick="formSubmit('contractAction_toview','_self');this.blur();">查看</a></li>
 <li id="new"><a href="#" onclick="formSubmit('contractAction_tocreate','_self');this.blur();">新增</a></li>
 <li id="update"><a href="#" onclick="formSubmit('contractAction_toupdate','_self');this.blur();">修改</a></li>
@@ -21,8 +22,8 @@
 <li id="submit"><a href="#" onclick="formSubmit('contractAction_submit','_self');this.blur();">提交</a></li>
 <li id="cancel"><a href="#" onclick="formSubmit('contractAction_cancel','_self');this.blur();">取消</a></li>
 <li id="print"><a href="#" onclick="formSubmit('contractAction_print','_self');this.blur();">打印</a></li>
-</ul>
-  </div>
+</ul>--%>
+	</div>
 </div>
 </div>
 </div>
@@ -36,7 +37,8 @@
   </div> 
   </div>
   </div>
-  
+</div>
+<br/>
 <div>
 
 
@@ -66,9 +68,9 @@
 	<c:forEach items="${results}" var="o" varStatus="status">
 		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td>${status.index+1}</td>
+		<td><a href="contractAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 		<td>${o.customName}</td>
-		<td><a href="contractAction_toview?id=${o.id}">${o.contractNo}</a></td>
+		<td>${o.contractNo}</td>
 		<td>
 		    ${o.contractProducts.size() }
 		    /
@@ -94,7 +96,7 @@
 			<c:if test="${o.state==1}"><font color="green">已上报</font></c:if>
 			<c:if test="${o.state==2}"><font color="#00bfff">已报运</font></c:if>
 		</td>
-		<td><a href="${ctx }/cargo/contractProductAction_tocreateAndList?contract.id=${o.id}">[货物]</a></td>
+		<td><a href="${ctx }/cargo/contractProductAction_tocreateAndList?contract.id=${o.id}" style="color: blue;">[货物]</a></td>
 	</tr>
 	</c:forEach>
 	

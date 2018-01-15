@@ -49,16 +49,20 @@
 	        <tr>
 	            <td class="columnTitle">类型：</td>
 	            <td class="tableContentAuto">
-	            	<input type="radio" name="ctype" value="0" class="input"/>主菜单
-	            	<input type="radio" name="ctype" value="1" class="input"/>左侧菜单
-	            	<input type="radio" name="ctype" value="2" class="input"/>按钮
-	            	<input type="radio" name="ctype" value="3" class="input"/>链接
-	            	<input type="radio" name="ctype" value="4" class="input"/>状态
+					<select name="ctype">
+						<option value="1" >主菜单</option>
+						<option value="2" >左侧菜单</option>
+						<option value="3" >按钮</option>
+						<option value="4" >链接</option>
+						<option value="5" >状态</option>
+					</select>
 	            </td>
 	            <td class="columnTitle">状态：</td>
 	            <td class="tableContentAuto">
-	            	<input type="radio" name="state" value="1" checked class="input"/>启用
-	            	<input type="radio" name="state" value="0" class="input"/>停用
+					<select name="state">
+						<option value="1" >启用</option>
+						<option value="0" >停用</option>
+					</select>
 	            </td>
 	        </tr>		
 	        <tr>
@@ -69,9 +73,7 @@
 	        </tr>			
 	        <tr>
 	            <td class="columnTitle">说明：</td>
-	            <td class="tableContent">
-	            	<textarea name="remark" style="height:120px;"></textarea>
-	            </td>
+	            <td class="tableContent"><input type="text" name="remark" value=""/></td>
 	            <td class="columnTitle">排序号：</td>
 	            <td class="tableContent"><input type="text" name="orderNo" value=""/></td>
 	        </tr>			

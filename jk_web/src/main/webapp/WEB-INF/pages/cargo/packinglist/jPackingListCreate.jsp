@@ -70,6 +70,7 @@
             <td class="tableHeader">报运号</td>
             <td class="tableHeader">货物数/附件数</td>
             <td class="tableHeader">信用证号</td>
+            <td class="tableHeader">合同及确认书号</td>
             <td class="tableHeader">收货人及地址</td>
             <td class="tableHeader">装运港</td>
             <td class="tableHeader">目的港</td>
@@ -94,7 +95,7 @@
     //                alert(checkIds.item(i).parentNode.parentNode.children[4].innerText)
     //                alert(getVal(checkIds.item(i).value))
                     if(checkIds.item(i).checked){
-                        ss=ss+checkIds.item(i).parentNode.parentNode.children[4].innerText+", ";
+                        ss=ss+checkIds.item(i).parentNode.parentNode.children[5].innerText+", ";
                     }
                 }
                 nos.value=ss;
@@ -122,6 +123,7 @@
                 ${extNumber}
             </td>
             <td>${o.lcno}</td>
+            <td>${o.customerContract}</td>
             <td>${o.consignee}</td>
             <td>${o.shipmentPort}</td>
             <td>${o.destinationPort}</td>

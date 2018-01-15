@@ -1,10 +1,13 @@
 package com.xy.action.sysadmin;
 
+import java.util.Date;
 import java.util.List;
 
 import com.opensymphony.xwork2.ModelDriven;
+import com.sun.xml.internal.ws.api.policy.ModelUnmarshaller;
 import com.xy.action.BaseAction;
 import com.xy.domain.Module;
+import com.xy.domain.User;
 import com.xy.service.ModuleService;
 import com.xy.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +77,13 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
+		//添加细粒度权限控制
+		//获取当前用户
+		User user = super.getCurrUser();
+		model.setCreateBy(user.getId());
+		model.setCreateDept(user.getDept().getId());
+		model.setCreateTime(new Date());
+
 		moduleService.saveOrUpdate(model);
 		return "mlist";
 	}
@@ -95,7 +105,9 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	public String update()throws Exception{
 		// 先查询
 		Module module = moduleService.get(Module.class, model.getId());
-		
+		//获取当前用户
+		User user = super.getCurrUser();
+
 		//设置修改的属性
 		module.setName(model.getName());
 		module.setLayerNum(model.getLayerNum());
@@ -107,7 +119,9 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 		module.setCwhich(model.getCwhich());
 		module.setRemark(model.getRemark());
 		module.setOrderNo(model.getOrderNo());
-		
+		module.setUpdateBy(user.getId());
+		module.setUpdateTime(new Date());
+
 		moduleService.saveOrUpdate(module);
 		return "mlist";
 	}

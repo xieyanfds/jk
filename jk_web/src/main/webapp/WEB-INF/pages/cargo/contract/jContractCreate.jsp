@@ -26,6 +26,7 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
+  <img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
    新增购销合同
   </div> 
   </div>

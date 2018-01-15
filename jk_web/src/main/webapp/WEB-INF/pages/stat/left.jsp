@@ -5,14 +5,6 @@
     <title></title>
     <link rel="stylesheet" rev="stylesheet" type="text/css" href="${ctx}/skin/default/css/left.css" media="all"/>
 
-	<script language="javascript" src="${ctx}js/common.js"></script>
-	<script language="javascript" src="${ctx}/js/ajax/setFastMenu.js"></script>
-	<script language="javascript" src="${ctx}/js/pngfix_map.js"></script>
-	<script type="text/javascript" src="${ctx}/components/jquery-ui/jquery-1.2.6.js"></script>
-	<script type="text/javascript" src="${ctx}/skin/default/js/toggle.js"></script>
- 
- 
-    
 </head>
  
 <body id="left_frame">
@@ -26,7 +18,7 @@
 		<div class="sidebar_t_r"></div>
 	</div>
     <div class="panel">
-    	<div class="panel_icon"><img src="${ctx}/skin/default/images/icon/document_chart.png" /></div>
+    	<div class="panel_icon"><img src="${ctx}/skin/default/images/icon/document_chart.png"/></div>
         <div class="panel-header">
         <div class="panel-title">
 		统计查询
@@ -38,7 +30,7 @@
 				<li><a href="${ctx}/stat/statChartAction_productSale" onclick="linkHighlighted(this)" target="main" id="aa_1">产品销售排行</a></li>
 				<li><a href="${ctx}/stat/statChartAction_onlineInfo" onclick="linkHighlighted(this)" target="main" id="aa_1">系统访问压力图</a></li>					
 			</ul> --%>
-			 <%@include file="../leftmenu.jsp" %> 
+			 <%@include file="../leftmenu.jsp" %>
         </div>
     </div>
     </div>

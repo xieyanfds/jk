@@ -35,8 +35,10 @@
 			<tr>
 				<td class="columnTitle">运输方式：</td>
 				<td class="tableContentAuto">
-					<input type="radio" name="orderType" value="海运" class="input"  <c:if test="${orderType=='海运'}">checked</c:if> />海运
-					<input type="radio" name="orderType" value="空运" class="input"  <c:if test="${orderType=='空运'}">checked</c:if> >空运
+					<select name="orderType">
+						<option value="海运" ${orderType=='海运'?"selected":"" } >海运</option>
+						<option value="空运" ${orderType=='空运'?"selected":"" } >空运</option>
+					</select>
 				</td>
 
 				<td class="columnTitle">货主：</td>
@@ -80,14 +82,18 @@
 			<tr>
 				<td class="columnTitle">是否分批：</td>
 				<td class="tableContentAuto">
-					<input type="radio" name="isBatch" value="1" class="input" <c:if test="${isBatch==1}">checked</c:if> >是
-					<input type="radio" name="isBatch" value="0" class="input" <c:if test="${isBatch==0}">checked</c:if> >否
+					<select name="isBatch">
+						<option value="1" ${isBatch=='1'?"selected":"" }>是</option>
+						<option value="0" ${isBatch=='0'?"selected":"" }>否</option>
+					</select>
 				</td>
 
 				<td class="columnTitle">是否转船：</td>
 				<td class="tableContentAuto">
-					<input type="radio" name="isTrans" value="1" class="input" <c:if test="${isTrans==1}">checked</c:if> >是
-					<input type="radio" name="isTrans" value="0" class="input" <c:if test="${isTrans==0}">checked</c:if> >否
+					<select name="isBatch">
+						<option value="1" ${isTrans=='1'?"selected":"" }>是</option>
+						<option value="0" ${isTrans=='0'?"selected":"" }>否</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -126,7 +132,7 @@
 	<div class="eXtremeTable" >
 		<table id="ec_table" class="tableRegion" width="98%" >
 			<thead>
-			<tr align="center">
+			<tr align="center" style="height: 42px;">
 				<td class="tableHeader"></td>
 				<td class="tableHeader">序号</td>
 				<td class="tableHeader">卖方</td>
@@ -140,7 +146,7 @@
 			${links}
 
 			<c:forEach items="${results}" var="o" varStatus="status">
-				<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center">
+				<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center" style="height: 42px;">
 					<td><input type="radio" name="id" value="${o.id}" <c:if test="${id==o.id}">checked</c:if> /></td>
 					<td>${status.index+1}</td>
 					<td>${o.seller}</td>

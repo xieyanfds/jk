@@ -47,12 +47,13 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-<ul>
-<li id="view"><a href="#" onclick="javascript:toView()">查看</a></li>
-<li id="new"><a href="#" onclick="formSubmit('deptAction_tocreate','_self');this.blur();">新增</a></li>
-<li id="update"><a href="#" onclick="javascript:toUpdate()">修改</a></li>
-<li id="delete"><a href="#" onclick="formSubmit('deptAction_delete','_self');this.blur();">删除</a></li>
-</ul>
+  <%@include file="/WEB-INF/pages/button.jsp" %>
+	<%--<ul>--%>
+	<%--<li id="view"><a href="#" onclick="javascript:toView()">查看</a></li>--%>
+	<%--<li id="new"><a href="#" onclick="formSubmit('deptAction_tocreate','_self');this.blur();">新增</a></li>--%>
+	<%--<li id="update"><a href="#" onclick="javascript:toUpdate()">修改</a></li>--%>
+	<%--<li id="delete"><a href="#" onclick="formSubmit('deptAction_delete','_self');this.blur();">删除</a></li>--%>
+	<%--</ul>--%>
   </div>
 </div>
 </div>
@@ -66,7 +67,9 @@
   </div> 
   </div>
   </div>
-  
+</div>
+
+<br/>
 <div>
 
 
@@ -79,18 +82,22 @@
 		<td class="tableHeader">编号</td>
 		<td class="tableHeader">上级</td>
 		<td class="tableHeader">名称</td>
+		<td class="tableHeader">状态</td>
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
     ${links }
 	
-	<c:forEach items="${results }" var="dept"  varStatus="st">
+	<c:forEach items="${results }" var="dept"  varStatus="status">
 		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 			<td><input type="checkbox" name="id" value="${dept.id }"/></td>
-			<td>${st.count }</td>
+			<td><a href="deptAction_toview?id=${dept.id}" style="color:blue;">${status.index+1}</a></td>
 			<td>${dept.id }</td>
 			<td>${dept.parent.deptName }</td>
-			<td><a href="deptAction_toview?id=${dept.id }">${dept.deptName }</a></td>
+			<td>${dept.deptName }</td>
+			<td>
+				${dept.state==1?"启用":"已停用"}
+			</td>
 		</tr>
    </c:forEach>
 	</tbody>
@@ -98,7 +105,7 @@
 </div>
  
 </div>
- 
+</div>
  
 </form>
 </body>

@@ -49,8 +49,10 @@
 	            <td class="tableContent"><input type="text" name="userName" value=""/></td>
 	            <td class="columnTitle">状态：</td>
 	            <td class="tableContentAuto">
-	            	<input type="radio" name="state" value="1" checked class="input"/>启用
-	            	<input type="radio" name="state" value="0" class="input"/>停用
+					<select name="state">
+						<option value="1" >启用</option>
+						<option value="0" >停用</option>
+					</select>
 	            </td>
 	        </tr>
         	<tr>
@@ -77,16 +79,20 @@
 	        <tr>
 	            <td class="columnTitle">等级：</td>
 	            <td class="tableContentAuto">
-	            	<input type="radio" name="userInfo.degree" value="0" class="input"/>超级管理员
-	            	<input type="radio" name="userInfo.degree" value="1" class="input"/>跨部门跨人员
-	            	<input type="radio" name="userInfo.degree" value="2" class="input"/>管理所有下属部门和人员
-	            	<input type="radio" name="userInfo.degree" value="3" class="input"/>管理本部门
-	            	<input type="radio" name="userInfo.degree" value="4" class="input"/>普通员工
+					<select name="userInfo.degree">
+						<option value="0" >超级管理员</option>
+						<option value="1" >跨部门跨人员</option>
+						<option value="2" >管理所有下属部门和人员</option>
+						<option value="3" >管理本部门</option>
+						<option value="4" >普通员工</option>
+					</select>
 	            </td>
 				<td class="columnTitle">性别：</td>
 	            <td class="tableContentAuto">
-	            	<input type="radio" name="userInfo.gender" value="1" class="input"/>男
-	            	<input type="radio" name="userInfo.gender" value="0" class="input"/>女
+					<select name="userInfo.gender">
+						<option value="1" >男</option>
+						<option value="0" >女</option>
+					</select>
 	            </td>
 	        </tr>	
         	<tr>
@@ -109,14 +115,12 @@
         	    <td class="columnTitle">排序号：</td>
 	            <td class="tableContent"><input type="text" name="userInfo.orderNo" value=""/></td>
 	            <td class="columnTitle">说明：</td>
-	            <td class="tableContent">
-	            	<textarea name="userInfo.remark" style="height:120px;"></textarea>
-	            </td>
-	        </tr>	
+	            <td class="tableContent"><input type="text" name="userInfo.remark" value=""/></td>
+	        </tr>
 		</table>
 	</div>
  
- 
+</div>
 </form>
 </body>
 </html>

@@ -1,11 +1,13 @@
 package com.xy.action.sysadmin;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.xy.domain.User;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ModelDriven;
@@ -85,6 +87,13 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
+		//添加细粒度权限控制
+		//获取当前用户
+		User user = super.getCurrUser();
+		model.setCreateBy(user.getId());
+		model.setCreateDept(user.getDept().getId());
+		model.setCreateTime(new Date());
+
 		roleService.saveOrUpdate(model);
 		return "rlist";
 	}
@@ -106,9 +115,15 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 	public String update()throws Exception{
 		// 先查询
 		Role role = roleService.get(Role.class, model.getId());
+		//获取当前用户
+		User user = super.getCurrUser();
+
 		//设置修改的属性
 		role.setName(model.getName());
 		role.setRemark(model.getRemark());
+		role.setUpdateBy(user.getId());
+		role.setUpdateTime(new Date());
+
 		roleService.saveOrUpdate(role);
 		return "rlist";
 	}

@@ -13,11 +13,12 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-<ul>
+  <%@include file="/WEB-INF/pages/button.jsp" %>
+<%--<ul>
 <li id="view"><a href="#" onclick="formSubmit('${ctx}/cargo/contractAction_toview','_self');this.blur();">查看</a></li>
 <li id="print"><a href="#" onclick="formSubmit('${ctx}/cargo/contractAction_print','_self');this.blur();">打印</a></li>
-<li id="new"><a href="#" onclick="formSubmit('${ctx}/cargo/export/exportAction_tocreate','_self');this.blur();">报运</a></li>
-</ul>
+<li id="new"><a href="#" onclick="formSubmit('${ctx}/cargo/exportAction_tocreate','_self');this.blur();">报运</a></li>
+</ul>--%>
   </div>
 </div>
 </div>
@@ -28,7 +29,7 @@
 	购销合同列表
   </div> 
 
-
+<br/>
 <div class="eXtremeTable" >
 <table id="ec_table" class="tableRegion" width="98%" >
 	<thead>

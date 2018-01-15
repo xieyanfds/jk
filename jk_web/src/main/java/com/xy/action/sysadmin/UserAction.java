@@ -99,6 +99,7 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		model.setCreateTime(new Date());
 
 		userService.saveOrUpdate(model);
+
 		return "ulist";
 	}
 	/**
@@ -147,7 +148,7 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		//设置用户的 角色字符串
 		StringBuffer buffer = new StringBuffer();
 		for (Role role : userInfo.getRoles()) {
-			buffer.append(role.getName());
+			buffer.append(role.getName()).append(",");
 		}
 		putContext("userRoleStr", buffer.toString());
 		return "torole";

@@ -14,24 +14,26 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-<ul>
+  <%@include file="/WEB-INF/pages/button.jsp" %>
+<%--<ul>
 <li id="view"><a href="#" onclick="formSubmit('exportAction_toview','_self');this.blur();">查看</a></li>
 <li id="update"><a href="#" onclick="formSubmit('exportAction_toupdate','_self');this.blur();">修改</a></li>
 <li id="delete"><a href="#" onclick="formSubmit('exportAction_delete','_self');this.blur();">删除</a></li>
 <li id="submit"><a href="#" onclick="formSubmit('exportAction_submit','_self');this.blur();">提交</a></li>
 <li id="cancel"><a href="#" onclick="formSubmit('exportAction_cancel','_self');this.blur();">取消</a></li>
 <li id="work_assign"><a href="#" onclick="formSubmit('exportAction_export','_self');this.blur();">电子报运</a></li>
-</ul>
+</ul>--%>
   </div>
 </div>
 </div>
 </div>
    
-  <div class="textbox-title">
+	<div class="textbox-title">
 	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
-    出口报运列表
-  </div> 
-  
+	出口报运列表
+	</div>
+
+<br/>
 <div>
 
 
@@ -59,7 +61,7 @@
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td>${status.index+1}</td>
+		<td><a href="exportAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 		<td>${o.id}</td>
 		<td align="center">
 			${o.exportProducts.size()}

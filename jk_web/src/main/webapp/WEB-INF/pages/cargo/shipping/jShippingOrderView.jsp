@@ -32,8 +32,12 @@
 			<tr>
 				<td class="columnTitle">运输方式：</td>
 				<td class="tableContentAuto">
-					<input type="radio" name="orderType" value="海运" class="input"  <c:if test="${orderType=='海运'}">checked</c:if> readonly />海运
-					<input type="radio" name="orderType" value="空运" class="input"  <c:if test="${orderType=='空运'}">checked</c:if> readonly>空运
+					<select name="orderType" disabled>
+						<option value="海运" <c:if test="${orderType=='海运'}">selected</c:if> >海运</option>
+						<option value="空运"<c:if test="${orderType=='空运'}">selected</c:if> >空运</option>
+					</select>
+					<%--<input type="radio" name="orderType" value="海运" class="input"  <c:if test="${orderType=='海运'}">checked</c:if> readonly />海运
+					<input type="radio" name="orderType" value="空运" class="input"  <c:if test="${orderType=='空运'}">checked</c:if> readonly>空运--%>
 				</td>
 
 				<td class="columnTitle">货主：</td>
@@ -77,14 +81,22 @@
 			<tr>
 				<td class="columnTitle">是否分批：</td>
 				<td class="tableContentAuto">
-					<input type="radio" name="isBatch" value="1" class="input" <c:if test="${isBatch==1}">checked</c:if> readonly>是
-					<input type="radio" name="isBatch" value="0" class="input" <c:if test="${isBatch==0}">checked</c:if> readonly>否
+					<select name="isBatch" disabled>
+						<option value="1" <c:if test="${isBatch==1}">selected</c:if>>是</option>
+						<option value="0" <c:if test="${isBatch==1}">selected</c:if>>否</option>
+					</select>
+					<%--<input type="radio" name="isBatch" value="1" class="input" <c:if test="${isBatch==1}">checked</c:if> readonly>是
+					<input type="radio" name="isBatch" value="0" class="input" <c:if test="${isBatch==0}">checked</c:if> readonly>否--%>
 				</td>
 
 				<td class="columnTitle">是否转船：</td>
 				<td class="tableContentAuto">
-					<input type="radio" name="isTrans" value="1" class="input" <c:if test="${isTrans==1}">checked</c:if> readonly>是
-					<input type="radio" name="isTrans" value="0" class="input" <c:if test="${isTrans==0}">checked</c:if> readonly>否
+					<select name="isBatch" disabled>
+						<option value="1" <c:if test="${isTrans==1}">selected</c:if>>是</option>
+						<option value="0" <c:if test="${isTrans==1}">selected</c:if>>否</option>
+					</select>
+					<%--<input type="radio" name="isTrans" value="1" class="input" <c:if test="${isTrans==1}">checked</c:if> readonly>是
+					<input type="radio" name="isTrans" value="0" class="input" <c:if test="${isTrans==0}">checked</c:if> readonly>否--%>
 				</td>
 			</tr>
 			<tr>
@@ -104,13 +116,6 @@
 			<tr>
 				<td class="columnTitle">复核人：</td>
 				<td class="tableContent"><input type="text" name="checkBy" value="${checkBy}" readonly/></td>
-
-				<td class="columnTitle">正本通知人：</td>
-				<td class="tableContent">
-					<input type="text" style="width:90px;" name="invoiceDate"
-						   value="${invoiceDate}"
-						   onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});" readonly/>
-				</td>
 			</tr>
 		</table>
 	</div>
@@ -143,7 +148,7 @@
 					<td>
 						<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
 						<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>
-						<c:if test="${o.state==2}"><font color="#00bfff">已委托</font></c:if>
+						<c:if test="${o.state==2}"><font color="#00bfff">已开发票</font></c:if>
 					</td>
 				</tr>
 			</tbody>

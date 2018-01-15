@@ -8,14 +8,12 @@
 
 <body>
 <form>
-<div class="textbox"></div>
-
 	<div class="modelDiv">
 
         <table class="modelTable" cellspacing="1">
-        	<tr>
-        		<td colspan="2" class="modelTitle">货运模块介绍</td>
-        	</tr>
+			<tr>
+				<td colspan="2" class="modelTitle">货运模块介绍</td>
+			</tr>
         	<tr>
         		<td class="subModelTitle">购销合同</td>
         		<td class="model_intro_right">客户签单后，公司向厂家下达购销合同，包括货物的具体要求和交期。合同按不同厂家打印购销合同单，附件单独打印，由公司驻当地销售人员分发到各工厂。<br>

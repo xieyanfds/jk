@@ -13,20 +13,21 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-<ul>
+  <%@include file="/WEB-INF/pages/button.jsp" %>
+<%--<ul>
 <li id="print"><a href="#" onclick="formSubmit('outProductAction_print','_self');this.blur();">打印</a></li>
-</ul>
+</ul>--%>
   </div>
 </div>
 </div>
 </div>
    
-  <div class="textbox-title">
+	<div class="textbox-title">
 	<img src="${ctx }/skin/default/images/icon/folder_edit.png"/>
-   购销合同月统计（出货表）
-  </div> 
+	购销合同月统计（出货表）
+	</div>
 
- 
+	<br/><br/>
     <div>
 		<table class="commonTable" cellspacing="1">
 	        <tr>

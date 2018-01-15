@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<script language="javascript" src="${ctx}js/common.js"></script>
+<script type="text/javascript" src="${ctx}/components/jquery-ui/jquery-1.2.6.js"></script>
+<script type="text/javascript" src="${ctx}/skin/default/js/toggle.js"></script>
 <ul>
 	<c:set var="aaa" value=""/>
 	<!-- 遍历当前登录用户的角色列表 -->
@@ -11,10 +14,19 @@
 		     <c:if test="${(moduleName eq module.remark) and module.ctype==1  }">
 		       <c:if test="${fn:contains(aaa,module.cpermission) eq false }">
 		            <c:set var="aaa" value="${aaa},${module.cpermission }"/>
-		            <li><a href="${ctx}/${module.curl}" onclick="linkHighlighted(this)" target="main" id="aa_1">${module.cpermission }</a></li>
+		            <li><a href="${ctx}/${module.curl}" onclick="toto('${module.ico}')" target="main" id="aa_1">${module.cpermission }</a></li>
 		       </c:if>
 		     </c:if>
 		            
 	 	</c:forEach>
 	</c:forEach>
 </ul>
+<script  type="text/javascript">
+    function toto(obj){
+        var url = "homeAction_tomodule";
+        var param = {"moduleName":obj};
+        $.post(url,param,function(){
+
+		})
+    }
+</script>

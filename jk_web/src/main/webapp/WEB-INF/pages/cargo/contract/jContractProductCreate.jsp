@@ -116,7 +116,7 @@
 	<tbody class="tableBody" >
 	${links }
  	<c:forEach items="${results}" var="o" varStatus="status">
-	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
+	<tr class="even" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
 		<td>${status.index+1}</td>
 		<td>${o.factoryName}</td>
@@ -135,8 +135,8 @@
 	</tr>
 	
 		<c:forEach items="${o.extCproducts}" var="ext" varStatus="status">
-		<tr height="40" class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
-		    <td>&nbsp;</td>
+		<tr style="height: 42px;" class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
+			<td>&nbsp;</td>
 			<td align="right"><font color="blue">附件：${status.index+1}&nbsp;</font></td>
 			<td>${ext.factoryName}</td>
 			<td>${ext.productNo}</td>
@@ -146,6 +146,7 @@
 			<td>${ext.cnumber}</td>
 			<td>${ext.price}</td>
 			<td>${ext.amount}</td>
+			<td>&nbsp;</td>
 		</tr>
 		</c:forEach>
 	
@@ -156,6 +157,7 @@
 </div> 
  
 </form>
+
 </body>
 </html>
 

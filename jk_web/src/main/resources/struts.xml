@@ -33,11 +33,53 @@
 			<result name="toleft">/WEB-INF/pages/${moduleName}/left.jsp</result>
 			<result name="tomain">/WEB-INF/pages/${moduleName}/main.jsp</result>
 		</action>
+
+		<action name="shortcutAction_*" method="{1}" class="shortcutAction">
+			<result name="alist" type="redirect">shortcutAction_list</result>
+			<result name="plist">/WEB-INF/pages/sysadmin/shortcut/jShortcutList.jsp</result>
+			<result name="pcreate">/WEB-INF/pages/sysadmin/shortcut/jShortcutCreate.jsp</result>
+			<result name="pupdate">/WEB-INF/pages/sysadmin/shortcut/jShortcutUpdate.jsp</result>
+			<result name="pview">/WEB-INF/pages/sysadmin/shortcut/jShortcutView.jsp</result>
+		</action>
+
+		<!-- 用户设定个人信息修改 -->
+		<action name="ownUserAction_*" class="ownUserAction" method="{1}">
+			<result name="update" type="redirectAction">login</result>
+			<result name="login" type="redirectAction">login</result>
+			<result name="toupdate">/WEB-INF/pages/user/userUpdate.jsp</result>
+			<result name="error1">/WEB-INF/pages/user/error1.jsp</result>
+			<result name="error2">/WEB-INF/pages/user/error2.jsp</result>
+		</action>
+
+
+		<!-- -->
+		<action name="messageAction_*" class="messageAction" method="{1}">
+			<result name="update" type="redirectAction">login</result>
+			<result name="list" type="redirectAction">homeAction_tomain?moduleName=home</result>
+		</action>
+
+		<!-- 系统反馈 -->
+		<action name="feedbackAction_*" method="{1}" class="feedbackAction">
+			<result name="alist" type="redirect">feedbackAction_plist</result>
+			<result name="plist">/WEB-INF/pages/feedback/jFeedbackListPage.jsp</result>
+			<result name="pcreate">/WEB-INF/pages/feedback/jFeedbackCreate.jsp</result>
+			<result name="pupdate">/WEB-INF/pages/feedback/jFeedbackUpdate.jsp</result>
+			<result name="pview">/WEB-INF/pages/feedback/jFeedbackView.jsp</result>
+		</action>
+
+		<!-- 个人任务列表 -->
+		<action name="workFlowAction_*" class="workFlowAction" method="{1}">
+			<result name="list" type="redirectAction">list</result>
+			<result name="plist">/WEB-INF/pages/workflow/jWorkFlowListPage.jsp</result>
+			<result name="pview">/WEB-INF/pages/workflow/jWorkFlowView.jsp</result>
+			<result name="pupdate">/WEB-INF/pages/workflow/jWorkFlowUpdate.jsp</result>
+		</action>
 		
 	</package>
 
 	<include file="struts2/struts-sysadmin.xml"></include>
 	<include file="struts2/struts-cargo.xml"></include>
 	<include file="struts2/struts-stat.xml"></include>
+	<include file="struts2/struts-baseinfo.xml"></include>
 </struts>
 	

@@ -56,7 +56,7 @@
 	        <tr>
 	            <td class="columnTitle">状态：</td>
 	            <td class="tableContent">
-					<input type="text" name="descriptions" value="<c:if test="${state==0}">草稿</c:if><c:if test="${state==1}"><b><font color="green">已上报</font></b></c:if>" readonly/>
+					<input type="text" name="state" value="<c:if test="${state==0}">草稿</c:if><c:if test="${state==1}">已提交</c:if><c:if test="${state==2}">已委托</c:if>" readonly/>
 	            </td>
 	        </tr>	
 	       

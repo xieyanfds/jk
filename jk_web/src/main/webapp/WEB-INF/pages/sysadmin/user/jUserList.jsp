@@ -6,54 +6,6 @@
 <head>
 	<title></title>
 	<script type="text/javascript" src="${ctx }/js/jquery-1.4.4.js"></script>
-	<script>
-	     function isOnlyChecked(){
-	    	 var checkBoxArray = document.getElementsByName('id');
-				var count=0;
-				for(var index=0; index<checkBoxArray.length; index++) {
-					if (checkBoxArray[index].checked) {
-						count++;
-					}	
-				} 
-			//jquery
-			//var count = $("[input name='id']:checked").size();
-			if(count==1)
-				return true;
-			else
-				return false;
-	     }
-	     function toView(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('userAction_toview','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	     //实现更新
-	     function toUpdate(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('userAction_toupdate','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	   	 //实现修改角色
-	     function torole(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('userAction_torole','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	   	 //实现删除角色
-	     function todelete(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('userAction_delete','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	</script>
 </head>
 
 <body>
@@ -62,13 +14,14 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-<ul>
-<li id="view"><a href="javascript:toView()">查看</a></li>
-<li id="new"><a href="#" onclick="formSubmit('userAction_tocreate','_self');this.blur();">新增</a></li>
-<li id="update"><a href="#" onclick="javascript:toUpdate()">修改</a></li>
-<li id="update"><a href="#" onclick="javascript:torole()">角色</a></li>
-<li id="delete"><a href="#" onclick="javascript:todelete()">删除</a></li>
-</ul>
+  <%@include file="/WEB-INF/pages/button.jsp" %>
+	<%--<ul>
+	<li id="view"><a href="javascript:toView()">查看</a></li>
+	<li id="new"><a href="#" onclick="formSubmit('userAction_tocreate','_self');this.blur();">新增</a></li>
+	<li id="update"><a href="#" onclick="javascript:toUpdate()">修改</a></li>
+	<li id="people"><a href="#" onclick="javascript:torole()">角色</a></li>
+	<li id="delete"><a href="#" onclick="javascript:todelete()">删除</a></li>
+	</ul>--%>
   </div>
 </div>
 </div>
@@ -82,10 +35,9 @@
   </div> 
   </div>
   </div>
-  
 <div>
 
-
+<br/>
 <div class="eXtremeTable" >
 <table id="ec_table" class="tableRegion" width="98%" >
 	<thead>
@@ -100,11 +52,11 @@
 ${links}
 	
 	<c:forEach items="${results}" var="o" varStatus="status">
-	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="left">
+	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td>${status.index+1}</td>
-		<td><a href="userAction_toview?id=${o.id}">${o.userName}</a></td>
-		<td>${o.state }</td>
+		<td><a href="userAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+		<td>${o.userName}</td>
+		<td>${o.state==1?"启用":"已停用"}</td>
 	</tr>
 	</c:forEach>
 	
@@ -114,7 +66,7 @@ ${links}
  
 </div>
  
- 
+</div>
 </form>
 </body>
 </html>

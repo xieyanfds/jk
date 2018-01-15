@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
-	<script type="text/javascript" src="${ctx }/js/datepicker/WdatePicker.js""></script>
+	<script type="text/javascript" src="${ctx }/js/datepicker/WdatePicker.js"></script>
 </head>
 
 <body>
@@ -27,7 +27,8 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-   更新购销合同
+	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
+	更新购销合同
   </div> 
   </div>
   </div>
@@ -41,8 +42,10 @@
 	            <td class="tableContent"><input type="text" name="customName" value="${customName }"/></td>
 	            <td class="columnTitle">打印版式：</td>
 	            <td class="tableContentAuto">
-	            	<input type="radio" name="printStyle" value="2" ${printStyle=='2'?"checked":"" }  class="input">两款
-	            	<input type="radio" name="printStyle" value="1" ${printStyle=='1'?"checked":"" } class="input">一款
+					<select name="printStyle">
+						<option value="2" ${printStyle=='2'?"checked":"" } >两款</option>
+						<option value="1" ${printStyle=='1'?"checked":"" } >一款</option>
+					</select>
 	            </td>
 	        </tr>		
 	        <tr>
@@ -93,9 +96,9 @@
 	        </tr>		
 	        <tr>
 	            <td class="columnTitle">要求：</td>
-	            <td class="tableContent"><textarea name="crequest" style="height:150px;">${crequest }</textarea>
+				<td class="tableContent"><input type="text" name="crequest" value="${crequest }"/></td>
 	            <td class="columnTitle">说明：</td>
-	            <td class="tableContent"><textarea name="remark" style="height:150px;">${remark }</textarea>
+				<td class="tableContent"><input type="text" name="remark" value="${remark }"/></td>
 	        </tr>		
 		</table>
 	</div>

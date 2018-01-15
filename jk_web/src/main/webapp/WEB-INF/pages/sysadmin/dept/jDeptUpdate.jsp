@@ -52,8 +52,7 @@
 	        </tr>		
 	        <tr>
 	            <td class="columnTitle">部门名称：</td>
-	            <td class="tableContent"><input type="text" name="deptName" value="${deptName }"/>
-	            </td>
+				<td class="tableContent"><input type="text" name="deptName" value="${deptName }"/></td>	            </td>
 	        </tr>		
 		</table>
 	</div>

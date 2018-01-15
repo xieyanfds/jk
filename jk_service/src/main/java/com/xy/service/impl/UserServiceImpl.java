@@ -1,14 +1,5 @@
 package com.xy.service.impl;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-
 import com.xy.dao.BaseDao;
 import com.xy.domain.User;
 import com.xy.service.UserService;
@@ -16,29 +7,26 @@ import com.xy.utils.Encrypt;
 import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private BaseDao baseDao;
-//	public void setBaseDao(BaseDao baseDao) {
-//		this.baseDao = baseDao;
-//	}
 	@Autowired
 	private SimpleMailMessage simpleMailMessage;
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-//	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
-//		this.simpleMailMessage = simpleMailMessage;
-//	}
-
-//	public void setJavaMailSender(JavaMailSender javaMailSender) {
-//		this.javaMailSender = javaMailSender;
-//	}
-
 	@Override
 	public List<User> find(String hql, Class<User> entityClass, Object[] params) {
 		return baseDao.find(hql, entityClass, params);

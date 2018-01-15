@@ -33,16 +33,21 @@
 	        <tr>
 	            <td class="columnTitle">所在部门：</td>
 	            <td class="tableContent">
-	            	${dept.deptName }
+					<input type="text" name="dept.deptName" value="${dept.deptName }" readonly/>
 	            </td>
 	        </tr>		
 	        <tr>
 	            <td class="columnTitle">用户名：</td>
-	            <td class="tableContent">${userName }</td>
+	            <td class="tableContent"><input type="text" name="userName" value="${userName }" readonly/></td>
 	        </tr>	
 	         <tr>
 	            <td class="columnTitle">状态：</td>
-	            <td class="tableContent">${state==0?'停用':'启用' }</td>
+	            <td class="tableContent">
+					<select name="state" disabled>
+						<option value="1" <c:if test="${state==1}">selected</c:if>>启用</option>
+						<option value="0" <c:if test="${state==0}">selected</c:if>>停用</option>
+					</select>
+				</td>
 	        </tr>		
 		</table>
 	</div>

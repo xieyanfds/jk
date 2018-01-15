@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="baseinfo" namespace="/baseinfo" extends="default">
+		<!-- 产品信息 -->
+		<action name="productAction_*" method="{1}" class="productAction">
+			<result name="list">/WEB-INF/pages/baseinfo/product/jProductListPage.jsp</result>
+			<result name="alist" type="redirectAction">productAction_list</result>
+			<result name="toview">/WEB-INF/pages/baseinfo/product/jProductView.jsp</result>
+			<result name="tocreate">/WEB-INF/pages/baseinfo/product/jProductCreate.jsp</result>
+			<result name="toupdate">/WEB-INF/pages/baseinfo/product/jProductUpdate.jsp</result>
+		</action>
+
+		<!-- 合约货物模块 -->
+		<action name="factoryAction_*" class="factoryAction" method="{1}">
+			<result name="list">/WEB-INF/pages/baseinfo/factory/jFactoryListPage.jsp</result>
+			<result name="alist" type="redirectAction">factoryAction_list</result>
+			<result name="toview">/WEB-INF/pages/baseinfo/factory/jFactoryView.jsp</result>
+			<result name="tocreate">/WEB-INF/pages/baseinfo/factory/jFactoryCreate.jsp</result>
+			<result name="toupdate">/WEB-INF/pages/baseinfo/factory/jFactoryUpdate.jsp</result>
+		</action>
+
+	</package>
+</struts>
+	

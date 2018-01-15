@@ -5,62 +5,23 @@
 <head>
 	<title></title>
 </head>
-	<script>
-	     function isOnlyChecked(){
-	    	 var checkBoxArray = document.getElementsByName('id');
-				var count=0;
-				for(var index=0; index<checkBoxArray.length; index++) {
-					if (checkBoxArray[index].checked) {
-						count++;
-					}	
-				} 
-			//jquery
-			//var count = $("[input name='id']:checked").size();
-			if(count==1)
-				return true;
-			else
-				return false;
-	     }
-	     function toView(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('moduleAction_toview','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	     //实现更新
-	     function toUpdate(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('moduleAction_toupdate','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	   	 //实现删除角色
-	     function todelete(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('moduleAction_delete','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	</script>
 <body>
 <form name="icform" method="post">
 
 <div id="menubar">
-<div id="middleMenubar">
-<div id="innerMenubar">
-  <div id="navMenubar">
-<ul>
-<li id="view"><a href="#" onclick="javascript:toView()">查看</a></li>
-<li id="new"><a href="#" onclick="formSubmit('moduleAction_tocreate','_self');this.blur();">新增</a></li>
-<li id="update"><a href="#" onclick="javascript:toUpdate()">修改</a></li>
-<li id="delete"><a href="#" onclick="javascript:todelete()">删除</a></li>
-</ul>
-  </div>
-</div>
-</div>
+	<div id="middleMenubar">
+		<div id="innerMenubar">
+		  <div id="navMenubar">
+		  <%@include file="/WEB-INF/pages/button.jsp" %>
+			<%--<ul>
+				<li id="view"><a href="#" onclick="javascript:toView()">查看</a></li>
+				<li id="new"><a href="#" onclick="formSubmit('moduleAction_tocreate','_self');this.blur();">新增</a></li>
+				<li id="update"><a href="#" onclick="javascript:toUpdate()">修改</a></li>
+				<li id="delete"><a href="#" onclick="javascript:todelete()">删除</a></li>
+			</ul>--%>
+		  </div>
+		</div>
+	</div>
 </div>
    
 <div class="textbox" id="centerTextbox">
@@ -71,7 +32,9 @@
   </div> 
   </div>
   </div>
-  
+</div>
+
+<br/>
 <div>
 
 
@@ -95,14 +58,14 @@
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td>${status.index+1}</td>
-		<td><a href="moduleAction_toview?id=${o.id}">${o.name}</a></td>
+		<td><a href="moduleAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+		<td>${o.name}</td>
 		<td>${o.layerNum}</td>
 		<td>${o.cpermission}</td>
 		<td>${o.curl}</td>
 		<td>${o.ctype}</td>
 		<td>${o.belong}</td>
-		<td>${o.state}</td>
+		<td>${o.state==1?"启用":"已停用"}</td>
 	</tr>
 	</c:forEach>
 	

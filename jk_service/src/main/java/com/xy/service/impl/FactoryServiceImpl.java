@@ -36,10 +36,6 @@ public class FactoryServiceImpl implements FactoryService {
 
 	@Override
 	public void saveOrUpdate(Factory entity) {
-		if(UtilFuns.isEmpty(entity.getId())){
-			//新增
-			entity.setState(0);//0草稿   1已上报   2已报运
-		}
 		baseDao.saveOrUpdate(entity);
 	}
 

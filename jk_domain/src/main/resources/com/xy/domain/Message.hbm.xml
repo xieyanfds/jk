@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.xy.domain">
+
+	<class name="Message" table="MESSAGE_B" dynamic-insert="true"
+		dynamic-update="true">
+		<id name="id" column="MESSAGES_ID">
+			<generator class="uuid" />
+		</id>
+
+		<property name="content" column="CONTENT" />
+
+		<property name="createBy" column="CREATE_BY" />
+		<property name="createDept" column="CREATE_DEPT" />
+		<property name="createTime" column="CREATE_TIME" />
+		<property name="updateBy" column="UPDATE_BY" />
+		<property name="updateTime" column="UPDATE_TIME" />
+	</class>
+</hibernate-mapping>

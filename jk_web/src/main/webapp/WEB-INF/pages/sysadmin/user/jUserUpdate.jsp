@@ -42,14 +42,16 @@
 	        <tr>
 	            <td class="columnTitle">用户名：</td>
 	            <td class="tableContent">
-	            <input type="text" name="userName" value="${userName }"/>
+	            	<input type="text" name="userName" value="${userName }"/>
 	            </td>
 	        </tr>	
 	         <tr>
 	            <td class="columnTitle">状态：</td>
 	            <td class="tableContentAuto">
-	              <input type="radio" name="state" class="input" ${state==0?'checked':'' } value="0">停用 
-	              <input type="radio" name="state" class="input"  ${state==1?'checked':'' } value="1">启用 
+					<select name="state">
+						<option value="1" <c:if test="${state==1}">selected</c:if>>启用</option>
+						<option value="0" <c:if test="${state==0}">selected</c:if>>停用</option>
+					</select>
 	            </td>
 	        </tr>		
 		</table>

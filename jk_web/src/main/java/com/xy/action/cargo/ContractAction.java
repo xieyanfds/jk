@@ -2,6 +2,7 @@ package com.xy.action.cargo;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.xy.action.print.ContractPrint;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ModelDriven;

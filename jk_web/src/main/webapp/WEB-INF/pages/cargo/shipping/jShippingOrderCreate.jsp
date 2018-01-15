@@ -34,8 +34,12 @@
 	        <tr>
 	            <td class="columnTitle">运输方式：</td>
 	            <td class="tableContentAuto">
-					<input type="radio" name="orderType" value="海运" checked class="input">海运
-					<input type="radio" name="orderType" value="空运" class="input">空运
+					<select name="orderType" >
+						<option value="海运">海运</option>
+						<option value="空运">空运</option>
+					</select>
+					<%--<input type="radio" name="orderType" value="海运" checked class="input">海运
+					<input type="radio" name="orderType" value="空运" class="input">空运--%>
 				</td>
 	        
 	            <td class="columnTitle">货主：</td>
@@ -79,14 +83,22 @@
 			<tr>
 				<td class="columnTitle">是否分批：</td>
 				<td class="tableContentAuto">
-					<input type="radio" name="isBatch" value="1" checked class="input">是
-					<input type="radio" name="isBatch" value="0" class="input">否
+					<select name="isBatch" >
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+					<%--<input type="radio" name="isBatch" value="1" checked class="input">是
+					<input type="radio" name="isBatch" value="0" class="input">否--%>
 				</td>
 
 				<td class="columnTitle">是否转船：</td>
 				<td class="tableContentAuto">
-					<input type="radio" name="isTrans" value="1" checked class="input">是
-					<input type="radio" name="isTrans" value="0" class="input">否
+					<select name="isTrans" >
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+					<%--<input type="radio" name="isTrans" value="1" checked class="input">是
+					<input type="radio" name="isTrans" value="0" class="input">否--%>
 				</td>
 			</tr>
 			<tr>
@@ -107,13 +119,7 @@
 	            <td class="columnTitle">复核人：</td>
 	            <td class="tableContent"><input type="text" name="checkBy" value=""/></td>
 	        
-	            <td class="columnTitle">正本通知人：</td>
-	            <td class="tableContent">
-					<input type="text" style="width:90px;" name="invoiceDate"
-						 value=""
-						onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
-	            </td>
-	        </tr>	
+	        </tr>
 		</table>
 	</div>
 
@@ -125,7 +131,7 @@
 	<div class="eXtremeTable" >
 		<table id="ec_table" class="tableRegion" width="98%" >
 			<thead>
-			<tr align="center">
+			<tr align="center" style="height: 42px;">
 				<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 				<td class="tableHeader">序号</td>
 				<td class="tableHeader">卖方</td>
@@ -139,8 +145,8 @@
 			${links}
 
 			<c:forEach items="${results}" var="o" varStatus="status">
-				<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center">
-					<td><input type="checkbox" name="id" value="${o.id}"/></td>
+				<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" style="height: 42px;">
+					<td><input type="radio" name="id" value="${o.id}"/></td>
 					<td>${status.index+1}</td>
 					<td>${o.seller}</td>
 					<td>${o.buyer}</td>

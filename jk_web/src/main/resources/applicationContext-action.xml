@@ -6,6 +6,10 @@
 	
 	<bean id="loginAction" class="com.xy.action.LoginAction" scope="prototype"></bean>
 	<bean id="homeAction" class="com.xy.action.HomeAction" scope="prototype"></bean>
+
+	<!-- 打印 -->
+	<bean id="invoicePrint" class="com.xy.action.print.InvoicePrint" scope="prototype"></bean>
+	<bean id="shippingOrderPrint" class="com.xy.action.print.ShippingOrderPrint" scope="prototype"></bean>
 	<!-- dept -->
 	<bean id="deptAction" class="com.xy.action.sysadmin.DeptAction" scope="prototype"></bean>
 	<!-- user -->
@@ -33,9 +37,35 @@
 	<!-- shippingOrderAction 委托单-->
 	<bean id="shippingOrderAction" class="com.xy.action.cargo.ShippingOrderAction" scope="prototype"></bean>
 
+	<!-- invoiceAction 发票-->
+	<bean id="invoiceAction" class="com.xy.action.cargo.InvoiceAction" scope="prototype"></bean>
+
+	<!-- financeAction,统计分析 -->
+	<bean id="financeAction" class="com.xy.action.cargo.FinanceAction" scope="prototype"></bean>
+
 	<!-- statChartAction,统计分析 -->
 	<bean id="statChartAction" class="com.xy.action.stat.StatChartAction" scope="prototype"></bean>
 
+	<!-- productAction,产品信息 -->
+	<bean id="productAction" class="com.xy.action.baseinfo.ProductAction" scope="prototype"></bean>
+
+	<!-- factoryAction,厂家信息 -->
+	<bean id="factoryAction" class="com.xy.action.baseinfo.FactoryAction" scope="prototype"></bean>
+
+	<!-- shortcutAction, -->
+	<bean id="shortcutAction" class="com.xy.action.ShortcutAction" scope="prototype"></bean>
+
+	<!-- messageAction,-->
+	<bean id="messageAction" class="com.xy.action.MessageAction" scope="prototype"></bean>
+
+	<!-- FeedbackAction,使用反馈-->
+	<bean id="feedbackAction" class="com.xy.action.FeedbackAction" scope="prototype"></bean>
+
+	<!-- workFlowAction,待办任务-->
+	<bean id="workFlowAction" class="com.xy.action.WorkFlowAction" scope="prototype"></bean>
+
+	<!-- ownUserAction,个人信息修改-->
+	<bean id="ownUserAction" class="com.xy.action.OwnUserAction" scope="prototype"></bean>
 </beans>
 
 

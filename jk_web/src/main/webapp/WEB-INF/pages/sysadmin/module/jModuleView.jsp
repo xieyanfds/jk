@@ -24,7 +24,7 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-   浏览模块
+	浏览模块
   </div> 
   </div>
   </div>
@@ -35,47 +35,51 @@
 		<table class="commonTable" cellspacing="1">
 	        <tr>
 	            <td class="columnTitle">模块名：</td>
-	            <td class="tableContent">${name}</td>
+	            <td class="tableContent"><input type="text" name="name" value="${name}" readonly/></td>
 	            <td class="columnTitle">层数：</td>
-	            <td class="tableContent">${layerNum}</td>
-	        </tr>		
-	        <tr>
-	            <td class="columnTitle">权限标识：</td>
-	            <td class="tableContent">${cpermission}</td>
-	            <td class="columnTitle">链接：</td>
-	            <td class="tableContent">${curl}</td>
-	        </tr>		
+	            <td class="tableContent"><input type="text" name="layerNum" value="${layerNum}" readonly/></td>
+	        </tr>
+			<tr>
+				<td class="columnTitle">权限标识：</td>
+				<td class="tableContent"><input type="text" name="cpermission" value="${cpermission}" readonly/></td>
+				<td class="columnTitle">链接：</td>
+				<td class="tableContent"><input type="text" name="curl" value="${curl}" readonly/></td>
+			</tr>
 	        <tr>
 	            <td class="columnTitle">类型：</td>
 	            <td class="tableContentAuto">
-	            	<c:if test="${ctype==1}">主菜单</c:if>
-	            	<c:if test="${ctype==2}">左侧菜单</c:if>
-	            	<c:if test="${ctype==3}">按钮</c:if>
-	            	<c:if test="${ctype==4}">链接</c:if>
-	            	<c:if test="${ctype==5}">状态</c:if>
+					<select name="ctype" disabled>
+						<option value="1" <c:if test="${ctype==1}">selected</c:if>>主菜单</option>
+						<option value="2" <c:if test="${ctype==2}">selected</c:if>>左侧菜单</option>
+						<option value="3" <c:if test="${ctype==3}">selected</c:if>>按钮</option>
+						<option value="4" <c:if test="${ctype==4}">selected</c:if>>链接</option>
+						<option value="5" <c:if test="${ctype==5}">selected</c:if>>状态</option>
+					</select>
 	            </td>
 	            <td class="columnTitle">状态：</td>
 	            <td class="tableContentAuto">
-	            	<c:if test="${state==1}">启用</c:if>
-	            	<c:if test="${state==0}">停用</c:if>
+					<select name="state" disabled>
+						<option value="1" <c:if test="${state==1}">selected</c:if>>启用</option>
+						<option value="0" <c:if test="${state==0}">selected</c:if>>停用</option>
+					</select>
 	            </td>
-	        </tr>		
-	        <tr>
-	            <td class="columnTitle">从属：</td>
-	            <td class="tableContent">${belong}</td>
-	            <td class="columnTitle">复用标识：</td>
-	            <td class="tableContent">${cwhich}</td>
-	        </tr>			
-	        <tr>
-	            <td class="columnTitle">说明：</td>
-	            <td class="tableContent"><pre>${remark}</pre></td>
-	            <td class="columnTitle">排序号：</td>
-	            <td class="tableContent">${orderNo}</td>
-	        </tr>			
+	        </tr>
+			<tr>
+				<td class="columnTitle">从属：</td>
+				<td class="tableContent"><input type="text" name="belong" value="${belong}" readonly/></td>
+				<td class="columnTitle">复用标识：</td>
+				<td class="tableContent"><input type="text" name="cwhich" value="${cwhich}" readonly/></td>
+			</tr>
+			<tr>
+				<td class="columnTitle">说明：</td>
+				<td class="tableContent"><input type="text" name="remark" value="${remark}" readonly/></td>
+				<td class="columnTitle">排序号：</td>
+				<td class="tableContent"><input type="text" name="orderNo" value="${orderNo}" readonly/></td>
+			</tr>
 		</table>
 	</div>
  
- 
+</div>
 </form>
 </body>
 </html>

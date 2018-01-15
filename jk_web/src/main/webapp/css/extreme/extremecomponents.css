@@ -102,7 +102,7 @@
 }
 
 .eXtremeTable .odd a, .eXtremeTable .even a, .eXtremeTable .odd a:hover, .eXtremeTable .even a:hover, .eXtremeTable .odd a:VISITED, .eXtremeTable .even a:VISITED{
-	color: #333;
+	color: blue;
 	font-size: 9pt;
 	font-family: verdana, arial, helvetica, sans-serif;
 	text-decoration: none;
@@ -129,13 +129,17 @@
 	background-color: #FFFFFF;
 	font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 9pt;
+	align:center;
+	height: 42px;
 }
 
 .eXtremeTable .even {
-  	background-color: #f0fcfa;
+  	/*background-color: #f0fcfa;*/
+  	background-color: #f8f8f8;
 	font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 9pt;
 }
+
 
 .eXtremeTable .highlight td {
 	color: black;
@@ -155,7 +159,7 @@
 
 .eXtremeTable .highlight a, .eXtremeTable .highlight a, .eXtremeTable .highlight A:HOVER, .eXtremeTable .highlight A:HOVER, .eXtremeTable .highlight A:VISITED {
 	font-family: verdana, arial, helvetica, sans-serif;
-	color: black;
+	color: blue;
 	font-size: 9pt;
 	text-decoration: none;
 }

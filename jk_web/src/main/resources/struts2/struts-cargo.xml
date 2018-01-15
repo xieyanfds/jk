@@ -5,33 +5,29 @@
 
 <struts>
 	<package name="cargo" namespace="/cargo" extends="default">
-	
+		<!-- 购销合同 -->
 		<action name="contractAction_*" method="{1}" class="contractAction">
 			<result name="list">/WEB-INF/pages/cargo/contract/jContractList.jsp</result>
 			<result name="dlist" type="redirectAction">contractAction_list</result>
 			<result name="toview">/WEB-INF/pages/cargo/contract/jContractView.jsp</result>
-			
 			<result name="tocreate">/WEB-INF/pages/cargo/contract/jContractCreate.jsp</result>
-			
 			<result name="toUpdate">/WEB-INF/pages/cargo/contract/jContractUpdate.jsp</result>
 		</action>
+
 		<!-- 合约货物模块 -->
 		<action name="contractProductAction_*" class="contractProductAction" method="{1}">
-			
 			<result name="tocreate">/WEB-INF/pages/cargo/contract/jContractProductCreate.jsp</result>
-			
 			<result name="toUpdate">/WEB-INF/pages/cargo/contract/jContractProductUpdate.jsp</result>
 		</action>
+
 		<!-- 合约货物的附件模块 -->
 		<action name="extCproductAction_*" class="extCproductAction" method="{1}">
-			
 			<result name="tocreate">/WEB-INF/pages/cargo/contract/jExtCproductCreate.jsp</result>
-			
 			<result name="toUpdate">/WEB-INF/pages/cargo/contract/jExtCproductUpdate.jsp</result>
 		</action>
+
 		<!-- 出货表 -->
 		<action name="outProductAction_*" class="outProductAction" method="{1}">
-			
 			<result name="toedit">/WEB-INF/pages/cargo/outproduct/jOutProduct.jsp</result>
 		</action>
 
@@ -44,6 +40,7 @@
 			<result name="toupdate">/WEB-INF/pages/cargo/export/jExportUpdate.jsp</result>
 			<result name="contractList">/WEB-INF/pages/cargo/export/jContractList.jsp</result>
 		</action>
+
 		<!-- 装箱单 -->
 		<action name="packingListAction_*" method="{1}" class="packingListAction">
 			<result name="alist" type="redirect">packingListAction_list</result>
@@ -52,6 +49,7 @@
 			<result name="pupdate">/WEB-INF/pages/cargo/packinglist/jPackingListUpdate.jsp</result>
 			<result name="pview">/WEB-INF/pages/cargo/packinglist/jPackingListView.jsp</result>
 		</action>
+
 		<!-- 委托单 -->
 		<action name="shippingOrderAction_*" method="{1}" class="shippingOrderAction">
 			<result name="alist" type="redirect">shippingOrderAction_list</result>
@@ -59,6 +57,24 @@
 			<result name="create">/WEB-INF/pages/cargo/shipping/jShippingOrderCreate.jsp</result>
 			<result name="update">/WEB-INF/pages/cargo/shipping/jShippingOrderUpdate.jsp</result>
 			<result name="view">/WEB-INF/pages/cargo/shipping/jShippingOrderView.jsp</result>
+		</action>
+
+		<!-- 发票 -->
+		<action name="invoiceAction_*" method="{1}" class="invoiceAction">
+			<result name="alist" type="redirect">invoiceAction_list</result>
+			<result name="list">/WEB-INF/pages/cargo/invoice/jInvoiceListPage.jsp</result>
+			<result name="tocreate">/WEB-INF/pages/cargo/invoice/jInvoiceCreate.jsp</result>
+			<result name="toupdate">/WEB-INF/pages/cargo/invoice/jInvoiceUpdate.jsp</result>
+			<result name="toview">/WEB-INF/pages/cargo/invoice/jInvoiceView.jsp</result>
+		</action>
+
+		<!-- 财务 -->
+		<action name="financeAction_*" method="{1}" class="financeAction">
+			<result name="alist" type="redirect">financeAction_list</result>
+			<result name="list">/WEB-INF/pages/cargo/finance/jFinanceListPage.jsp</result>
+			<result name="tocreate">/WEB-INF/pages/cargo/finance/jFinanceCreate.jsp</result>
+			<result name="toupdate">/WEB-INF/pages/cargo/finance/jFinanceUpdate.jsp</result>
+			<result name="toview">/WEB-INF/pages/cargo/finance/jFinanceView.jsp</result>
 		</action>
 	</package>
 	

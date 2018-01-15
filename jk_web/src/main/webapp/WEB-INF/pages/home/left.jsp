@@ -6,25 +6,23 @@
     <link rel="stylesheet" rev="stylesheet" type="text/css" href="${ctx}/skin/default/css/left.css" media="all"/>
 
 	<script language="javascript" src="${ctx}/js/common.js"></script>
-	<script language="javascript" src="${ctx}/js/ajax/setFastMenu.js"></script>
-	<script language="javascript" src="${ctx}/js/pngfix_map.js"></script>
 	<script type="text/javascript" src="${ctx}/components/jquery-ui/jquery-1.2.6.js"></script>
 	<script type="text/javascript" src="${ctx}/skin/default/js/toggle.js"></script>
  
 	
     <script language="javascript">
     	$().ready(function(){
-			$(fastMenu).hide();
+			$("fastMenu").hide();
 			//document.getElementById('aa_3').click();	//默认打开我的留言板页面
     	});
     	
     	function showMenu( who ){
     		if(who=="fastMenu"){
-    			$(fastMenu).show();
-    			$(customerMenu).hide();
+    			$("fastMenu").show();
+    			$("customerMenu").hide();
     		}else if(who=="customerMenu"){
-    			$(customerMenu).show();
-    			$(fastMenu).hide();
+    			$("customerMenu").show();
+    			$("fastMenu").hide();
     		}
     	}
     </script>
@@ -36,7 +34,7 @@
 <div class="PositionFrame_black" id="PositionFrame"></div>
  
  
-<div id="sidebar" class="sidebar">
+<div id="sidebar1" class="sidebar">
 	<div class="sidebar_t">
 		<div class="sidebar_t_l"></div>
 		<div class="sidebar_t_c"></div>
@@ -48,9 +46,9 @@
 	        <div class="panel-title">个人工作台</div>
 	        <div class="panel-content">
 				<ul>
-					<li><a href="${ctx}/tomain.action?modelName=home" target="main" id="aa_3" onclick="linkHighlighted(this)">我的留言板</a></li>
-					<li><a href="${ctx}/home/workflow/tasklist.action" target="main" id="aa_2" onclick="linkHighlighted(this)">我的代办任务</a></li>
-					<li><a href="${ctx}/baseinfo/leavebill/list.action" target="main" id="aa_1" onclick="linkHighlighted(this)">意见反馈</a></li>
+					<li><a href="${ctx}/homeAction_tomain.action?modelName=home" target="main" id="aa_3" onclick="linkHighlighted(this)">我的留言板</a></li>
+					<li><a href="${ctx}/workFlowAction_list.action" target="main" id="aa_4" onclick="linkHighlighted(this)">我的代办任务</a></li>
+					<li><a href="${ctx}/baseinfo/leavebill/list.action" target="main" id="aa_5" onclick="linkHighlighted(this)">意见反馈</a></li>
 				</ul>
 	        </div>
 	        
@@ -67,7 +65,7 @@
  
  
  
-<div id="sidebar" class="sidebar">	
+<div id="sidebar2" class="sidebar">
 	<div class="sidebar_t">
 		<div class="sidebar_t_l"></div>
 		<div class="sidebar_t_c"></div>
@@ -102,7 +100,7 @@
  
  
 <!-- begin1  -->
-<div id="sidebar" class="sidebar">
+<div id="sidebar3" class="sidebar">
 	<div class="sidebar_t">
 		<div class="sidebar_t_l"></div>
 		<div class="sidebar_t_c"></div>
@@ -117,8 +115,8 @@
         
         <div class="panel-content">
 			<ul>
-				<li><a href="#" id="aa_2" onclick="linkHighlighted(this)">个人信息修改</a></li>						
-				<li><a href="#" id="aa_2" onclick="linkHighlighted(this)">系统使用反馈</a></li>						
+				<li><a href="${ctx}/ownUserAction_toupdate.action" id="aa_1" target="main" onclick="linkHighlighted(this)">个人信息修改</a></li>
+				<li><a href="${ctx}/cargo/feedbackAction_list.action" id="aa_2" target="main" onclick="linkHighlighted(this)">系统使用反馈</a></li>
 			</ul>
         </div>
     </div>

@@ -7,3 +7,29 @@
 <link rel="stylesheet" rev="stylesheet" type="text/css" href="${ctx}/skin/default/css/default.css" media="all"/>
 <link rel="stylesheet" rev="stylesheet" type="text/css" href="${ctx}/skin/default/css/table.css" media="all"/>
 <script language="javascript" src="${ctx}/js/common.js"></script>
+<script type="text/javascript">
+    window.onload=function(){
+        var table = document.getElementById("ec_table");
+        var trs = table.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            var j = i + 1;
+            if (j % 2 == 1) { //奇数行
+                trs[i].className= "even";
+                trs[i].onmouseover=function(){
+                    this.className='highlight';
+                }
+                trs[i].onmouseout=function(){
+                    this.className='even';
+                }
+            }else{
+                trs[i].className= "odd";
+                trs[i].onmouseover=function(){
+                    this.className='highlight';
+                }
+                trs[i].onmouseout=function(){
+                    this.className='odd';
+                }
+            }
+        }
+    }
+</script>

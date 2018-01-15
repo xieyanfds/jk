@@ -41,11 +41,11 @@
 	        <tr>
 	            <td class="columnTitle">说明：</td>
 	            <td class="tableContent"><input type="text" name="remark" value=""/></td>
-	        </tr>		
+	        </tr>
 		</table>
 	</div>
  
- 
+</div>
 </form>
 </body>
 </html>
