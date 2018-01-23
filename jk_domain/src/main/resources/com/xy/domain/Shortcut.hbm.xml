@@ -11,7 +11,7 @@
 		</id>
 		
 		<!-- 2.配置其他属性 -->
-		<property name="modleids" column="MODLEIDS" type="string"/>
+		<property name="moduleIds" column="MODULEIDS" type="string"/>
 		
 
 	</class>

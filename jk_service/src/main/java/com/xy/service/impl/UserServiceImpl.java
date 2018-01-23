@@ -8,8 +8,6 @@ import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
 import com.xy.utils.UtilFuns;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -22,10 +20,7 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private BaseDao baseDao;
-	@Autowired
-	private SimpleMailMessage simpleMailMessage;
-	@Autowired
-	private JavaMailSender javaMailSender;
+
 	
 	@Override
 	public List<User> find(String hql, Class<User> entityClass, Object[] params) {
@@ -55,23 +50,6 @@ public class UserServiceImpl implements UserService{
 		
 		baseDao.saveOrUpdate(entity);
 		
-		//再开启一个线程完成邮件发送功能
-		//spring集成javaMail
-		Thread th = new Thread(new Runnable() {
-			public void run() {
-				try {
-					simpleMailMessage.setTo(entity.getUserInfo().getEmail());
-					simpleMailMessage.setSubject("新员工入职的系统账户通知");
-					simpleMailMessage.setText("欢迎您加入本集团，您的用户名:"+entity.getUserName()+",初始密码："+SysConstant.DEFAULT_PASS);
-					
-					javaMailSender.send(simpleMailMessage);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		th.start();
 	}
 
 	@Override

@@ -49,8 +49,8 @@
     margin: 0px;
 }
 .titleDate{float:left;height:29px;width:200px;text-align:left;color:#fff; line-height:29px; font-size:12px;font-weight:normal;padding-left:30px;}
-#menuContent{ height:29px;left:0px;padding:0px 5px 0px 5px; font-size:12px;}
-#topmenu{ font-size:14px;padding-top:6px;height:24px !important;height:29px;padding-left:11px;padding-right:13px;color:white;cursor:pointer; overflow:hiddle; }
+#menuContent{ height:29px;left:0px;padding:2px 5px 0px 0px; font-size:12px;}
+#topmenu{ font-size:15px;padding-top:6px;height:24px !important;height:29px;padding-left:35px;padding-right:18px;color:white;cursor:pointer; overflow:hiddle; }
 #tm_separator{ height:28px;width:2px;background:url(../images/title/tm_separator.jpg) no-repeat;}
 #prompt_div{
 	width:150px;

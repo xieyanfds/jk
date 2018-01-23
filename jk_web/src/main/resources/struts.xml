@@ -34,25 +34,19 @@
 			<result name="tomain">/WEB-INF/pages/${moduleName}/main.jsp</result>
 		</action>
 
+		<!-- 快捷菜单 -->
 		<action name="shortcutAction_*" method="{1}" class="shortcutAction">
-			<result name="alist" type="redirect">shortcutAction_list</result>
-			<result name="plist">/WEB-INF/pages/sysadmin/shortcut/jShortcutList.jsp</result>
-			<result name="pcreate">/WEB-INF/pages/sysadmin/shortcut/jShortcutCreate.jsp</result>
-			<result name="pupdate">/WEB-INF/pages/sysadmin/shortcut/jShortcutUpdate.jsp</result>
-			<result name="pview">/WEB-INF/pages/sysadmin/shortcut/jShortcutView.jsp</result>
+			<result name="update">/WEB-INF/pages/home/fmain.jsp</result>
 		</action>
 
 		<!-- 用户设定个人信息修改 -->
 		<action name="ownUserAction_*" class="ownUserAction" method="{1}">
-			<result name="update" type="redirectAction">login</result>
-			<result name="login" type="redirectAction">login</result>
 			<result name="toupdate">/WEB-INF/pages/user/userUpdate.jsp</result>
-			<result name="error1">/WEB-INF/pages/user/error1.jsp</result>
-			<result name="error2">/WEB-INF/pages/user/error2.jsp</result>
+			<result name="update" type="redirectAction">login</result>
 		</action>
 
 
-		<!-- -->
+		<!-- 留言 -->
 		<action name="messageAction_*" class="messageAction" method="{1}">
 			<result name="update" type="redirectAction">login</result>
 			<result name="list" type="redirectAction">homeAction_tomain?moduleName=home</result>

@@ -11,6 +11,11 @@ import com.xy.service.StatChartService;
 import com.xy.utils.file.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author xieyan
+ * @description 图表
+ * @date 2017/12/26.
+ */
 public class StatChartAction extends BaseAction{
 
 	private static final long serialVersionUID = 1L;
@@ -25,14 +30,18 @@ public class StatChartAction extends BaseAction{
 	public String factorysale() throws Exception {
 		//查询数据
 		String sql = "select factory_name,sum(amount) samount from contract_product_c group by factory_name order by samount desc";
-		List<String> list = statChartService.execSQL(sql);
-		
-		//拼接数据
-		String sb = getPieData(list);
-		
-		//输出到文件
-		writeToFile("stat\\chart\\factorysale\\data.xml",sb);
-	    
+		List<String> dataList = statChartService.execSQL(sql);
+
+		StringBuilder xmlStr = new StringBuilder();
+		xmlStr.append("[");
+		for (int i = 0; i < dataList.size(); i++) {
+			xmlStr.append("{").append("\"factoryName\": \"" + dataList.get(i) + "\",");
+			xmlStr.append("\"samount\": \"" + dataList.get(++i) + "\"},");
+		}
+		xmlStr.setLength(xmlStr.length() - 1);
+		xmlStr.append("]");
+
+		super.putContext("result", xmlStr.toString());
 		return "factorysale";
 	}
 	/**

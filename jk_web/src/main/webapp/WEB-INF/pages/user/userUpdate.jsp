@@ -7,24 +7,21 @@
 
 <body>
 <form name="icform" method="post">
-      <input type="hidden" name="id" value="${id}"/>
+	<input type="hidden" name="id" value="${id}"/>
 <div id="menubar">
-<div id="middleMenubar">
-<div id="innerMenubar">
-  <div id="navMenubar">
-<ul>
-<li id="save"><a href="#" onclick="formSubmit('ownUserAction_check','_self');this.blur();">保存</a></li>
-<li id="back"><a href="#" onclick="history.go(-1);">返回</a></li>
-</ul>
-  </div>
-</div>
-</div>
+	<div id="middleMenubar">
+		<div id="innerMenubar">
+		  <div id="navMenubar">
+			<ul>
+			<li id="save"><a href="#" onclick="formSubmit('ownUserAction_update','_parent');this.blur();">保存</a></li>
+			<li id="back"><a href="#" onclick="history.go(-1);">返回</a></li>
+			</ul>
+		  </div>
+		</div>
+	</div>
 </div>
    
 
-  
-
- 
     <div>
 		<table class="commonTable" cellspacing="1">
 	       

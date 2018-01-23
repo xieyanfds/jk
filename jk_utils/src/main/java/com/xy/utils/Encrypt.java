@@ -17,8 +17,13 @@ public class Encrypt {
 	 * 即如果直接对密码进行散列相对来说破解更容易，此时我们可以加一些只有系统知道的干扰数据，
 	 * 如用户名和ID（即盐）；这样散列的对象是“密码+用户名+ID”，这样生成的散列值相对来说更难破解。
 	 */
-	
-	//高强度加密算法,不可逆
+
+	/**
+	 * 高强度加密算法,不可逆
+	 * @param password
+	 * @param salt
+	 * @return
+	 */
 	public static String md5(String password, String salt){
 		return new Md5Hash(password,salt,2).toString();
 	}

@@ -10,7 +10,7 @@ public class Shortcut extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String uid;			
-	private String modleids;	
+	private String moduleIds;
 	
 
 	public String getUid() {
@@ -20,10 +20,10 @@ public class Shortcut extends BaseEntity {
 		this.uid = uid;
 	}	
 	
-	public String getModleids() {
-		return this.modleids;
+	public String getModuleIds() {
+		return this.moduleIds;
 	}
-	public void setModleids(String modleids) {
-		this.modleids = modleids;
+	public void setModuleIds(String moduleIds) {
+		this.moduleIds = moduleIds;
 	}	
 }

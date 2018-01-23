@@ -1,10 +1,5 @@
 package com.xy.action.sysadmin;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Dept;
@@ -14,7 +9,15 @@ import com.xy.service.DeptService;
 import com.xy.service.RoleService;
 import com.xy.service.UserService;
 import com.xy.utils.Page;
+import com.xy.utils.SysConstant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author xieyan
@@ -24,7 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserAction extends BaseAction implements ModelDriven<User>{
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Autowired
+	private SimpleMailMessage simpleMailMessage;
+	@Autowired
+	private JavaMailSender javaMailSender;
+
 	private User model = new User();
 	@Override
 	public User getModel() {
@@ -99,6 +107,24 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		model.setCreateTime(new Date());
 
 		userService.saveOrUpdate(model);
+
+		//再开启一个线程完成邮件发送功能
+		//spring集成javaMail
+		Thread th = new Thread(new Runnable() {
+			public void run() {
+				try {
+					simpleMailMessage.setTo(model.getUserInfo().getEmail());
+					simpleMailMessage.setSubject("新员工入职的系统账户通知");
+					simpleMailMessage.setText("欢迎您加入本集团，您的用户名:"+model.getUserName()+",初始密码："+ SysConstant.DEFAULT_PASS);
+
+					javaMailSender.send(simpleMailMessage);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		th.start();
 
 		return "ulist";
 	}

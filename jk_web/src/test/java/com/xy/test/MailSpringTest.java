@@ -12,8 +12,8 @@ public class MailSpringTest {
 	public void testJavaMail() throws Exception{
 		ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:applicationContext-mail.xml");
 		
-		SimpleMailMessage message = (SimpleMailMessage) ac.getBean("mailMessage");//加载简单邮件对象
-		JavaMailSender sender = (JavaMailSender) ac.getBean("mailSender");       //得到邮件的发送对象，专门用于邮件发送
+		SimpleMailMessage message = (SimpleMailMessage) ac.getBean("simpleMailMessage");//加载简单邮件对象
+		JavaMailSender sender = (JavaMailSender) ac.getBean("javaMailSender");       //得到邮件的发送对象，专门用于邮件发送
 		
 		//设置简单邮件对象的属性
 		message.setSubject("spring与javamail的测试");//主题

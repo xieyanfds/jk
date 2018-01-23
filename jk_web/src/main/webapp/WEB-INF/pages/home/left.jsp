@@ -12,17 +12,17 @@
 	
     <script language="javascript">
     	$().ready(function(){
-			$("fastMenu").hide();
+			$(fastMenu).hide();
 			//document.getElementById('aa_3').click();	//默认打开我的留言板页面
     	});
     	
     	function showMenu( who ){
     		if(who=="fastMenu"){
-    			$("fastMenu").show();
-    			$("customerMenu").hide();
+    			$(fastMenu).show();
+    			$(customerMenu).hide();
     		}else if(who=="customerMenu"){
-    			$("customerMenu").show();
-    			$("fastMenu").hide();
+    			$(customerMenu).show();
+    			$(fastMenu).hide();
     		}
     	}
     </script>
@@ -46,9 +46,9 @@
 	        <div class="panel-title">个人工作台</div>
 	        <div class="panel-content">
 				<ul>
-					<li><a href="${ctx}/homeAction_tomain.action?modelName=home" target="main" id="aa_3" onclick="linkHighlighted(this)">我的留言板</a></li>
+					<li><a href="${ctx}/homeAction_tomain.action?moduleName=home" target="main" id="aa_3" onclick="linkHighlighted(this)">我的留言板</a></li>
 					<li><a href="${ctx}/workFlowAction_list.action" target="main" id="aa_4" onclick="linkHighlighted(this)">我的代办任务</a></li>
-					<li><a href="${ctx}/baseinfo/leavebill/list.action" target="main" id="aa_5" onclick="linkHighlighted(this)">意见反馈</a></li>
+					<li><a href="${ctx}/feedbackAction_list.action" target="main" id="aa_5" onclick="linkHighlighted(this)">意见反馈</a></li>
 				</ul>
 	        </div>
 	        
@@ -77,18 +77,32 @@
 		    	<div class="panel-title">我的常用功能</div>
 					<div style="margin-top:5px;"></div>
 					<!-- 以上为永久固定栏目，以下为活动栏目 -->
-	        <div style="border-bottom:1px dotted #cee1df;"> 
+	        <div style="border-bottom:1px dotted #cee1df;">
 	         切换:<a href="#" onmousemove="javascript:showMenu('fastMenu');">快捷菜单</a>
 	        /
 	        <a href="#" onmousemove="javascript:showMenu('customerMenu');">自定义菜单</a>
 	        </div>
-		        	<div id="fastMenu">
-		        	<div class="panel-content"></div><a href="#" class="DelFastMenu"><font color="gray">清除常用功能列表</font></a>
-		        	</div>
-		        	
-		        	<div id="customerMenu">
-		        	<div class="FastMenu"><img src="${ctx}/skin/default/images/notice.gif" style="margin-right:5px;" border="0" /><font color="gray">您还没定义您的菜单</font></div>
-		        	</div>
+				<div id="fastMenu">
+					<div class="FastMenu">
+						<c:forEach items="${sessionScope.list}" var="o">
+							<div class="panel-content"></div>
+							<a href="${ctx}/${o.ico}${o.curl}" onclick="linkHighlighted(this)" target="main" id="aa_${o.id}"><font color="gray">${o.name}</font></a>
+						</c:forEach>
+						<a href="#" class="DelFastMenu"><font color="gray">清除常用功能列表</font></a>
+					</div>
+
+				</div>
+
+				<div id="customerMenu">
+					<div class="FastMenu"><img src="${ctx}/skin/default/images/notice.gif" style="margin-right:5px;" border="0" />
+						<c:forEach items="${sessionScope.shortList}" var="o">
+							<div class="panel-content"></div>
+							<a href="${ctx}/${o.curl}" onclick="toto('${o.ico}'),linkHighlighted(this)" target="main" id="aa_${o.id}"><font color="gray">${o.name}</font></a>
+						</c:forEach>
+						<a href="${ctx}/sysadmin/roleAction_toUser" target="main" class="DelFastMenu"><font color="gray">去定义您的菜单？</font></a>
+					</div>
+
+				</div>
 	        </div>
 	    </div>
 	 <div class="sidebar_t">
@@ -97,7 +111,15 @@
 		<div class="sidebar_b_r"></div>
 	</div>    
 </div>
- 
+<script  type="text/javascript">
+    function toto(obj){
+        var url = "homeAction_tomodule";
+        var param = {"moduleName":obj};
+        $.post(url,param,function(){
+
+        })
+    }
+</script>
  
 <!-- begin1  -->
 <div id="sidebar3" class="sidebar">

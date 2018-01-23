@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * @author xieyan
- * @description 系统使用反馈
+ * @description 系统反馈
  * @date 2017/12/26.
  */
 public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> {

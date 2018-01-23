@@ -221,7 +221,7 @@ window.onerror = killErrors;
 					</td>
 				</tr>
 				<tr>
-					<td id="tagBPic" background="${ctx}/images/olmsg/C0FFE53.gif" height="63">
+					<td id="tagBPic1" background="${ctx}/images/olmsg/C0FFE53.gif" height="63">
 						<table border="0" width="100%" cellspacing="0" cellpadding="0">
 							<tr>
 								<td width="50" align="center">
@@ -269,7 +269,7 @@ window.onerror = killErrors;
 					</td>
 				</tr>
 				<tr>
-					<td id="tagBPic" background="${ctx}/images/olmsg/FFE7E83.gif" height="63">
+					<td id="tagBPic2" background="${ctx}/images/olmsg/FFE7E83.gif" height="63">
 						<table border="0" width="100%" cellspacing="0" cellpadding="0">
 							<tr>
 								<td width="50" align="center">
@@ -326,7 +326,7 @@ window.onerror = killErrors;
 				</td>
 			</tr>
 			<tr>
-				<td id="tagBPic" background="${ctx}/images/olmsg/FFE7E83.gif" height="63">
+				<td id="tagBPic3" background="${ctx}/images/olmsg/FFE7E83.gif" height="63">
 					<table border="0" width="100%" cellspacing="0" cellpadding="0">
 						<tr>
 							<td width="50" align="center">

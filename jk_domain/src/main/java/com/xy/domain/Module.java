@@ -131,6 +131,10 @@ public class Module extends BaseEntity {
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
-	  
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals = id.equals(((Module) obj).getId());
+		return equals;
+	}
 }

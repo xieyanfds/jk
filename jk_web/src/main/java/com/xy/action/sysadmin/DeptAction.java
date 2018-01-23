@@ -1,15 +1,13 @@
 package com.xy.action.sysadmin;
 
-import java.util.Date;
-import java.util.List;
-
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Dept;
-import com.xy.domain.User;
 import com.xy.service.DeptService;
 import com.xy.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @author xieyan

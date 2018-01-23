@@ -1681,9 +1681,9 @@ ROLE_ID</ColNames>
       <DataType>varchar(40)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="430" parent="35" name="MODLEIDS">
+    <column id="430" parent="35" name="MODULEIDS">
       <Position>2</Position>
-      <DataType>varchar(40)|0</DataType>
+      <DataType>varchar(400)|0</DataType>
     </column>
     <key id="431" parent="35" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>

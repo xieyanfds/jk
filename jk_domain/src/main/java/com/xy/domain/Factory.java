@@ -19,6 +19,7 @@ public class Factory extends BaseEntity implements Serializable{
 	private String remark;			//说明
 	private Integer orderNo;		//排序号
 	private Integer state;			//状态：1正常0停用(伪删除)
+
 	public String getId() {
 		return id;
 	}

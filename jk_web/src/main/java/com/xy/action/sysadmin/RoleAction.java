@@ -1,23 +1,23 @@
 package com.xy.action.sysadmin;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletResponse;
-
-import com.xy.domain.User;
-import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Module;
 import com.xy.domain.Role;
+import com.xy.domain.User;
 import com.xy.service.ModuleService;
 import com.xy.service.RoleService;
+import com.xy.service.UserService;
 import com.xy.utils.Page;
+import com.xy.utils.SysConstant;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author xieyan
@@ -50,6 +50,9 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 
 	@Autowired
 	private ModuleService moduleService;
+
+	@Autowired
+	private UserService userService;
 	/**
 	 * 分页查询
 	 * @return
@@ -188,7 +191,7 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 		//2.通过对象导航方式，加载出当前角色的模块列表
 		Set<Module> modules = role.getModules();
 		//查询出所有的模块列表
-		List<Module> mList = moduleService.find("from Module", Module.class, null);
+		List<Module> mList = moduleService.find("from Module where state = 1", Module.class, null);
 		int size=mList.size();
 		//组织json串
 		StringBuilder sb = new StringBuilder();
@@ -253,5 +256,64 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 		
 		//5.跳转
 		return "rlist";
+	}
+
+	/**
+	 * 自定义快捷菜单，跳转
+	 * @return
+	 * @throws Exception
+	 */
+	public String toUser() throws Exception {
+		// 获取当前用户
+		User currUser = super.getCurrUser();
+		// 将查询到的数据压入值栈
+		super.pushVS(currUser);
+		// 跳转页面
+		return "touser";
+	}
+
+	/**
+	 * 快捷方式
+	 * @return
+	 * @throws Exception
+	 */
+	public String userModuleJsonStr() throws Exception {
+		// 获取用户
+		User user = (User)session.get(SysConstant.CURRENT_USER_INFO);
+
+		// 获取用户角色
+		Set<Role> roles = user.getRoles();
+
+		// 遍历角色
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (Role role : roles) {
+			// 获取角色下的模块
+			Set<Module> modules = role.getModules();
+			// 查询所有的模块
+			List<Module> moduleList = moduleService.find("from Module where state = 1 and parentId in(1,2,3,4,5,6) order by orderNo", Module.class,null);
+			// 拼接json字符串
+			// [{"id":"模块id","pId":"父模块id","name":"模块名称","checked":"true|false"},{"id":"模块id","pId":"父模块id","checked":"true|false"}]
+			for (Module module : modules) {
+				if(moduleList.contains(module)){
+					sb.append("{\"id\":\"").append(module.getId());
+					sb.append("\",\"pId\":\"").append(module.getParentId());
+					sb.append("\",\"name\":\"").append(module.getName());
+					sb.append("\",\"checked\":\"false\"");
+					sb.append("},");
+				}
+			}
+		}
+		// 去除末尾的逗号，加上"]";
+		String roleModuleJsonStr = sb.toString();
+		roleModuleJsonStr = roleModuleJsonStr.substring(0, roleModuleJsonStr.length() - 1) + "]";
+		// 获取response对象
+		HttpServletResponse response = ServletActionContext.getResponse();
+		// 设置格式
+		response.setContentType("application/json;charset=utf-8");
+		// 写回数据
+		response.getWriter().write(roleModuleJsonStr);
+
+		return null;
 	}
 }

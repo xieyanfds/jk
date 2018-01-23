@@ -1,5 +1,11 @@
 package com.xy.action;
 
+import com.google.common.collect.Lists;
+import com.xy.domain.Module;
+import com.xy.domain.Shortcut;
+import com.xy.service.ModuleService;
+import com.xy.service.ShortcutService;
+import com.xy.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -7,6 +13,10 @@ import org.apache.shiro.subject.Subject;
 import com.xy.domain.User;
 import com.xy.utils.SysConstant;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author xieyan
@@ -20,7 +30,11 @@ public class LoginAction extends BaseAction {
 	private String username;
 	private String password;
 
+	@Autowired
+	private ShortcutService shortcutService;
 
+	@Autowired
+	private ModuleService moduleService;
 
 	//SSH传统登录方式
 	public String login() throws Exception {
@@ -56,7 +70,23 @@ public class LoginAction extends BaseAction {
 			
 			//4.将用户放入session域中
 			session.put(SysConstant.CURRENT_USER_INFO, user);
-			
+
+			// 快捷方式
+			Shortcut shortcut = shortcutService.get(Shortcut.class, user.getId());
+			if (shortcut != null && UtilFuns.isNotEmpty(shortcut.getModuleIds())) {
+				String[] ids = shortcut.getModuleIds().split(",");
+				if (ids.length > 0) {
+					List<Module> list = Lists.newArrayList();
+					for (String id : ids) {
+						if(!id.trim().isEmpty()) {
+							Module module = moduleService.get(Module.class, id);
+							list.add(module);
+						}
+					}
+					session.put("shortList", list);
+				}
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.put("errorInfo", "对不起，用户名或密码错误！");
