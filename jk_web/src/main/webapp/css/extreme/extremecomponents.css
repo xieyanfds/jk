@@ -69,7 +69,7 @@
 
 .eXtremeTable .tableHeader {
 	background:#daf2ef;
-	filter:progid:DXImageTransform.Microsoft.gradient(enabled='ture',startColorstr=#effaf9, endColorstr='#daf2ef');
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled=true,startColorstr=#effaf9, endColorstr='#daf2ef');
 	border-top:1px solid #b7dad6;
     border-bottom:1px solid #c1e1dd;
 	color: #00554a;
@@ -79,6 +79,7 @@
 	text-align: center;
     padding:5px;
 	margin: 0px;
+	border-right: 1px solid #abecda;
 }
 
 .eXtremeTable .tableHeader input{

@@ -29,4 +29,5 @@ public interface MessageService {
 
 		// 批量删除
 		public void delete(Class<Message> entityClass, Serializable[] ids);
+
 }

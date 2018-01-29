@@ -1,12 +1,14 @@
 package com.xy.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import com.xy.domain.Dept;
 import com.xy.utils.Page;
 
+@SuppressWarnings("all")
 public interface DeptService {
 	//查询所有，带条件查询
 	public  List<Dept> find(String hql, Class<Dept> entityClass, Object[] params);
@@ -24,4 +26,6 @@ public interface DeptService {
 	public  void deleteById(Class<Dept> entityClass, Serializable id);
 	//批量删除
 	public  void delete(Class<Dept> entityClass, Serializable[] ids);
+	//查找子部门
+	public void findSubDept(ArrayList<Dept> list, Class<Dept> deptClass, String id);
 }

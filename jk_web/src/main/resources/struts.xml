@@ -9,6 +9,15 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 
 	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="authority" class="com.xy.interceptor.MyInterceptor"></interceptor>
+			<interceptor-stack name="myDefault">
+				<interceptor-ref name="authority"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myDefault"/>
+
 		<global-results>
 			<result name="error">/WEB-INF/pages/error.jsp</result>
 		</global-results>
@@ -34,40 +43,7 @@
 			<result name="tomain">/WEB-INF/pages/${moduleName}/main.jsp</result>
 		</action>
 
-		<!-- 快捷菜单 -->
-		<action name="shortcutAction_*" method="{1}" class="shortcutAction">
-			<result name="update">/WEB-INF/pages/home/fmain.jsp</result>
-		</action>
 
-		<!-- 用户设定个人信息修改 -->
-		<action name="ownUserAction_*" class="ownUserAction" method="{1}">
-			<result name="toupdate">/WEB-INF/pages/user/userUpdate.jsp</result>
-			<result name="update" type="redirectAction">login</result>
-		</action>
-
-
-		<!-- 留言 -->
-		<action name="messageAction_*" class="messageAction" method="{1}">
-			<result name="update" type="redirectAction">login</result>
-			<result name="list" type="redirectAction">homeAction_tomain?moduleName=home</result>
-		</action>
-
-		<!-- 系统反馈 -->
-		<action name="feedbackAction_*" method="{1}" class="feedbackAction">
-			<result name="alist" type="redirect">feedbackAction_plist</result>
-			<result name="plist">/WEB-INF/pages/feedback/jFeedbackListPage.jsp</result>
-			<result name="pcreate">/WEB-INF/pages/feedback/jFeedbackCreate.jsp</result>
-			<result name="pupdate">/WEB-INF/pages/feedback/jFeedbackUpdate.jsp</result>
-			<result name="pview">/WEB-INF/pages/feedback/jFeedbackView.jsp</result>
-		</action>
-
-		<!-- 个人任务列表 -->
-		<action name="workFlowAction_*" class="workFlowAction" method="{1}">
-			<result name="list" type="redirectAction">list</result>
-			<result name="plist">/WEB-INF/pages/workflow/jWorkFlowListPage.jsp</result>
-			<result name="pview">/WEB-INF/pages/workflow/jWorkFlowView.jsp</result>
-			<result name="pupdate">/WEB-INF/pages/workflow/jWorkFlowUpdate.jsp</result>
-		</action>
 		
 	</package>
 
@@ -75,5 +51,6 @@
 	<include file="struts2/struts-cargo.xml"></include>
 	<include file="struts2/struts-stat.xml"></include>
 	<include file="struts2/struts-baseinfo.xml"></include>
+	<include file="struts2/struts-home.xml"></include>
 </struts>
 	

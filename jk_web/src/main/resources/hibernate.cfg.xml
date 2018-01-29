@@ -47,5 +47,9 @@
 		<mapping resource="com/xy/domain/LoginLog.hbm.xml"/>
 		<mapping resource="com/xy/domain/Message.hbm.xml"/>
 		<mapping resource="com/xy/domain/Shortcut.hbm.xml"/>
+
+		<mapping resource="com/xy/domain/AccessLog.xml"/>
+		<mapping resource="com/xy/domain/TaskList.hbm.xml"/>
+		<mapping resource="com/xy/domain/SystemFeedback.hbm.xml"/>
 	</session-factory>
 	</hibernate-configuration>

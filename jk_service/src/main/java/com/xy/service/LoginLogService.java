@@ -15,7 +15,6 @@ public interface LoginLogService {
 	public LoginLog get(Class<LoginLog> entityClass, Serializable id);
 	public Page<LoginLog> findPage(String hql, Page<LoginLog> page, Class<LoginLog> entityClass, Object[] params);
 	
-	public void save(LoginLog entity);
 	public void saveOrUpdate(LoginLog entity);
 	public void saveOrUpdateAll(Collection<LoginLog> entitys);
 	

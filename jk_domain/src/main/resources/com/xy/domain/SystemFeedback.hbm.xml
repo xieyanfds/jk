@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.xy.domain">
+	<!-- 配置类的映射 -->
+	<class name="SystemFeedback" table="SYSTEM_FEEDBACK" dynamic-insert="true" dynamic-update="true">
+		<!-- 1.配置主键生成策略 -->
+		<id name="id" column="SYSTEM_FEEDBACK_ID" type="string">
+			<generator class="uuid"/>
+		</id>
+		
+		<!-- 2.配置其他属性 -->
+		<property name="message" column="MESSAGE" type="string"/>
+		<property name="createDept" column="CREATE_DEPT" type="string"/>
+		<property name="createName" column="CREATE_NAME" type="string"/>
+		<property name="createDeptName" column="CREATE_DEPT_NAME" type="string"/>
+		<property name="createBy" column="CREATE_BY" type="string"/>
+		<property name="createTime" column="CREATE_TIME" type="date"/>
+		<property name="updateBy" column="UPDATE_BY" type="string"/>
+		<property name="updateTime" column="UPDATE_TIME" type="date"/>
+
+	</class>
+
+</hibernate-mapping>

@@ -49,7 +49,7 @@
 			}
 			alert(str);
 			$('#moduleIds').val(str);
-            formSubmit('shortcutAction_update','_parent');
+            formSubmit('${ctx}/shortcutAction_update','_self');
             obj.blur();
 		}
 	</script>

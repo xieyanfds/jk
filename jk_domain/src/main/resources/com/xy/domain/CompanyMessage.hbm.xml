@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+  
+    
+<hibernate-mapping package="com.xy.domain">
+	<class name="CompanyMessage" table="COMPANY_MESSAGE" dynamic-insert="true" dynamic-update="true">
+		<id name="id" column="MESSAGE_ID">
+			<generator class="uuid"/>
+		</id>
+		<property name="leaveMessage" column="LEAVE_MESSAGE"/>
+		<property name="username" column="USER_NAME"/>
+		
+		<property name="createBy" column="CREATE_BY"/>
+		<property name="createDept" column="CREATE_DEPT"/>
+		<property name="createTime" column="CREATE_TIME"/>
+
+	</class>
+</hibernate-mapping>    

@@ -46,9 +46,9 @@
 	        <div class="panel-title">个人工作台</div>
 	        <div class="panel-content">
 				<ul>
-					<li><a href="${ctx}/homeAction_tomain.action?moduleName=home" target="main" id="aa_3" onclick="linkHighlighted(this)">我的留言板</a></li>
-					<li><a href="${ctx}/workFlowAction_list.action" target="main" id="aa_4" onclick="linkHighlighted(this)">我的代办任务</a></li>
-					<li><a href="${ctx}/feedbackAction_list.action" target="main" id="aa_5" onclick="linkHighlighted(this)">意见反馈</a></li>
+					<li><a href="${ctx}/messageAction_list" target="main" id="aa_3" onclick="linkHighlighted(this)">我的留言板</a></li>
+					<li><a href="${ctx}/taskListAction_list" target="main" id="aa_2" onclick="linkHighlighted(this)">我的代办任务</a></li>
+					<li><a href="${ctx}/feedbackAction_list" target="main" id="aa_1" onclick="linkHighlighted(this)">意见反馈</a></li>
 				</ul>
 	        </div>
 	        
@@ -84,11 +84,11 @@
 	        </div>
 				<div id="fastMenu">
 					<div class="FastMenu">
-						<c:forEach items="${sessionScope.list}" var="o">
+						<c:forEach items="${sessionScope.ALL_ACTIONNAME}" var="o" begin="0" end="4" step="1">
 							<div class="panel-content"></div>
-							<a href="${ctx}/${o.ico}${o.curl}" onclick="linkHighlighted(this)" target="main" id="aa_${o.id}"><font color="gray">${o.name}</font></a>
+							<a href="${ctx}/${o.value.curl}" onclick="toto('${o.value.ico}'),linkHighlighted(this)" target="main" id="aa_"><font color="gray">${o.value.moduleName}</font></a>
 						</c:forEach>
-						<a href="#" class="DelFastMenu"><font color="gray">清除常用功能列表</font></a>
+						<a href="${ctx}/shortcutAction_clear" class="DelFastMenu"><font color="gray">清除常用功能列表</font></a>
 					</div>
 
 				</div>
@@ -137,8 +137,8 @@
         
         <div class="panel-content">
 			<ul>
-				<li><a href="${ctx}/ownUserAction_toupdate.action" id="aa_1" target="main" onclick="linkHighlighted(this)">个人信息修改</a></li>
-				<li><a href="${ctx}/cargo/feedbackAction_list.action" id="aa_2" target="main" onclick="linkHighlighted(this)">系统使用反馈</a></li>
+				<li><a href="${ctx}/userSettingAction_toupdate" target="main" id="aa_5" onclick="linkHighlighted(this)">个人信息修改</a></li>
+				<li><a href="${ctx}/systemFeedbackAction_list" target="main" id="aa_6" onclick="linkHighlighted(this)">系统使用反馈</a></li>
 			</ul>
         </div>
     </div>

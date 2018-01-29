@@ -15,6 +15,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author xieyan
+ * @description 用户管理
+ * @date 2017/12/26.
+ */
 @Service
 public class UserServiceImpl implements UserService{
 

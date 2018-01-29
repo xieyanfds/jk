@@ -2,7 +2,7 @@ package com.xy.domain;
 
 /**
  * @author xieyan
- * @description
+ * @description 快捷访问
  * @date 2017/12/26.
  */
 

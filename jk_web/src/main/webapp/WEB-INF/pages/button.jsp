@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     //|------------------------------------------------------------------------------------
     //|
     //| 说明：JS弹出全屏遮盖的对话框(弹出层后面有遮盖效果，兼容主流浏览器)
@@ -250,7 +250,8 @@
             EV_modeAlert('envon');
 		}
 	}
-</script>
+</script>--%>
+<%@include file="js.jsp"%>
 <ul>
 	<c:set var="aaa" value="" />
 	<!-- 遍历当前登陆用户的角色 -->
@@ -269,6 +270,7 @@
 	</c:forEach>
 
 </ul>
+<%--
 <div id="envon" style=" width:301px; background:url(../../skin/default/images/errmsg/err_bg.gif) no-repeat; overflow:hidden; display:none;height: 150px;">
 	<div style="width: 220px;height: 70px;margin: 32px -22px 20px 40px;" align="center">请先选择一项并且只能选择一项，再进行操作！</div>
 	<input type="button" value="关闭" name="" style="margin: -13px 120px;" onclick="EV_closeAlert()" />
@@ -276,4 +278,4 @@
 <div id="envon1" style=" width:301px; background:url(../../skin/default/images/errmsg/err_bg.gif) no-repeat; overflow:hidden; display:none;height: 150px;">
 	<div style="width: 220px;height: 70px;margin: 32px -22px 20px 40px;" align="center">请至少选择一项，再进行操作！</div>
 	<input type="button" value="关闭" name="" style="margin: -13px 120px;width: 50px;" onclick="EV_closeAlert()" />
-</div>
+</div>--%>

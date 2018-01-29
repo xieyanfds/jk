@@ -289,9 +289,10 @@ window.onerror = killErrors;
 		<c:forEach items="${megList }" var="meg" varStatus="v">
 			<dl class='paper a${v.count }' style="height: 63px;">
 				<dt>
-					<span class='username'></span>${meg.createBy } <span class='num'><fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd' /></span>
+					<span class='username'></span>${meg.createBy }
+					<span class='num'><fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd' /></span>
 				</dt>
-				<dd class='content'>${meg.content } </dd>
+				<dd class='content'>${meg.message } </dd>
 
 			</dl>
 
@@ -384,5 +385,8 @@ window.onerror = killErrors;
  
 </form>
 </body>
+<script type="text/javascript">
+    top.leftFrame.location.href="homeAction_toleft.action?moduleName=home";
+</script>
 </html>
 

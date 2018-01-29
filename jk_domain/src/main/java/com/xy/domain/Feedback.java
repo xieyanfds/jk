@@ -1,5 +1,7 @@
 package com.xy.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 /**
  * @author xieyan
@@ -10,20 +12,22 @@ import java.util.Date;
 public class Feedback extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
-	private String id;	  	
-	private String inputBy;			
-	private Date inputTime;			
-	private String title;			
-	private String content;			
-	private String classType;			
-	private String tel;			
-	private String answerBy;			
-	private Date answerTime;			
-	private String solveMethod;			
-	private String resolution;			
-	private String difficulty;			
-	private String isShare;			
-	private Integer state;			
+	private String id;
+	private String inputBy;
+	@JSONField(format="yyyy-MM-dd")
+	private Date inputTime;
+	private String title;
+	private String content;
+	private String classType; // 1管理2安全3建议4其他
+	private String tel;
+	private String answerBy;
+	@JSONField(format="yyyy-MM-dd")
+	private Date answerTime;
+	private String solveMethod;
+	private String resolution; // 1已修改2无需修改3重复问题4描述不完整5无法再现6其他
+	private String difficulty; // 1极难2比较难3有难度4一般
+	private String isShare; // 0不公开1公开
+	private Integer state; // 0未处理1已处理
 
 	
 	public String getId() {

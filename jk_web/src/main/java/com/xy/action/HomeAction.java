@@ -44,26 +44,31 @@ public class HomeAction extends BaseAction{
 
 	//转向moduleName指向的模块
 	public String tomain(){
-		// 加载最新6条留言
-		// 获取当前用户
-		User user = super.getCurrUser();
-		// 获取用户所在部门
-		Dept dept = user.getDept();
-		// 查询当前部门下最新的6条留言
-		String sql = "select * from MESSAGE_B where CREATE_DEPT = '"+dept.getId()+"' order by create_time desc limit 0,6";
-		List<Map<String, Object>> result = sqlDao.executeSQLforListMap(sql);
-		List<Message> megList = new ArrayList<>();
-		for (Map<String, Object> map : result) {
+		if(moduleName.equals("home")) {
+			// 加载最新6条留言
+			// 获取当前用户
+			User user = super.getCurrUser();
+			// 查询当前用户下最新的6条留言
+			String sql = "select * from MESSAGE_C where CREATE_BY = '" + user.getId() + "' order by create_time desc limit 0,6";
+			List<Map<String, Object>> result = sqlDao.executeSQLforListMap(sql);
+			List<Message> megList = new ArrayList<>();
+			for (Map<String, Object> map : result) {
 
-			Message message = new Message();
-//			message.setContent((String) map.get("CONTENT"));
-			message.setCreateBy((String) map.get("CREATE_BY"));
-			message.setCreateTime((Date) map.get("CREATE_TIME"));
-			megList.add(message);
+				Message message = new Message();
+				message.setId((String) map.get("id"));
+				message.setReceive((String) map.get("RECEIVE"));
+				message.setReceiveId((String) map.get("RECEIVE_ID"));
+				message.setMessageTime((Date) map.get("MESSAGE_TIME"));
+				message.setTitle((String) map.get("TITLE"));
+				message.setMessage((String)map.get("MESSAGE"));
+				message.setState((Integer) map.get("state"));
+				message.setCreateBy((String) map.get("CREATE_BY"));
+				message.setCreateTime((Date) map.get("CREATE_TIME"));
+				megList.add(message);
+			}
+
+			super.putContext("megList", megList);
 		}
-
-		super.putContext("megList", megList);
-
 		return "tomain";
 	}
 	public String toleft(){

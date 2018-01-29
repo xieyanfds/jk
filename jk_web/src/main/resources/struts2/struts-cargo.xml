@@ -5,6 +5,7 @@
 
 <struts>
 	<package name="cargo" namespace="/cargo" extends="default">
+
 		<!-- 购销合同 -->
 		<action name="contractAction_*" method="{1}" class="contractAction">
 			<result name="list">/WEB-INF/pages/cargo/contract/jContractList.jsp</result>

@@ -13,6 +13,7 @@ public class User extends BaseEntity{
 	private String userName;//用户名
 	private String password;//密码  要加密
 	private Integer state;//状态
+	private Set<AccessLog> accessLogs;
 	
 	public String getId() {
 		return id;
@@ -56,7 +57,12 @@ public class User extends BaseEntity{
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	
-	
-	
+
+	public Set<AccessLog> getAccessLogs() {
+		return accessLogs;
+	}
+
+	public void setAccessLogs(Set<AccessLog> accessLogs) {
+		this.accessLogs = accessLogs;
+	}
 }

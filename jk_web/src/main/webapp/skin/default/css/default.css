@@ -716,7 +716,7 @@ menu a:hover,menu a:active{
 #navMenubar #view {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/view.gif") no-repeat;}
 #navMenubar #accept { width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/accept.gif") no-repeat;}
 #navMenubar #reject { width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/reject.gif") no-repeat;}
-#navMenubar #query {width:45px;height:21px;padding-left:4px;padding-top:4px;background:url("../images/button/iconbg.jpg") no-repeat left 1px;}
+#navMenubar #assess {width:45px;height:21px;padding-left:4px;padding-top:4px;letter-spacing:1.2px;background:url("../images/button/assess.gif") no-repeat;}
 #navMenubar #search {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/search.gif") no-repeat;}
 #navMenubar #enable {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/accept.gif") no-repeat;}
 #navMenubar #disable {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/disable.gif") no-repeat;}

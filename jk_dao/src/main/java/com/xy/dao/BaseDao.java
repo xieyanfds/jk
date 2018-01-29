@@ -22,7 +22,7 @@ public interface BaseDao {
 	 * @param params
 	 * @return
 	 */
-	<T> List<T> find(String hql, Class<T> entityClass, Object[] params);
+	<T> List<T> find(String hql, Class<T> entityClass, Object...params);
 
 	/**
 	 * 获取一条记录

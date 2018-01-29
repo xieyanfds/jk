@@ -4,18 +4,20 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.xy.domain">
 
-	<class name="Message" table="MESSAGE_B" dynamic-insert="true"
+	<class name="Message" table="MESSAGE_C" dynamic-insert="true"
 		dynamic-update="true">
 		<id name="id" column="MESSAGES_ID">
 			<generator class="uuid" />
 		</id>
 
-		<property name="content" column="CONTENT" />
+		<property name="receiveId" column="RECEIVE_ID" />
 
+		<property name="state" column="state" />
+		<property name="messageTime" column="MESSAGE_TIME" />
+		<property name="message" column="MESSAGE" />
+		<property name="title" column="TITLE" />
+		<property name="receive" column="RECEIVE" />
 		<property name="createBy" column="CREATE_BY" />
-		<property name="createDept" column="CREATE_DEPT" />
 		<property name="createTime" column="CREATE_TIME" />
-		<property name="updateBy" column="UPDATE_BY" />
-		<property name="updateTime" column="UPDATE_TIME" />
 	</class>
 </hibernate-mapping>

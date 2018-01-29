@@ -43,8 +43,8 @@
 
 
 <div class="eXtremeTable" >
-<table id="ec_table" class="tableRegion" width="98%" >
-	<thead>
+<table id="ec_table" class="tableRegion" width="98%">
+	<thead >
 	<tr>
 		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 		<td class="tableHeader">序号</td>

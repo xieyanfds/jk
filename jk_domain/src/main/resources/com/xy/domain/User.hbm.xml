@@ -28,6 +28,11 @@
 			<key column="USER_ID"></key>
 			<many-to-many class="Role" column="ROLE_ID" order-by="ORDER_NO"></many-to-many>
 		</set>
+
+		<set name="accessLogs"  cascade="all" inverse="true">
+			<key column="USER_ID"></key>
+			<one-to-many class="AccessLog" ></one-to-many>
+		</set>
 	</class>
 </hibernate-mapping>
 

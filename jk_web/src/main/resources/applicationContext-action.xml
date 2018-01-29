@@ -53,19 +53,22 @@
 	<bean id="factoryAction" class="com.xy.action.baseinfo.FactoryAction" scope="prototype"></bean>
 
 	<!-- shortcutAction, -->
-	<bean id="shortcutAction" class="com.xy.action.ShortcutAction" scope="prototype"></bean>
+	<bean id="shortcutAction" class="com.xy.action.home.ShortcutAction" scope="prototype"></bean>
 
 	<!-- messageAction,-->
-	<bean id="messageAction" class="com.xy.action.MessageAction" scope="prototype"></bean>
+	<bean id="messageAction" class="com.xy.action.home.MessageAction" scope="prototype"></bean>
 
 	<!-- FeedbackAction,使用反馈-->
-	<bean id="feedbackAction" class="com.xy.action.FeedbackAction" scope="prototype"></bean>
+	<bean id="feedbackAction" class="com.xy.action.home.FeedbackAction" scope="prototype"></bean>
 
-	<!-- workFlowAction,待办任务-->
-	<bean id="workFlowAction" class="com.xy.action.WorkFlowAction" scope="prototype"></bean>
+	<!-- taskListAction,待办任务-->
+	<bean id="taskListAction" class="com.xy.action.home.TaskListAction" scope="prototype"></bean>
 
-	<!-- ownUserAction,个人信息修改-->
-	<bean id="ownUserAction" class="com.xy.action.OwnUserAction" scope="prototype"></bean>
+	<!-- userSettingAction,个人信息修改-->
+	<bean id="userSettingAction" class="com.xy.action.home.UserSettingAction" scope="prototype"></bean>
+
+	<!-- systemFeedbackAction,系统使用反馈-->
+	<bean id="systemFeedbackAction" class="com.xy.action.home.SystemFeedbackAction" scope="prototype"></bean>
 </beans>
 
 

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.ui.theme" value="simple"/>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<package name="home" namespace="/" extends="default">
+
+
+		<!-- 快捷菜单 -->
+		<action name="shortcutAction_*" method="{1}" class="shortcutAction">
+			<result name="update">/WEB-INF/pages/home/main.jsp</result>
+		</action>
+
+		<!-- 用户设定个人信息修改 -->
+		<action name="userSettingAction_*" class="userSettingAction" method="{1}">
+			<result name="toupdate">/WEB-INF/pages/home/usersetting/jUserSettingUpdate.jsp</result>
+			<result name="update">/WEB-INF/pages/home/main.jsp</result>
+			<!-- <result name="update" type="redirectAction">userSettingAction_toupdate</result> -->
+			<result name="toupdatePassword">/WEB-INF/pages/home/usersetting/jUserSettingUpdatePassword.jsp</result>
+			<!--<result name="toupdatePassword">/WEB-INF/pages/user/userUpdate.jsp</result>-->
+		</action>
+
+
+		<!-- 留言 -->
+		<action name="messageAction_*" class="messageAction" method="{1}">
+			<result name="alist" type="redirect">messageAction_list</result>
+			<result name="plist">/WEB-INF/pages/home/message/jMessageListPage.jsp</result>
+			<result name="rlist">/WEB-INF/pages/home/message/jMessageListPage-receive.jsp</result>
+			<result name="pcreate">/WEB-INF/pages/home/message/jMessageCreate.jsp</result>
+			<result name="pupdate">/WEB-INF/pages/home/message/jMessageUpdate.jsp</result>
+			<result name="pview">/WEB-INF/pages/home/message/jMessageView.jsp</result>
+		</action>
+
+		<!-- 系统反馈 -->
+		<action name="feedbackAction_*" method="{1}" class="feedbackAction">
+			<result name="alist" type="redirect">feedbackAction_list</result>
+			<result name="list">/WEB-INF/pages/home/feedback/jFeedbackList.jsp</result>
+			<result name="tocreate">/WEB-INF/pages/home/feedback/jFeedbackCreate.jsp</result>
+			<result name="toupdate">/WEB-INF/pages/home/feedback/jFeedbackUpdate.jsp</result>
+			<result name="toview">/WEB-INF/pages/home/feedback/jFeedbackView.jsp</result>
+			<result name="tosolve">/WEB-INF/pages/home/feedback/jFeedbackSolve.jsp</result>
+		</action>
+
+		<!-- 个人任务列表 -->
+		<action name="taskListAction_*" class="taskListAction" method="{1}">
+			<result name="alist" type="redirect">tasklistAction_list</result>
+			<result name="plist">/WEB-INF/pages/home/tasklist/jTaskListListPage.jsp</result>
+			<result name="pcreate">/WEB-INF/pages/home/tasklist/jTaskListCreate.jsp</result>
+			<result name="pupdate">/WEB-INF/pages/home/tasklist/jTaskListUpdate.jsp</result>
+			<result name="pview">/WEB-INF/pages/home/tasklist/jTaskListView.jsp</result>
+		</action>
+
+		<!--系统使用反馈模块-->
+		<action name="systemFeedbackAction_*" method="{1}" class="systemFeedbackAction">
+			<result name="alist" type="redirect">systemFeedbackAction_list</result>
+			<result name="plist">/WEB-INF/pages/home/systemfeedback/jSystemFeedbackListPage.jsp</result>
+			<result name="pcreate">/WEB-INF/pages/home/systemfeedback/jSystemFeedbackCreate.jsp</result>
+			<result name="pupdate">/WEB-INF/pages/home/systemfeedback/jSystemFeedbackUpdate.jsp</result>
+			<result name="pview">/WEB-INF/pages/home/systemfeedback/jSystemFeedbackView.jsp</result>
+		</action>
+		<!--
+
+		
+	&lt;!&ndash; 我的留言板 &ndash;&gt;
+	<action name="messageAction_*" method="{1}" class="messageAction">
+		<result name="alist" type="redirect">messageAction_list</result>
+		<result name="plist">/WEB-INF/pages/home/message/jMessageListPage.jsp</result>
+		<result name="rlist">/WEB-INF/pages/home/message/jMessageListPage-receive.jsp</result>
+		<result name="pcreate">/WEB-INF/pages/home/message/jMessageCreate.jsp</result>
+		<result name="pupdate">/WEB-INF/pages/home/message/jMessageUpdate.jsp</result>
+		<result name="pview">/WEB-INF/pages/home/message/jMessageView.jsp</result>
+	</action>
+	
+
+
+	&lt;!&ndash; 公司留言板 &ndash;&gt;
+	<action name="companyMessageAction_*" method="{1}" class="companyMessageAction">
+		<result name="list">/WEB-INF/pages/home/main.jsp</result>
+		<result name="insert" type="redirectAction">companyMessageAction_list</result>
+	</action>-->
+
+	</package>
+	
+</struts>
+	
