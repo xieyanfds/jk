@@ -88,7 +88,9 @@ public class LoginAction extends BaseAction {
 	
 	//退出
 	public String logout(){
-		session.remove(SysConstant.CURRENT_USER_INFO);		//删除session
+		//删除session中数据
+		ServletActionContext.getRequest().getSession().invalidate();
+//		session.remove(SysConstant.CURRENT_USER_INFO);		//删除session
 		
 		return "logout";
 	}

@@ -45,11 +45,12 @@
 	       <div class="panel-header">
 	        <div class="panel-title">个人工作台</div>
 	        <div class="panel-content">
-				<ul>
+				<%--<ul>
 					<li><a href="${ctx}/messageAction_list" target="main" id="aa_3" onclick="linkHighlighted(this)">我的留言板</a></li>
 					<li><a href="${ctx}/taskListAction_list" target="main" id="aa_2" onclick="linkHighlighted(this)">我的代办任务</a></li>
 					<li><a href="${ctx}/feedbackAction_list" target="main" id="aa_1" onclick="linkHighlighted(this)">意见反馈</a></li>
-				</ul>
+				</ul>--%>
+				<%@include file="../leftmenu.jsp"%>
 	        </div>
 	        
 	       </div>

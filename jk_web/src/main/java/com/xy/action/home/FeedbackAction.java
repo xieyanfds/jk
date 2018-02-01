@@ -89,33 +89,24 @@ public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> 
 
 		//准备数据
 		Feedback feedback = feedbackService.get(Feedback.class, model.getId());
-		pushVS(feedback);
-
-		return "toupdate";
+		String json = FastJsonUtil.toJSONString(feedback);
+		FastJsonUtil.write_json(ServletActionContext.getResponse(), json);
+		return NONE;
 	}
 
 	//修改保存
 	public String update(){
 		Feedback feedback = feedbackService.get(Feedback.class, model.getId());
 
-		//设置修改的属性，根据业务去掉自动生成多余的属性
-		if ("0".equals(feedback.getState())) {
+		//设置修改的属性
+		if(feedback.getState()==0) {
 			feedback.setTitle(model.getTitle());
-			feedback.setContent(model.getContent());
 			feedback.setClassType(model.getClassType());
 			feedback.setTel(model.getTel());
 			feedback.setIsShare(model.getIsShare());
-		}else{
-			User user = super.getCurrUser();
-			Dept dept = user.getDept();
-			String deptName = dept.getDeptName();
-			feedback.setAnswerBy(deptName+":"+user.getUserInfo().getName());
-			feedback.setAnswerTime(new Date());
-			feedback.setSolveMethod(model.getSolveMethod());
-			feedback.setResolution(model.getResolution());
-			feedback.setDifficulty(model.getDifficulty());
+			feedback.setContent(model.getContent());
+			feedbackService.saveOrUpdate(feedback);
 		}
-		feedbackService.saveOrUpdate(feedback);
 		return "alist";
 	}
 
@@ -126,12 +117,16 @@ public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> 
 		return "alist";
 	}
 
-	//查看------------------------------------------
+
+	/**
+	 * 查看----
+	 * @return
+	 */
 	public String toview(){
 		Feedback obj = feedbackService.get(Feedback.class, model.getId());
 		String json = FastJsonUtil.toJSONString(obj);
 		FastJsonUtil.write_json(ServletActionContext.getResponse(), json);
-		return NONE;			//转向查看页面
+		return NONE;
 	}
 
 

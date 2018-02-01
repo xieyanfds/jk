@@ -1,5 +1,6 @@
 package com.xy.action.sysadmin;
 
+import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Dept;
@@ -10,10 +11,12 @@ import com.xy.service.RoleService;
 import com.xy.service.UserService;
 import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -230,5 +233,41 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		userService.delete(User.class, ids);
 		
 		return "ulist";
+	}
+	/**
+	 * ajax查询用户详情
+	 * @throws Exception
+	 */
+	public void findById4ajax() throws Exception {
+		//根据主键查出用户详情
+		User user = userService.get(User.class, model.getId());
+		//将用户转为json写回
+		String jsonString = JSON.toJSONString(user);
+		HttpServletResponse response = ServletActionContext.getResponse();
+		//设置中文
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(jsonString);
+
+	}
+	/**
+	 * ajax查询用户的下属
+	 * @throws Exception
+	 */
+	public void hasManager() throws Exception {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		//根据主键查出用户详情
+		List<User> userList = userService.find("from User where userInfo.manager.id=? ", User.class,new String[]{ model.getId()});
+		if(userList!=null&&userList.size()>0){
+			//存在 将用户转为json写回
+			String jsonString = JSON.toJSONString(userList.get(0));
+			//设置中文
+			response.setContentType("application/json;charset=utf-8");
+			response.getWriter().write(jsonString);
+		}else{
+			//不存在
+			response.getWriter().write("0");
+		}
+
+
 	}
 }

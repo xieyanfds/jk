@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
+<script type="text/javascript" src="${ctx }/js/jquery-1.11.3.min.js" ></script>
 <script type="text/javascript">
     //|------------------------------------------------------------------------------------
     //|
@@ -148,112 +149,8 @@
 		else
 			return true;
 	}
-
-	// 实现查看
-	function to_view(url) {
-		if (isOnlyChecked()) {
-			formSubmit(url, '_self');
-		} else {
-            EV_modeAlert('envon');
-		}
-	}
-	// 实现更新
-	function to_update(url) {
-		if (isOnlyChecked()) {
-			formSubmit(url, '_self');
-		} else {
-            EV_modeAlert('envon');
-		}
-	}
-
-	// 确认删除
-	function to_delete(url) {
-		if (isAtLeastCheckOne()) {
-			if (window.confirm("确认删除所选项目？")) {
-				formSubmit(url, '_self');
-			}
-		} else {
-            EV_modeAlert('envon1');
-		}
-	}
-
-	//实现提交
-	function to_submit(url) {
-		if (isOnlyChecked()) {
-			formSubmit(url, '_self');
-		} else {
-            EV_modeAlert('envon');
-		}
-	}
-
-	//实现取消
-	function to_cancel(url) {
-		if (isOnlyChecked()) {
-			formSubmit(url, '_self');
-		} else {
-            EV_modeAlert('envon');
-		}
-	}
-
-	//实现打印
-	function to_print(url) {
-	    if('${moduleId}'=="cargo_outProduct"){
-            formSubmit(url, '_self');
-            return;
-        }
-		if (isOnlyChecked()) {
-			formSubmit(url, '_self');
-		} else {
-            EV_modeAlert('envon');
-		}
-	}
-
-	//实现新增
-	function to_create(url) {
-		formSubmit(url, '_self');
-	}
-
-	//实现角色分配
-	function to_people(url) {
-		if (isOnlyChecked()) {
-			formSubmit(url, '_self');
-		} else {
-            EV_modeAlert('envon');
-		}
-	}
-	
-	//实现权限分配
-	function to_module(url) {
-		if (isOnlyChecked()) {
-			formSubmit(url, '_self');
-		} else {
-            EV_modeAlert('envon');
-		}
-	}
-	
-	//实现报运
-	function to_export(url) {
-		if (isAtLeastCheckOne()){
-			formSubmit(url, '_self');
-		} else {
-            EV_modeAlert('envon1');
-		}
-	}
-	//实现电子报运
-	function to_work_assign(url) {
-		if (isOnlyChecked()){
-			formSubmit(url, '_self');
-			
-		} else {
-            EV_modeAlert('envon');
-		}
-	}
 </script>
 <div id="envon" style=" width:301px; background:url(../../skin/default/images/errmsg/err_bg.gif) no-repeat; overflow:hidden; display:none;height: 150px;">
-	<div style="width: 220px;height: 70px;margin: 32px -22px 20px 40px;" align="center">请先选择一项并且只能选择一项，再进行操作！</div>
-	<input type="button" value="关闭" name="" style="margin: -13px 120px;" onclick="EV_closeAlert()" />
-</div>
-<div id="envon1" style=" width:301px; background:url(../../skin/default/images/errmsg/err_bg.gif) no-repeat; overflow:hidden; display:none;height: 150px;">
-	<div style="width: 220px;height: 70px;margin: 32px -22px 20px 40px;" align="center">请至少选择一项，再进行操作！</div>
-	<input type="button" value="关闭" name="" style="margin: -13px 120px;width: 50px;" onclick="EV_closeAlert()" />
+	<div id="mess" style="width: 220px;height: 70px;margin: 32px -22px 20px 40px;" align="center"></div>
+	<input type="button" value="关闭" style="margin: -28px 120px;width: 49px;height: 23px;border-radius: 4px;background: aliceblue;" onclick="EV_closeAlert()" />
 </div>

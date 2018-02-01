@@ -38,7 +38,7 @@
 }
 
 .top_logo {
-	background:url("../images/login/logo.png") no-repeat -2px 2px;
+	/*background:url("../images/login/logo.png") no-repeat -2px 2px;*/
     height:91px;
     white-space:nowrap;
     overflow:hiddle;

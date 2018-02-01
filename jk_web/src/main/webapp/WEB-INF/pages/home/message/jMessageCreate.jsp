@@ -53,15 +53,11 @@
 	        <tr>
 	            <td class="columnTitle">接收人：</td>
 	            <td class="tableContent">
-	            <select name="receiveId">
-	            	<c:forEach items="${userList }" var="u">
-	            		<option value = "${u.id }">${u.userInfo.name}</option>
-	            	</c:forEach>
-	            </select>
-<%-- 	            	<s:select name="receiveId" list="userList"
-	            		listKey="id" listValue=" userInfo.name"
-	            		headerKey="" headerValue="--请选择--"
-	            	></s:select> --%>
+					<select name="receiveId">
+						<c:forEach items="${userList }" var="u">
+							<option value = "${u.id }">${u.userInfo.name}</option>
+						</c:forEach>
+					</select>
 	            </td>
 	        </tr>
 	            <td class="columnTitle">时间：</td>
@@ -73,14 +69,13 @@
 	            
 	        <tr> 
 	        	<td class="columnTitle">标题：</td>
-	        	 <td class="tableContent"><input type="text" name="title" style="width: 30%" value="${message}"/></td>
+	        	 <td class="tableContent"><input type="text" name="title" style="width: 70%" value="${message}"/></td>
 	        </tr>
 	        <tr>
 	            <td class="columnTitle">留言：</td>
 	            <td class="tableContent">
 	            <textarea name="message" style="height: 200px;width: 70%" >${message}</textarea>
-	  <%--           <input type="text" name="message" value="${message}"/></td> --%>
-	          	</td> 
+	          	</td>
 	        </tr>
 		</table>
 	</div>

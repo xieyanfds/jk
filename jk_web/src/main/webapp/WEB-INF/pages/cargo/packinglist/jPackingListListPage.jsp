@@ -27,13 +27,12 @@
 </div>
 </div>
    
-  <div class="textbox-title">
+<div class="textbox-title">
 	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
-    装箱单列表
-  </div> 
+	装箱单列表
+</div>
   
 <div>
-
 <br/>
 <div class="eXtremeTable" >
 <table id="ec_table" class="tableRegion" width="98%" >

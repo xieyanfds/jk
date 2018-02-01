@@ -133,7 +133,7 @@
 	function toView() {
 		if (isOnlyChecked()) {
 			/* formSubmit('deptAction_toview','_self'); */
-			formSubmit('tasklistAction_toview', '_self');
+			formSubmit('taskListAction_toview', '_self');
 		} else {
 			alert("请先选择一项并且只能选择一项，再进行操作！");
 		}
@@ -141,7 +141,7 @@
 	//实现更新
 	function toUpdate() {
 		if (isOnlyChecked()) {
-			formSubmit('tasklistAction_toupdate', '_self')
+			formSubmit('taskListAction_toupdate', '_self')
 		} else {
 			alert("请先选择一项并且只能选择一项，再进行操作！");
 		}
@@ -190,6 +190,7 @@
 			代办任务列表
 		</div>
 
+		<br/>
 		<div>
 
 			<div class="eXtremeTable">

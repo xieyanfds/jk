@@ -64,16 +64,16 @@
 		 dy = dy - 5;
 		 MoveHideLoginDiv();
 	}	
-	function MoveHideLoginDiv(){
-		if( dy > -40){setTimeout("HideLoginDiv()",10);}else{ y = -40; dy = -40;}
-		document.getElementById("userInfo").style.top = dy;
-		
-	}
 	function ShowLoginDiv(){
 		 y = y + 5;
 		 MoveShowLoginDiv();
-	}	
-	function MoveShowLoginDiv(){			
+	}
+    function MoveHideLoginDiv(){
+        if( dy > -40){setTimeout("HideLoginDiv()",10);}else{ y = -40; dy = -40;}
+        document.getElementById("userInfo").style.top = dy;
+
+    }
+    function MoveShowLoginDiv(){
 			if( y < -5){setTimeout("ShowLoginDiv()",10);}else{ dy = -5; y = -1 }
 			document.getElementById("userInfo").style.top = y;
 	}
@@ -247,7 +247,7 @@
 		</div>
 	</div>
 </div>
-
+</div>
 <div id="prompt_div"><img src="${ctx}/skin/default/images/title/prompt.png"/><span style="position:absolute;top:2px;left:35px;z-index: 99999;width:100%;color:#FFFFFF;text-align: left; ">鼠标指向箭头位置<br/>可显示更多菜单项</span></div>
 
 <form name="form1" style="display: none;"></form>	<%//备忘录等使用%>

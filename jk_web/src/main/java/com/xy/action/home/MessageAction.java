@@ -8,6 +8,7 @@ import com.xy.domain.User;
 import com.xy.exception.SysException;
 import com.xy.service.MessageService;
 import com.xy.service.UserService;
+import com.xy.utils.FastJsonUtil;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +107,8 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 		//设置修改的属性，根据业务去掉自动生成多余的属性
 		message.setReceiveId(model.getReceiveId());
 		message.setTitle(model.getTitle());
-		message.setReceive(model.getReceive());
+		User user = userService.get(User.class, model.getReceiveId());
+		message.setReceive(user.getUserName());
 		message.setMessageTime(model.getMessageTime());
 		message.setMessage(model.getMessage());
 
@@ -133,9 +135,9 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 	//查看
 	public String toview(){
 
-		String hql = "from User";
+		/*String hql = "from User";
 		List<User>  userList = userService.find(hql, User.class, null);
-		super.putContext("userList", userList);		//页面就可以访问messageList
+		super.putContext("userList", userList);		//页面就可以访问messageList*/
 
 		Message obj = messageService.get(Message.class, model.getId());
 		// 如果查看别人发送的邮件,则state 该为2
@@ -144,11 +146,23 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 			obj.setState(2);
 			messageService.saveOrUpdate(obj); //重新保存
 		}
-		super.pushVS(obj);
+		String json = FastJsonUtil.toJSONString(obj);
+		FastJsonUtil.write_json(ServletActionContext.getResponse(), json);
+//		super.pushVS(obj);
 
-		return "pview";			//转向查看页面
+		return NONE;			//转向查看页面
 	}
 
+	//查看
+	public String jsonToView(){
+
+		String hql = "from User";
+		List<User>  userList = userService.find(hql, User.class, null);
+		String json = FastJsonUtil.toJSONString(userList);
+		FastJsonUtil.write_json(ServletActionContext.getResponse(), json);
+
+		return NONE;
+	}
 
 
 	/**

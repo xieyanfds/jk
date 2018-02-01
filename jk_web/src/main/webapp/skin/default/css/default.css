@@ -728,6 +728,7 @@ menu a:hover,menu a:active{
 #navMenubar #print {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/print.gif") no-repeat;}
 #navMenubar #stat {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/stat.gif") no-repeat;}
 #navMenubar #people {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/people.png") no-repeat;}
+#navMenubar #solve { margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/update.gif") no-repeat;}
 #navMenubar #print_view {margin:0 3px;width:95px;height:25px;color:#00554a;padding-left:18px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/print_view.gif") no-repeat;}
 #navMenubar #work_assign {margin:0 3px;width:95px;height:25px;color:#00554a;padding-left:18px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/work_assign.gif") no-repeat;}
 #navMenubar #save_assign {margin:0 3px;width:95px;height:25px;color:#00554a;padding-left:18px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/work_assign.gif") no-repeat;}

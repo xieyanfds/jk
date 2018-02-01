@@ -1,3 +1,13 @@
+body select{
+	border-radius: 3px;
+	background: aliceblue;
+	width: 88px;
+	height: 23px;
+}
+body textarea{
+	padding:10px 5px 10px 0px;
+	line-height: 20px;
+}
 .eXtremeTable {
 	margin: 0;
 	padding: 0;

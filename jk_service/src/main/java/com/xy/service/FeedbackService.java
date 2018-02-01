@@ -15,12 +15,10 @@ public interface FeedbackService {
 	public Feedback get(Class<Feedback> entityClass, Serializable id);
 	public Page<Feedback> findPage(String hql, Page<Feedback> page, Class<Feedback> entityClass, Object[] params);
 	
-	public void save(Feedback entity);
 	public void saveOrUpdate(Feedback entity);
 	public void saveOrUpdateAll(Collection<Feedback> entitys);
 	
 	public void deleteById(Class<Feedback> entityClass, Serializable id);
 	public void delete(Class<Feedback> entityClass, Serializable[] ids);
-	public List<Feedback> feedbackList();
 	public void submit(String[] ids, Integer state);
 }

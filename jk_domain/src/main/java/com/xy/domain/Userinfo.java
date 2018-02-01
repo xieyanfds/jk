@@ -1,5 +1,7 @@
 package com.xy.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 public class Userinfo  extends BaseEntity {
@@ -7,6 +9,7 @@ public class Userinfo  extends BaseEntity {
 	
 	private String id;
 	private String name;//姓名
+	@JSONField(serialize = false)
 	private User manager;//用户与直属领导    多对一
 	private Date joinDate;//入职时间
 	private Double salary;//薪水

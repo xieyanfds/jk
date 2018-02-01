@@ -79,8 +79,8 @@ public class HomeAction extends BaseAction{
 		return "toleft";
 	}
 	public void tomodule(){
-		session.put("moduleId",moduleName);
-		System.out.println(moduleName);
+		session.put("moduleRemark",moduleName);
+		System.out.println("moduleRemark："+moduleName);
 		System.out.println("im here-------------------------------");
 	}
 

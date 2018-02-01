@@ -13,10 +13,9 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-  <%@include file="/WEB-INF/pages/button.jsp" %>
-<%--<ul>
-<li id="print"><a href="#" onclick="formSubmit('outProductAction_print','_self');this.blur();">打印</a></li>
-</ul>--%>
+	<ul>
+	<li id="print"><a href="#" onclick="formSubmit('outProductAction_print','_self');this.blur();">打印</a></li>
+	</ul>
   </div>
 </div>
 </div>

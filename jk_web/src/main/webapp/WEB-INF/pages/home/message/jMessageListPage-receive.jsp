@@ -55,11 +55,12 @@
 </div>
 </div>
    
-  <div class="textbox-title">
+<div class="textbox-title">
 	<img src="${ctx }/skin/default/images/icon/folder_edit.png"/>
-    我的留言板-已接收
-  </div> 
-  
+	我的留言板-已接收
+</div>
+
+<br/>
 <div>
 
 
@@ -68,6 +69,7 @@
 	<thead>
 	<tr>
 		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
+		<td class="tableHeader">序号</td>
 		<td class="tableHeader">接收人</td>
 		<td class="tableHeader">标题</td>
 		<td class="tableHeader">时间</td>
@@ -80,9 +82,10 @@ ${page.links}
 	<c:forEach items="${page.results}" var="o" varStatus="status">
 		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 			<td><input type="checkbox" name="id" value="${o.id}"/></td>
+			<td><a href="messageAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 			<td>${o.receive}</td>
 			<td>${o.title}</td>
-			<td>${o.messagetime}</td>
+			<td>${o.messageTime}</td>
 			<td>
 				<c:if test="${o.state==1}"><font color="red"><b>未查看</b></font></c:if>
 				<c:if test="${o.state==2}"><font color="green"><b>已查看</b></font></c:if>

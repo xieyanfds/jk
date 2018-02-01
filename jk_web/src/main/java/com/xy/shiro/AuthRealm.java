@@ -26,6 +26,7 @@ public class AuthRealm extends AuthorizingRealm{
 	private UserService userService;
 
 	//授权   当jsp页面出现Shiro标签时，就会执行授权方法
+	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		User user = (User) arg0.fromRealm(this.getName()).iterator().next();
 		List<String> mList = new ArrayList<String>();
@@ -46,6 +47,7 @@ public class AuthRealm extends AuthorizingRealm{
 	}
 
 	//认证   token 代表用户在界面输入的用户名和密码
+	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken arg0) throws AuthenticationException {
 		//向下转型
 		UsernamePasswordToken up = (UsernamePasswordToken) arg0;

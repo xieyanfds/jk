@@ -1,17 +1,16 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="../../base.jsp" %>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<html class="ea-execuated" lang="zh-cn">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>商务综合管理平台</title>
 	<link rel="stylesheet" rev="stylesheet" type="text/css" href="${ctx}/skin/default/css/login.css" media="all" />
 	<script src="${ctx}/components/pngfix/DD_belatedPNG.js"></script>
 	<script> DD_belatedPNG.fix('*'); </script>
-</head>
-<link rel="stylesheet" type="text/css"
-	  href="${pageContext.request.contextPath }/loginCss/style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/loginCss/style.css" />
 <body>
 <form id="login_main" method="post" target="_parent">
-<div id="png">
+	<div id="png">
 	<div class="box">
 			<div class="inputstyle">
 				<div class="inputlable">用户名：
@@ -47,8 +46,5 @@
 <script type="text/JavaScript">
 	document.getElementById('login_main').username.focus();
 </script>
-
 </body>
 </html>
-
-

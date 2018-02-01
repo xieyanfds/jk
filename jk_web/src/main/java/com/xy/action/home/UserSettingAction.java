@@ -74,25 +74,25 @@ public class UserSettingAction extends BaseAction implements ModelDriven<User> {
 		User user = userService.get(User.class, currUser.getId());
 		String passwordNow = user.getPassword();
 		//获取输入的旧密码
-		String passwordOld = (String) ServletActionContext.getRequest().getParameter("passwordOld");
+		String passwordOld =  ServletActionContext.getRequest().getParameter("passwordOld");
 		System.out.println(passwordOld);
 		//获取新密码
-		String password = (String) model.getPassword();
-		String passwordNew = (String) ServletActionContext.getRequest().getParameter("passwordNew");
+		String password =  model.getPassword();
+		String passwordNew =  ServletActionContext.getRequest().getParameter("passwordNew");
 		
 		try {
 			if(UtilFuns.isEmpty(passwordOld.trim())){
 				request.put("errorInfo1", "对不起，不能为空！");
 				throw new Exception("输入不能为空!!");
-				
+
 			}else if(UtilFuns.isEmpty(password.trim())){
 				request.put("errorInfo2", "对不起，不能为空！");
 				throw new Exception("输入不能为空!!");
-				
+
 			}else if(UtilFuns.isEmpty(passwordNew.trim())){
 				request.put("errorInfo3", "对不起，不能为空！");
 				throw new Exception("输入不能为空!!");
-				
+
 			}else if (!passwordNow.trim().equals(Encrypt.md5(passwordOld.trim(), user.getUserName()))) {
 				request.put("errorInfo4", "对不起，原始密码有误！");
 				throw new Exception("原始密码有误!!");
@@ -100,17 +100,14 @@ public class UserSettingAction extends BaseAction implements ModelDriven<User> {
 				request.put("errorInfo5", "对不起，新密码不一致！");
 				throw new Exception("新密码不一致!!");
 			}else {
-				
+
 				user.setPassword(Encrypt.md5(password.trim(), user.getUserName()));
 				userService.saveOrUpdate(user);
 			}
-			
+			return "logout";
 		} catch (Exception e) {
 			return "toupdatePassword";
 		}
-		
-		//跳页面
-		return toupdate();
 	}
 	
 	

@@ -22,12 +22,10 @@ select {
 /*默认数据文本框控制*/
 textarea {
     width:98%;
-    font: 12px "宋体";
     border: 1px solid #7F9DB9;
-    /*
+	font-family: "微软雅黑";
     word-wrap:break-word;
     word-break:break-all;
-    */
 }
 .commonText {
     width: 260px;
@@ -63,9 +61,9 @@ textarea {
 
 .columnTitle {
 	width: 90px;
+	font-family: "微软雅黑";
 	PADDING: 0px 5px 5px 18px;
-	FONT: 9pt 宋体; 
-	COLOR: #00544a; 
+	COLOR: #00544a;
 	TEXT-ALIGN: left;
 	border-bottom:1px solid #c1e1dd;
 	padding-top:15px;
