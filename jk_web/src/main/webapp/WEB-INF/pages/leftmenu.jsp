@@ -25,8 +25,17 @@
     function toto(obj){
         var url = "homeAction_tomodule";
         var param = {"moduleName":obj};
-        $.post(url,param,function(){
+        /*$.post(url,param,function(){
 
-		})
+        })*/
+        $.ajax({
+            type: "POST",
+            url:"${ctx}/homeAction_tomodule",
+            data:param,
+            dataType:"json",
+            async:false,
+            success:function(){
+            }
+        });
     }
 </script>

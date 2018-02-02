@@ -119,8 +119,12 @@
                 });
             }
 
-            //我的任务
+            //我发布的任务
             function to_people1(url) {
+                formSubmit(url, '_self');
+            }
+            //我待办的任务
+            function to_assess(url) {
                 formSubmit(url, '_self');
             }
             //修改时验证
@@ -176,7 +180,7 @@
 
 		<div class="textbox-title">
 			<img src="${ctx }/skin/default/images/icon/currency_yen.png" />
-			代办任务列表
+			任务列表
 		</div>
 
 		<br/>
@@ -217,9 +221,12 @@
 								<td><fmt:formatDate value="${o.endDate}" pattern="yyyy-MM-dd" /></td>
 								<td>
 									<c:if test="${o.state==0}">
-										<b><font color="#2e8ded">未完成</font></b>
+										<b><font color="red">未完成</font></b>
 									</c:if>
 									<c:if test="${o.state==1}">
+										<b><font color="blue">已提交</font></b>
+									</c:if>
+									<c:if test="${o.state==2}">
 										<b><font color="green">已完成</font></b>
 									</c:if>
 								</td>

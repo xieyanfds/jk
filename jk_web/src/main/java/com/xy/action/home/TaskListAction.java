@@ -74,7 +74,7 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 		// 获取当前登录用户
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
 		// 查询执行者是自己的任务
-		String hql = "from TaskList where userId='" + user.getId() + "' order by pushDate  desc";
+		String hql = "from TaskList where userId='" + user.getId() + "' and state = 0 order by pushDate  desc";
 		page.setUrl("tasklistAction_myTask");
 		// 给页面提供分页数据
 		page = taskListService.findPage(hql, page, TaskList.class, null);
@@ -217,6 +217,37 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 		
 		return list();
 	}
-	
+
+	/**
+	 * 解决
+	 * @return
+	 * @throws Exception
+	 */
+	public String slove() throws Exception {
+		String[] split = model.getId().split(",");
+		for(String id : split){
+			if(!id.trim().isEmpty()) {
+				TaskList taskList = taskListService.get(TaskList.class, id);
+				taskList.setState(1);
+			}
+		}
+		return myTask();
+	}
+
+	/**
+	 * 审核
+	 * @return
+	 * @throws Exception
+	 */
+	public String audit() throws Exception {
+		String[] split = model.getId().split(",");
+		for(String id : split){
+			if(!id.trim().isEmpty()) {
+				TaskList taskList = taskListService.get(TaskList.class, id);
+				taskList.setState(2);
+			}
+		}
+		return findMyTask();
+	}
 
 }
