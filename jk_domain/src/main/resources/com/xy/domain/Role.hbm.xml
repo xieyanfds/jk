@@ -23,7 +23,7 @@
 	     <many-to-many class="User" column="USER_ID"></many-to-many>
 	  </set>
 	  <!-- private Set<Module> modules = new HashSet<Module>(0);//角色和权限 多对多 -->
-	  <set name="modules" table="ROLE_MODULE_P">
+	  <set name="modules" table="ROLE_MODULE_P" lazy="true">
 	  	<key column="ROLE_ID"></key>
 	  	<many-to-many column="MODULE_ID" class="Module" order-by="ORDER_NO"></many-to-many>
 	  </set>

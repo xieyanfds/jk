@@ -135,9 +135,9 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 	//查看
 	public String toview(){
 
-		/*String hql = "from User";
+		String hql = "from User";
 		List<User>  userList = userService.find(hql, User.class, null);
-		super.putContext("userList", userList);		//页面就可以访问messageList*/
+		super.putContext("userList", userList);		//页面就可以访问messageList
 
 		Message obj = messageService.get(Message.class, model.getId());
 		// 如果查看别人发送的邮件,则state 该为2
@@ -146,22 +146,9 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 			obj.setState(2);
 			messageService.saveOrUpdate(obj); //重新保存
 		}
-		String json = FastJsonUtil.toJSONString(obj);
-		FastJsonUtil.write_json(ServletActionContext.getResponse(), json);
-//		super.pushVS(obj);
+		super.pushVS(obj);
 
-		return NONE;			//转向查看页面
-	}
-
-	//查看
-	public String jsonToView(){
-
-		String hql = "from User";
-		List<User>  userList = userService.find(hql, User.class, null);
-		String json = FastJsonUtil.toJSONString(userList);
-		FastJsonUtil.write_json(ServletActionContext.getResponse(), json);
-
-		return NONE;
+		return "pview";			//转向查看页面
 	}
 
 

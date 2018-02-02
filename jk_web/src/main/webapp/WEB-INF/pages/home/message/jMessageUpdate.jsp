@@ -55,9 +55,9 @@
 	        <tr>
 	            <td class="columnTitle">时间：</td>
 				<td class="tableContent">
-	            <input type="text" style="width:90px;" name="messageTime"
+	            <input type="text" style="width:112px;" name="messageTime"
 	            	 value="${messageTime }"
-	             	onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
+	             	onclick="WdatePicker({el:this,isShowOthers:true,opposite:true,dateFmt:'yyyy-MM-dd HH:mm:ss'});"/>
 	        </tr>
 	         <tr> 
 	        	<td class="columnTitle">标题：</td>

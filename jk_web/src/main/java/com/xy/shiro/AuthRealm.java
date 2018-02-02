@@ -1,9 +1,11 @@
 package com.xy.shiro;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.Sets;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -29,18 +31,18 @@ public class AuthRealm extends AuthorizingRealm{
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		User user = (User) arg0.fromRealm(this.getName()).iterator().next();
-		List<String> mList = new ArrayList<String>();
+		HashSet<String> mSet = Sets.newHashSet();
 		if(user!=null){
 			Set<Role> roles = user.getRoles();//对象导航
 			for (Role role : roles) {
 				//获取每个角色的权限
 				Set<Module> modules = role.getModules();
 				for (Module module : modules) {
-					mList.add(module.getName());
+					mSet.add(module.getName());
 				}
 			}
 			SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-			authorizationInfo.addStringPermissions(mList);//添加用户的权限
+			authorizationInfo.addStringPermissions(mSet);//添加用户的权限
 			return authorizationInfo;
 		}
 		return null;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,7 +40,8 @@ public class TaskListServiceImpl implements TaskListService {
 		//代表新增
 		if(entity.getId()==null){	
 			//设置状态
-			entity.setState(0.0);
+			entity.setState(0);
+			entity.setCreateTime(new Date());
 		}
 		baseDao.saveOrUpdate(entity);
 	}

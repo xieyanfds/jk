@@ -50,6 +50,8 @@
 		<action name="taskListAction_*" class="taskListAction" method="{1}">
 			<result name="alist" type="redirect">tasklistAction_list</result>
 			<result name="plist">/WEB-INF/pages/home/tasklist/jTaskListListPage.jsp</result>
+			<result name="flist">/WEB-INF/pages/home/tasklist/jTaskListListPage-my.jsp</result>
+			<result name="mlist">/WEB-INF/pages/home/tasklist/jTaskListListPage.jsp</result>
 			<result name="pcreate">/WEB-INF/pages/home/tasklist/jTaskListCreate.jsp</result>
 			<result name="pupdate">/WEB-INF/pages/home/tasklist/jTaskListUpdate.jsp</result>
 			<result name="pview">/WEB-INF/pages/home/tasklist/jTaskListView.jsp</result>

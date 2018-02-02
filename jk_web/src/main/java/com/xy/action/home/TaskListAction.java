@@ -6,6 +6,7 @@ import com.xy.domain.TaskList;
 import com.xy.domain.User;
 import com.xy.service.TaskListService;
 import com.xy.service.UserService;
+import com.xy.utils.FastJsonUtil;
 import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
 import org.apache.struts2.ServletActionContext;
@@ -27,7 +28,6 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	@Autowired
 	private UserService userService;
 
-	// model驱动
 	private TaskList model = new TaskList();
 	@Override
 	public TaskList getModel() {
@@ -43,45 +43,62 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 
 	// 列表展示
 	public String list() {
-		// 获取当前登录用户
-		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		// 查询自己发布的任务 或者 执行者是自己的任务
-		String hql = "from TaskList where userId='" + user.getId() + "' or pusherId='" + user.getId() + "' order by pushDate  desc"; // 查询所有内容
+		// 查询所有内容
+		String hql = "from TaskList order by pushDate desc";
+		// 配置分页按钮的转向链接
+		page.setUrl("tasklistAction_list");
 		// 给页面提供分页数据
-		page.setUrl("tasklistAction_list"); // 配置分页按钮的转向链接
 		page = taskListService.findPage(hql, page, TaskList.class, null);
 		super.putContext("page", page);
 
-		return "plist"; // page list
+		return "plist";
 	}
 	
 	
-	// 列表展示
-	public String findAllTask() {
+	// 我发布的
+	public String findMyTask() {
 		// 获取当前登录用户
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		// 查询自己发布的任务 或者 执行者是自己的任务
-		String hql = "from TaskList  order by pushDate  desc"; // 查询所有内容
+		// 查询自己发布的任务
+		String hql = "from TaskList where  pusherId='" + user.getId() + "' order by pushDate  desc";
+		page.setUrl("tasklistAction_findMyTask");
 		// 给页面提供分页数据
-		page.setUrl("tasklistAction_list"); // 配置分页按钮的转向链接
 		page = taskListService.findPage(hql, page, TaskList.class, null);
 		super.putContext("page", page);
 
-		return "plist"; // page list
+		return "flist";
+	}
+
+	// 我待办的
+	public String myTask() {
+		// 获取当前登录用户
+		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+		// 查询执行者是自己的任务
+		String hql = "from TaskList where userId='" + user.getId() + "' order by pushDate  desc";
+		page.setUrl("tasklistAction_myTask");
+		// 给页面提供分页数据
+		page = taskListService.findPage(hql, page, TaskList.class, null);
+		super.putContext("page", page);
+
+		return "mlist";
 	}
 	
-	// 只展示我的任务列表
-	public String onlyLookMyTask() {
+	// 是否是我发布的任务
+	public void isMyTask() throws IOException {
 		// 获取当前登录用户
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		// 查询自己发布的任务 或者 执行者是自己的任务
-		String hql = "from TaskList where userId='" + user.getId()+"' order by pushDate  desc"; // 查询所有内容
-		// 给页面提供分页数据
-		page.setUrl("tasklistAction_list"); // 配置分页按钮的转向链接
-		page = taskListService.findPage(hql, page, TaskList.class, null);
-		super.putContext("page", page);
-
-		return "plist"; // page list
+		String[] split = model.getId().split(",");
+		PrintWriter writer = ServletActionContext.getResponse().getWriter();
+		for(String id : split){
+			if(!id.trim().isEmpty()) {
+				TaskList taskList = taskListService.get(TaskList.class, id);
+				if (!taskList.getPusherId().equals(user.getId())) {
+					writer.print(0);
+					return;
+				}
+			}
+		}
+		writer.print(1);
 	}
 
 	// 转向新增页面
@@ -98,6 +115,8 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 
 	// 新增保存
 	public String insert() {
+		User user = userService.get(User.class, model.getUserId());
+		model.setUserName(user.getUserName());
 
 		taskListService.saveOrUpdate(model);
 		// 返回列表
@@ -123,13 +142,14 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	public String update() {
 		TaskList taskList = taskListService.get(TaskList.class, model.getId());
 
+		User user = userService.get(User.class, model.getUserId());
+		model.setUserName(user.getUserName());
 		// 设置修改的属性，根据业务去掉自动生成多余的属性
 		taskList.setUserId(model.getUserId());
 		taskList.setUserName(model.getUserName());
 		taskList.setContent(model.getContent());
 		taskList.setPushDate(model.getPushDate());
 		taskList.setEndDate(model.getEndDate());
-		taskList.setState(model.getState());
 		taskList.setMajor(model.getMajor());
 
 		taskListService.saveOrUpdate(taskList);

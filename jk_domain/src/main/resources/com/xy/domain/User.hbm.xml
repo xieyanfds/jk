@@ -24,7 +24,7 @@
 		<!--private Userinfo userinfo ;  //用户与用户扩展信息    一对一 -->
 		<one-to-one name="userInfo" class="Userinfo" cascade="all"></one-to-one>
 		<!-- private Set<Role> roles = new HashSet<Role>(0);//用户与角色   多对多  -->
-		<set name="roles" table="ROLE_USER_P">
+		<set name="roles" table="ROLE_USER_P" lazy="true">
 			<key column="USER_ID"></key>
 			<many-to-many class="Role" column="ROLE_ID" order-by="ORDER_NO"></many-to-many>
 		</set>

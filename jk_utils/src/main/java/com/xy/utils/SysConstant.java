@@ -20,5 +20,5 @@ public class SysConstant {
 	public static String ALL_ACTIONNAME = "ALL_ACTIONNAME";		//session中存储的访问模块数集合
 
 	public static String DEFAULT_PASS = "123456";				//默认密码
-	public static int PAGE_SIZE = 5;							//分页时一页显示多少条记录
+	public static int PAGE_SIZE = 8;							//分页时一页显示多少条记录
 }

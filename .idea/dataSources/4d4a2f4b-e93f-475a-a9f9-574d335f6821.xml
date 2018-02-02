@@ -1864,7 +1864,7 @@ ROLE_ID</ColNames>
     </column>
     <column id="475" parent="38" name="STATE">
       <Position>7</Position>
-      <DataType>double|0</DataType>
+      <DataType>int(11)|0</DataType>
     </column>
     <column id="476" parent="38" name="PUSHER_NAME">
       <Position>8</Position>

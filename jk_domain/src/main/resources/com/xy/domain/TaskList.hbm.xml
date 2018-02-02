@@ -15,11 +15,12 @@
 		<property name="content" column="CONTENT" type="string"/>
 		<property name="pushDate" column="PUSH_DATE" type="date"/>
 		<property name="endDate" column="END_DATE" type="date"/>
-		<property name="state" column="STATE" type="double"/>
+		<property name="state" column="STATE" type="int"/>
 		<property name="pusherName" column="PUSHER_NAME" type="string"/>
 		<property name="userName" column="USER_NAME" type="string"/>
 		<property name="major" column="MAJOR" type="string"/>
 
+		<property name="createTime" column="CREATE_TIME"/>
 	</class>
 
 </hibernate-mapping>

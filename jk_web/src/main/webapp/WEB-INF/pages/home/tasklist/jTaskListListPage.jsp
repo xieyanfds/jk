@@ -6,31 +6,7 @@
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="${ctx }/layer/layer.js"></script>
 <script type="text/javascript">
-	$(function() {
-		$("tr:gt(0):odd").css("background-color", "#F0EDED");
-		$("tr:gt(0):even").css("background-color", "#FFFFFF");
-		
-		
-		var s = $("td:contains('吃')")
-		for(var i=0;i<s.length;i++){
-			$(s[i]).css("background-color", "#CE2C6A");
-		}
-		
-	})
 
-	function yanzheng() {
-		//发送ajsx 判断当前用户是否存在下属
-		$.post("${ctx}/home/taskListAction_isManager", function(data) {
-			if (data == 0) {
-				//不存在下属
-				alert("您不是领导,不能发布任务")
-			} else {
-				//存在下属
-				formSubmit('taskListAction_tocreate', '_self');
-				this.blur();
-			}
-		});
-	}
 
 	function showDetail(uid) {
 		/* layer.open({
@@ -97,66 +73,6 @@
  		}
 	}
  
-	function isOnlyChecked() {
-		var checkBoxArray = document.getElementsByName('id');
-		var count = 0;
-		for (var index = 0; index < checkBoxArray.length; index++) {
-			if (checkBoxArray[index].checked) {
-				count++;
-			}
-		}
-		//jquery
-		/* var count = $("[input name='id']:checked").size(); */
-		if (count == 1) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-
-	function isChecked() {
-		var checkBoxArray = document.getElementsByName('id');
-		var count = 0;
-		for (var index = 0; index < checkBoxArray.length; index++) {
-			if (checkBoxArray[index].checked) {
-				count++;
-			}
-		}
-		//jquery
-		//var count = $("input[name='id']:checked").size();
-		if (count > 0)
-			return true;
-		else
-			return false;
-	}
-	function toView() {
-		if (isOnlyChecked()) {
-			/* formSubmit('deptAction_toview','_self'); */
-			formSubmit('taskListAction_toview', '_self');
-		} else {
-			alert("请先选择一项并且只能选择一项，再进行操作！");
-		}
-	}
-	//实现更新
-	function toUpdate() {
-		if (isOnlyChecked()) {
-			formSubmit('taskListAction_toupdate', '_self')
-		} else {
-			alert("请先选择一项并且只能选择一项，再进行操作！");
-		}
-	}
-
-	//删除请求
-	function toDelete() {
-		if (isChecked()) {
-			if (confirm("确定删除吗?")) {
-				formSubmit('taskListAction_delete', '_self')
-			}
-		} else {
-			alert("请先选择一项或者多项，再进行操作！");
-		}
-	}
 </script>
 
 </head>
@@ -167,7 +83,7 @@
 			<div id="middleMenubar">
 				<div id="innerMenubar">
 					<div id="navMenubar">
-						<ul>
+						<%--<ul>
 							<li id="view"><a href="#" onclick="toView();this.blur();">查看</a></li>
 							<!-- <li id="new"><a href="#" onclick="formSubmit('tasklistAction_tocreate','_self');this.blur();">新增</a></li>-->
 							<li id="new"><a href="#" onclick="yanzheng()">发布</a></li>
@@ -179,11 +95,84 @@
 								onclick="formSubmit('taskListAction_onlyLookMyTask.action','_self');this.blur();">我的任务</a></li>
 							<li id="assess"><a href="#"
 								onclick="formSubmit('taskListAction_findAllTask.action','_self');this.blur();">所有任务</a></li>
-						</ul>
+						</ul>--%>
+						<%@include file="../../button.jsp"%>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<script type="text/javascript">
+            //发布时验证
+            function to_create(url) {
+                //发送ajsx 判断当前用户是否存在下属
+                $.post("${ctx}/taskListAction_isManager", function(data) {
+                    if (data == 0) {
+                        //不存在下属
+                        $("#envon #mess").html("您不是领导,不能发布任务");
+                        EV_modeAlert('envon');
+                    } else {
+                        //存在下属
+                        formSubmit(url, '_self');
+                        this.blur();
+                    }
+                });
+            }
+
+            //我的任务
+            function to_people1(url) {
+                formSubmit(url, '_self');
+            }
+            //修改时验证
+			function to_update(url){
+                if (!isOnlyChecked()) {
+                    $("#envon #mess").html("请先选择一项并且只能选择一项，再进行操作！");
+                    EV_modeAlert('envon');
+                    return;
+                }
+                var id = $("input[name='id']:checked").attr("value");
+                //发送ajsx 判断是否是当前用户发布的任务
+                $.post("${ctx}/taskListAction_isMyTask",{"id":id}, function(data) {
+                    if (data == 0) {
+                        //不是我发布的，不能修改
+                        $("#envon #mess").html("不是您发布的任务,您不能修改");
+                        EV_modeAlert('envon');
+                    } else {
+                        //修改
+                        formSubmit(url, '_self');
+                        this.blur();
+                    }
+                });
+			}
+            //删除时验证
+            function to_delete(url){
+                if (!isAtLeastCheckOne()) {
+                    $("#envon #mess").html("请至少选择一项进行删除！！");
+                    EV_modeAlert('envon');
+                    return;
+                }
+                var checks = $("input[name='id']:checked");
+                var ids="";
+                checks.each(function(i,n){
+                    ids+=n.value;
+                    ids+=",";
+				})
+                //发送ajsx 判断是否是当前用户发布的任务
+                $.post("${ctx}/taskListAction_isMyTask",{"id":ids}, function(data) {
+                    if (data == 0) {
+                        //不是我发布的，不能修改
+                        $("#envon #mess").html("有不是您发布的任务,您不能删除");
+                        EV_modeAlert('envon');
+                    } else {
+                        //修改
+                        if (window.confirm("确认删除所选项目？")) {
+                            formSubmit(url, '_self');
+                            this.blur();
+                        }
+                    }
+                });
+            }
+		</script>
 
 		<div class="textbox-title">
 			<img src="${ctx }/skin/default/images/icon/currency_yen.png" />

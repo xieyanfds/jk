@@ -9,34 +9,18 @@
 	src="${pageContext.request.contextPath }/layer/layer.js"></script>
 <script type="text/javascript">
 
-	function isOnlyChecked() {
-		var checkBoxArray = document.getElementsByName('id');
-		var count = 0;
-		for (var index = 0; index < checkBoxArray.length; index++) {
-			if (checkBoxArray[index].checked) {
-				count++;
-			}
-		}
-		//jquery
-		/* var count = $("[input name='id']:checked").size(); */
-		if (count == 1){
-			return true;
-		}
-		else{
-			return false;
-		}
-		
-	}
 	function toView() {
 		if (isOnlyChecked()) {
 			formSubmit('messageAction_toview', '_self');
 		} else {
-			alert("请先选择一项并且只能选择一项，再进行操作！");
+            $("#envon #mess").html("请先选择一项并且只能选择一项，再进行操作！");
+            EV_modeAlert('envon');
 		}
 	}
 	
 </script>
-	
+
+<%@include file="../../alert.jsp"%>
 </head>
 
 <body>

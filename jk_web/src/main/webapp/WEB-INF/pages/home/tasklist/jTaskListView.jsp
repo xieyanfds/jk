@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="../../base.jsp"%>
+<%@ include file="../../baselist.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
@@ -22,7 +22,7 @@
    
   <div class="textbox-title">
 	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
-   浏览代办任务
+   浏览待办任务
   </div>
   
 
@@ -30,33 +30,57 @@
     <div>
 		<table class="commonTable"   cellspacing="1">
 	        <tr>
-	            <td class="columnTitle" style="border-color: black" >发布者：</td>
-	            <td class="tableContent" style="border-color: black">${pusherName}</td>
-	        
-	            <td class="columnTitle" style="border-color: black">执行者：</td>
-	            <td  class="tableContent"  style="border-color: black">${userName}</td>
-	        </tr>	
+	            <td class="columnTitle">发布者：</td>
+	            <td class="tableContent">
+					<input type="text" style="width: 600px;" readonly="readonly"  name="pusherName" value="${pusherName}"/>
+				</td>
+			</tr>
+			<tr>
+	            <td class="columnTitle" >执行者：</td>
+	            <td  class="tableContent">
+					<select name="userName" disabled>
+						<option value="userName" >${userName }</option>
+					</select>
+				</td>
+	        </tr>
+			<tr>
+				<td class="columnTitle">重要程度：</td>
+				<td class="tableContentAuto">
+					<select name="major" disabled>
+						<option value="轻松"  ${major=='轻松' ?"selected":""}>轻松</option>
+						<option value="高级"  ${major=='高级' ?"selected":""}>高级</option>
+						<option value="超级"  ${major=='超级' ?"selected":""}>超级</option>
+						<option value="令人疯狂的"  ${major=='令人疯狂的' ?"selected":""}>令人疯狂的</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="columnTitle">发布日期：</td>
+				<td class="tableContent">
+					<input type="text" style="width:90px;" name="pushDate"
+						   value="${pushDate}"
+						   onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd HH:mm:ss'});" readonly/>
+				</td>
+			</tr>
+			<tr>
+				<td class="columnTitle">任务截止日期：</td>
+				<td class="tableContent">
+					<input type="text" style="width:90px;" name="endDate"
+						   value="${endDate}"
+						   onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd HH:mm:ss'});" readonly/>
+				</td>
+			</tr>
+			<tr>
+				<td class="columnTitle">任务内容：</td>
+				<td class="tableContent"><%-- <input type="text" name="content" value="${content}"/> --%>
+					<textarea name="content"  style="height:150px;width: 600px" readonly>${content}</textarea>
+				</td>
+			</tr>
 	        <tr>
-	            <td class="columnTitle" style="border-color: black">任务内容：</td>
-	            <td class="tableContent" style="border-color: black">
-	          	 <%--  ${content} --%>
-	           	 <textarea name="content"  style="height:100px;width: 100px">${content}</textarea>
-	            </td>
-	        	
-	        	
-	            <td class="columnTitle" style="border-color: black">重要程度：</td>
-	            <td class="tableContent" style="border-color: black">${major}</td>
-	        </tr>	
-	        <tr>
-	            <td class="columnTitle" style="border-color: black">发布日期：</td>
-	            <td class="tableContent" style="border-color: black">${pushDate}</td>
-	        	
-	            <td class="columnTitle" style="border-color: black">任务截止日期：</td>
-	            <td class="tableContent" style="border-color: black">${endDate}</td>
-	        </tr>	
-	        <tr>
-	            <td class="columnTitle" style="border-color: black">状态：</td>
-	            <td class="tableContent" style="border-color: black">${state==0?"未完成":"已完成"}</td>
+	            <td class="columnTitle" >状态：</td>
+	            <td class="tableContent" >
+					<input type="text" style="width: 600px;color:${state==0?"red":"green"};"  readonly="readonly"  name="state" value="${state==0?"未完成":"已完成"}"/>
+				</td>
 	        </tr>	
 		</table>
 	</div>
