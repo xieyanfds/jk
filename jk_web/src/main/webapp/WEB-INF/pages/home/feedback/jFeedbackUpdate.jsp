@@ -6,14 +6,16 @@
 	<script type="text/javascript" src="${ctx }/js/jquery-1.11.3.min.js" ></script>
 	<script type="text/javascript">
 		function toupdate(){
-				var p = /^[0-9]+$/
-				var phone = $("[name='tel']").val();
-				if(p.exec(phone)){
-					formSubmit('feedbackAction_update','_self');
-				}else{
-					alert("非法的联系电话格式!");
-				}
-			}
+            var p = /^[0-9]+$/;
+            var phone = $("#tel").val();
+            if(p.exec(phone)){
+                formSubmit('feedbackAction_update','_self');
+            }else{
+                //设置envon内容
+                $("#envon #mess").html("非法的联系电话格式!");
+                EV_modeAlert('envon');
+            }
+		}
 	</script>
 </head>
 
@@ -61,7 +63,7 @@
 	        </tr>	
 	        <tr>
 	            <td class="columnTitle">联系电话：</td>
-	            <td class="tableContent"><input type="text" name="tel" value="${tel}" style="width: 500px"/></td>
+	            <td class="tableContent"><input id="tel" type="text" name="tel" value="${tel}" style="width: 500px"/></td>
 	        </tr>	
 	        <tr>
 	            <td class="columnTitle">是否公开：</td>
@@ -79,67 +81,67 @@
 	        
 	     </c:if>
 	     <c:if test="${state==1 }">
-	     <tr>
-	            <td class="columnTitle">标题：</td>
-	            <td class="tableContent"><input type="text" name="title" value="${title}" disabled="disabled" style="width: 500px"/></td>
-	        </tr>	
-	        <tr>
-	            <td class="columnTitle">类别：</td>
-	            <td class="tableContent">
-		            <select name="classType" disabled="disabled" >
-		            	<option value="1" <c:if test="${classType==1 }">selected</c:if>>管理</option>
-		            	<option value="2" <c:if test="${classType==2 }">selected</c:if>>安全</option>
-		            	<option value="3" <c:if test="${classType==3 }">selected</c:if>>建议</option>
-		            	<option value="4" <c:if test="${classType==4 }">selected</c:if>>其他</option>
-		            </select>
-	            </td>
-	        </tr>	
-	        <tr>
-	            <td class="columnTitle">联系电话：</td>
-	            <td class="tableContent"><input type="text" name="tel" value="${tel}" disabled="disabled" style="width: 500px"/></td>
-	        </tr>	
-	        <tr>
-	            <td class="columnTitle">内容：</td>
-	            <td class="tableContent"><textarea name="content" style="height:150px;width: 800px" disabled="disabled">${content}</textarea></td>
-	        </tr>	
-	        <tr>
-	            <td class="columnTitle">解决方式：</td>
-	            <td class="tableContent">
-		            <select name="resolution">
-		            	<option value="1" <c:if test="${resolution==1 }">selected</c:if>>已修改</option>
-		            	<option value="2" <c:if test="${resolution==2 }">selected</c:if>>无需修改</option>
-		            	<option value="3" <c:if test="${resolution==3 }">selected</c:if>>重复问题</option>
-		            	<option value="4" <c:if test="${resolution==4 }">selected</c:if>>描述不完整</option>
-		            	<option value="5" <c:if test="${resolution==5 }">selected</c:if>>无法再现</option>
-		            	<option value="6" <c:if test="${resolution==6 }">selected</c:if>>其他</option>
-		            </select>
-	            </td>
-	        </tr>	
-	        <tr>
-	            <td class="columnTitle">解决难度：</td>
-	            <td class="tableContent">
-		            <select name="difficulty">
-		            	<option value="1" <c:if test="${difficulty==1 }">selected</c:if>>极难</option>
-		            	<option value="2" <c:if test="${difficulty==2 }">selected</c:if>>比较难</option>
-		            	<option value="3" <c:if test="${difficulty==3 }">selected</c:if>>有难度</option>
-		            	<option value="4" <c:if test="${difficulty==4 }">selected</c:if>>一般</option>
-		            </select>
-	            </td>
-	        </tr>	
-	         <tr>
-	            <td class="columnTitle">是否公开：</td>
-	            <td class="tableContent">
-	            	<select name="isShare">
-		            	<option value="0" <c:if test="${isShare==0 }">selected</c:if>>不公开</option>
-		            	<option value="1" <c:if test="${isShare==1 }">selected</c:if>>公开</option>
-	            	</select>
-	            </td>
-	        </tr>
-	        <tr>
-	            <td class="columnTitle">解决办法：</td>
-	            <td class="tableContent"><textarea name="solveMethod" style="height:150px;width: 800px">${solveMethod}</textarea></td>
-	        </tr>	
-	      </c:if>  	
+			 <tr>
+				 <td class="columnTitle">标题：</td>
+				 <td class="tableContent"><input type="text" name="title" value="${title}" readonly style="width: 500px"/></td>
+			 </tr>
+			 <tr>
+				 <td class="columnTitle">类别：</td>
+				 <td class="tableContent">
+					 <select name="classType" disabled="disabled">
+						 <option value="1" <c:if test="${classType==1 }">selected</c:if>>管理</option>
+						 <option value="2" <c:if test="${classType==2 }">selected</c:if>>安全</option>
+						 <option value="3" <c:if test="${classType==3 }">selected</c:if>>建议</option>
+						 <option value="4" <c:if test="${classType==4 }">selected</c:if>>其他</option>
+					 </select>
+				 </td>
+			 </tr>
+			 <tr>
+				 <td class="columnTitle">联系电话：</td>
+				 <td class="tableContent"><input type="text" name="tel" value="${tel}" readonly style="width: 500px"/></td>
+			 </tr>
+			 <tr>
+				 <td class="columnTitle">内容：</td>
+				 <td class="tableContent"><textarea name="content" style="height:150px;width: 800px" readonly>${content}</textarea></td>
+			 </tr>
+			 <tr>
+				 <td class="columnTitle">是否公开：</td>
+				 <td class="tableContent">
+					 <select name="isShare">
+						 <option value="0" <c:if test="${isShare==0 }">selected</c:if>>不公开</option>
+						 <option value="1" <c:if test="${isShare==1 }">selected</c:if>>公开</option>
+					 </select>
+				 </td>
+			 </tr>
+			 <tr>
+				 <td class="columnTitle">解决方式：</td>
+				 <td class="tableContent">
+					 <select name="resolution">
+						 <option value="1" >已修改</option>
+						 <option value="2" >无需修改</option>
+						 <option value="3" >重复问题</option>
+						 <option value="4" >描述不完整</option>
+						 <option value="5" >无法再现</option>
+						 <option value="6" >其他</option>
+					 </select>
+				 </td>
+			 </tr>
+			 <tr>
+				 <td class="columnTitle">解决难度：</td>
+				 <td class="tableContent">
+					 <select name="difficulty">
+						 <option value="1" >极难</option>
+						 <option value="2" >比较难</option>
+						 <option value="3" >有难度</option>
+						 <option value="4" >一般</option>
+					 </select>
+				 </td>
+			 </tr>
+			 <tr>
+				 <td class="columnTitle">解决办法：</td>
+				 <td class="tableContent"><textarea name="solveMethod" style="height:150px;width: 800px">${solveMethod}</textarea></td>
+			 </tr>
+	      </c:if>
 		</table>
 	</div>
  

@@ -1,6 +1,7 @@
 package com.xy.action;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.xy.domain.*;
 import com.xy.interceptor.bean.ActionBean;
 import com.xy.service.*;
@@ -13,10 +14,7 @@ import com.xy.utils.UtilFuns;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author xieyan
@@ -42,19 +40,6 @@ public class LoginAction extends BaseAction {
 	//SSH传统登录方式
 	public String login() throws Exception {
 		
-//		if(true){
-//			String msg = "登录错误，请重新填写用户名密码!";
-//			this.addActionError(msg);
-//			throw new Exception(msg);
-//		}
-//		User user = new User(username, password);
-//		User login = userService.login(user);
-//		if (login != null) {
-//			ActionContext.getContext().getValueStack().push(user);
-//			session.put(SysConstant.CURRENT_USER_INFO, login);	//记录session
-//			return SUCCESS;
-//		}
-//		return "login";
 		if(UtilFuns.isNotEmpty(getCurrUser())){
 			return SUCCESS;
 		}
@@ -112,6 +97,21 @@ public class LoginAction extends BaseAction {
 	}
 
 	private void initSessionInfo(User user){
+		//记录登录日志
+		log(user);
+
+		// 将自定义快捷方式菜单放入session
+		initShortCut(user);
+
+
+		// 取出用户使用快捷使用方式
+		initAccessLog(user);
+
+		// 记录用户拥有的菜单权限
+		initPermission(user);
+
+	}
+	private void log(User user){
 		// 登录日志功能
 		LoginLog log = new LoginLog();
 
@@ -121,8 +121,8 @@ public class LoginAction extends BaseAction {
 		// 时间自动生成
 
 		loginLogService.saveOrUpdate(log);
-
-		// 将快捷方式菜单放入session
+	}
+	private void initShortCut(User user){
 		Shortcut shortcut = shortcutService.get(Shortcut.class, user.getId());
 		if (shortcut != null && UtilFuns.isNotEmpty(shortcut.getModuleIds())) {
 			String[] ids = shortcut.getModuleIds().split(",");
@@ -137,8 +137,8 @@ public class LoginAction extends BaseAction {
 				session.put("shortList", list);
 			}
 		}
-
-		// 取出对应用户快捷使用方式
+	}
+	private void initAccessLog(User user){
 		List<AccessLog> accessLogs = accessLogService.find("from AccessLog where userId = ? order by number desc", AccessLog.class, new String[]{user.getId()});
 		LinkedHashMap<String, ActionBean> linkedHashMap = new LinkedHashMap<>();
 		for(AccessLog accessLog : accessLogs){
@@ -151,6 +151,20 @@ public class LoginAction extends BaseAction {
 			linkedHashMap.put(accessLog.getModuleKey(),actionBean);
 		}
 		session.put(SysConstant.ALL_ACTIONNAME,linkedHashMap);
+	}
+	private void initPermission(User user){
+		Set<Role> roles = user.getRoles();
+		HashSet<String> mSet = Sets.newHashSet();
+		for (Role role : roles) {
+			//获取每个角色的权限
+			Set<Module> modules = role.getModules();
+			for (Module module : modules) {
+				if(module.getCtype()==0) {
+					mSet.add(module.getName());
+				}
+			}
+		}
+		session.put(SysConstant.ALL_PERMISSION,mSet);
 	}
 }
 

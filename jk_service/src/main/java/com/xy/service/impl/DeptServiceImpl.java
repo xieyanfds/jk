@@ -68,7 +68,6 @@ public class DeptServiceImpl implements DeptService {
 		
 	}
 
-	@Override
 	public void findSubDept(ArrayList<Dept> list, Class<Dept> deptClass, String id) {
 		List<Dept> list2 = baseDao.find("from Dept where state = 1 and parent.id = ?", Dept.class, id);
 		if (list2 != null && list2.size() > 0) {

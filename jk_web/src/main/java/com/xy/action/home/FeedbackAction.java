@@ -14,10 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author xieyan
- * @description 系统反馈
+ * @description 意见反馈
  * @date 2017/12/26.
  */
 public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> {
@@ -35,7 +36,7 @@ public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> 
 	}
 
 	// 作为属性驱动，接收并封装页面参数
-	private Page page = new Page(); // 封装页面的参数，主要当前页参数
+	private Page page = new Page();
 
 	public void setPage(Page page) {
 		this.page = page;
@@ -47,21 +48,24 @@ public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> 
 		User user = super.getCurrUser();
 		Integer degree = user.getUserInfo().getDegree();
 		if (degree == 4) {
+			// 说明是员工
 			hql += "and createBy = '" + user.getId() + "'";
-			// 部门管理者能查本部门人员创建的contract
+
 		} else if (degree == 3) {
+			// 说明是部门经理，管理本部门
 			hql += "and createDept = " + user.getDept().getId();
-			// 管理本部门及下属部门者可以查看所有由本部门人员和下属部门人员创建的意见
+
 		} else if (degree == 2) {
-			ArrayList<Dept> list = new ArrayList<>();
-			deptService.findSubDept(list, Dept.class, user.getDept().getId());
-			StringBuilder sb = new StringBuilder("(");
-			for (Dept dept : list) {
-				sb.append("'").append(dept.getId()).append("'").append(",");
-			}
-			sb.append("'").append(user.getDept().getId()).append("'").append(")");
-			hql += "and createDept in " + sb.toString();
-			// 跨部门管理者,需要修改表结构,尚未实现
+			//说明是管理本部门及下属部门？？？？？
+			hql += " and createDept in (select id from Dept where id like '"+super.getCurrUser().getDept().getId()+"%')";
+
+		}else if(degree==1){
+			//说明是副总需要创建一个中间表
+			hql += " and createBy in (select id from 中间表 where uid = "+super.getCurrUser().getId()+" and type='员工') "
+					+ "or createDept in (select id from 中间表 where uid = "+super.getCurrUser().getId()+" and type='部门')";
+		}else if(degree==0){
+			//说明是总经理
+
 		}
 
 		hql += ") or isShare = 1";
@@ -69,7 +73,12 @@ public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> 
 		page.setUrl("feedbackAction_list");		//配置分页按钮的转向链接
 		page = feedbackService.findPage(hql, page, Feedback.class, null);
 		pushVS(page);
-		return "list";						//page list
+		return "list";
+	}
+
+	//转向新增页面
+	public String tocreate(){
+		return "tocreate";
 	}
 
 	//新增保存
@@ -88,10 +97,9 @@ public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> 
 	public String toupdate(){
 
 		//准备数据
-		Feedback feedback = feedbackService.get(Feedback.class, model.getId());
-		String json = FastJsonUtil.toJSONString(feedback);
-		FastJsonUtil.write_json(ServletActionContext.getResponse(), json);
-		return NONE;
+		Feedback obj = feedbackService.get(Feedback.class, model.getId());
+		super.pushVS(obj);
+		return "toupdate";
 	}
 
 	//修改保存
@@ -124,9 +132,15 @@ public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> 
 	 */
 	public String toview(){
 		Feedback obj = feedbackService.get(Feedback.class, model.getId());
-		String json = FastJsonUtil.toJSONString(obj);
-		FastJsonUtil.write_json(ServletActionContext.getResponse(), json);
-		return NONE;
+		super.pushVS(obj);
+		return "toview";
+	}
+
+	//转向解决页面
+	public String tosolve(){
+		Feedback obj = feedbackService.get(Feedback.class, model.getId());
+		super.pushVS(obj);
+		return "tosolve";
 	}
 
 

@@ -2,7 +2,7 @@ package com.xy.interceptor.bean;
 
 /**
  * @author xieyan
- * @description
+ * @description 使用快捷方式中间记录对象
  * @date 2018/1/23.
  */
 public class ActionBean {

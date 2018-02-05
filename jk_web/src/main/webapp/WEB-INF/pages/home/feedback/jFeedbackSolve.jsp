@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="../../base.jsp"%>
+<%@ include file="../../baselist.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
@@ -33,7 +33,7 @@
 		<table class="commonTable" cellspacing="1">
 	        <tr>
 	            <td class="columnTitle">标题：</td>
-	            <td class="tableContent"><input type="text" name="title" value="${title}" disabled="disabled" style="width: 500px"/></td>
+	            <td class="tableContent"><input type="text" name="title" value="${title}" readonly style="width: 500px"/></td>
 	        </tr>	
 	        <tr>
 	            <td class="columnTitle">类别：</td>
@@ -48,11 +48,11 @@
 	        </tr>	
 	        <tr>
 	            <td class="columnTitle">联系电话：</td>
-	            <td class="tableContent"><input type="text" name="tel" value="${tel}" disabled="disabled" style="width: 500px"/></td>
+	            <td class="tableContent"><input type="text" name="tel" value="${tel}" readonly style="width: 500px"/></td>
 	        </tr>	
 	        <tr>
 	            <td class="columnTitle">内容：</td>
-	            <td class="tableContent"><textarea name="content" style="height:150px;width: 800px" disabled="disabled">${content}</textarea></td>
+	            <td class="tableContent"><textarea name="content" style="height:150px;width: 800px" readonly>${content}</textarea></td>
 	        </tr>	
 	        <tr>
 	            <td class="columnTitle">是否公开：</td>

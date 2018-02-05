@@ -57,7 +57,7 @@
 			<tr>
 				<td class="columnTitle">发布日期：</td>
 				<td class="tableContent">
-					<input type="text" style="width:90px;" name="pushDate"
+					<input type="text" style="width:112px;" name="pushDate"
 						   value="<fmt:formatDate value="${pushDate}" pattern="yyyy-MM-dd HH:mm:ss" />"
 						   onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd HH:mm:ss'});" readonly/>
 				</td>
@@ -65,7 +65,7 @@
 			<tr>
 				<td class="columnTitle">任务截止日期：</td>
 				<td class="tableContent">
-					<input type="text" style="width:90px;" name="endDate"
+					<input type="text" style="width:112px;" name="endDate"
 						   value="<fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd HH:mm:ss" />"
 						   onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd HH:mm:ss'});" readonly/>
 				</td>

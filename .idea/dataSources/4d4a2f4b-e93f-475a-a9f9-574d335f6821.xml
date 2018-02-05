@@ -1802,7 +1802,7 @@ ROLE_ID</ColNames>
     </column>
     <column id="460" parent="37" name="MESSAGE">
       <Position>2</Position>
-      <DataType>varchar(100)|0</DataType>
+      <DataType>varchar(300)|0</DataType>
     </column>
     <column id="461" parent="37" name="CREATE_DEPT">
       <Position>3</Position>

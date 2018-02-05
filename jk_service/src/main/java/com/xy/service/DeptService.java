@@ -26,6 +26,4 @@ public interface DeptService {
 	public  void deleteById(Class<Dept> entityClass, Serializable id);
 	//批量删除
 	public  void delete(Class<Dept> entityClass, Serializable[] ids);
-	//查找子部门
-	public void findSubDept(ArrayList<Dept> list, Class<Dept> deptClass, String id);
 }

@@ -22,7 +22,8 @@
 </div>
    
   <div class="textbox-title">
-   新增系统使用反馈
+	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
+	新增系统使用反馈
   </div> 
   
 

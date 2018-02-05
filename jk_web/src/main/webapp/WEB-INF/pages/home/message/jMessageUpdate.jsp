@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="../../base.jsp"%>
+<%@ include file="../../baselist.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
@@ -56,7 +56,7 @@
 	            <td class="columnTitle">时间：</td>
 				<td class="tableContent">
 	            <input type="text" style="width:112px;" name="messageTime"
-	            	 value="${messageTime }"
+	            	 value="<fmt:formatDate value="${messageTime}" pattern="yyyy-MM-dd HH:mm:ss" />"
 	             	onclick="WdatePicker({el:this,isShowOthers:true,opposite:true,dateFmt:'yyyy-MM-dd HH:mm:ss'});"/>
 	        </tr>
 	         <tr> 

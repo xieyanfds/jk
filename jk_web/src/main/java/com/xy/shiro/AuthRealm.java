@@ -5,13 +5,16 @@ import com.xy.domain.Module;
 import com.xy.domain.Role;
 import com.xy.domain.User;
 import com.xy.service.UserService;
+import com.xy.utils.SysConstant;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,17 +29,19 @@ public class AuthRealm extends AuthorizingRealm{
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		User user = (User) arg0.fromRealm(this.getName()).iterator().next();
 		HashSet<String> mSet = Sets.newHashSet();
-		if(user!=null){
-			Set<Role> roles = user.getRoles();//对象导航
+		if(user!=null) {
+			/*Set<Role> roles = user.getRoles();//对象导航
 			for (Role role : roles) {
 				//获取每个角色的权限
 				Set<Module> modules = role.getModules();
 				for (Module module : modules) {
 					mSet.add(module.getName());
 				}
-			}
+			}*/
+			HttpSession session = ServletActionContext.getRequest().getSession();
+			Set allPermission = (Set)session.getAttribute(SysConstant.ALL_PERMISSION);
 			SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-			authorizationInfo.addStringPermissions(mSet);//添加用户的权限
+			authorizationInfo.addStringPermissions(allPermission);//添加用户的权限
 			return authorizationInfo;
 		}
 		return null;

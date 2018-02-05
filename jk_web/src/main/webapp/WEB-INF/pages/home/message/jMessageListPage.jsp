@@ -53,9 +53,9 @@
 	</script>
 
 	<div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/folder_edit.png"/>
-	我的留言板
-</div>
+		<img src="${ctx }/skin/default/images/icon/folder_edit.png"/>
+		我的留言板
+	</div>
 
 <br/>
 <div>

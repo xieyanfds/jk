@@ -8,6 +8,8 @@ import com.xy.service.SystemFeedbackService;
 import com.xy.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
 /**
  * @author xieyan
  * @description 系统使用反馈
@@ -31,23 +33,29 @@ public class SystemFeedbackAction extends BaseAction implements ModelDriven<Syst
 	//列表展示
 	public String list(){
 		User user = super.getCurrUser();
-
 		String hql = "from SystemFeedback s where 1=1 ";
-
 		int degree = user.getUserInfo().getDegree();
+		if(degree==4){
+			//说明是员工
+			hql+=" and createBy = '"+user.getId()+"'";
 
-		if (degree == 4) { // 四级是普通员工只能自己看
-			hql += "and createBy = '" + user.getId() + "'";
-		} else if (degree == 3) { // 三级管理本部门, 可以看所有本部门的信息
-			hql += "and createDept like '" + user.getDept().getId() + "%'";
-		} else if (degree == 2) { // 二级管理所有下属部门, 可以查看管辖区域内的信息
-			hql += "and createDept like '" + user.getDept().getParent().getId() + "%'";
-		} else if (degree == 1) {
-			hql += "and createDept = '" + user.getDept().getId() + "'";
-		} else if (degree == 0) {
-			hql += "and createDept = '" + user.getDept().getId() + "'";
+		}else if(degree==3){
+			//说明是部门经理，管理本部门
+			hql+=" and createDept = '"+user.getDept().getId()+"'";
+
+		}else if(degree==2){
+			//说明是管理本部门及下属部门？？？？？
+			hql+=" and createDept in (select id from Dept where id like '"+super.getCurrUser().getDept().getId()+"%')";
+
+		}else if(degree==1){
+			//说明是副总？？？？？
+			//需要创建一个中间表
+			hql+=" and createBy in (select id from 中间表 where uid = "+super.getCurrUser().getId()+" and type='员工') "
+					+ "or createDept in (select id from 中间表 where uid = "+super.getCurrUser().getId()+" and type='部门')";
+		}else if(degree==0){
+			//说明是总经理
+
 		}
-
 		//按创建顺序排序
 		hql += " order by createTime desc";
 
@@ -71,6 +79,7 @@ public class SystemFeedbackAction extends BaseAction implements ModelDriven<Syst
 		model.setCreateBy(currUser.getId());
 		model.setCreateDept(currUser.getDept().getId());
 		model.setCreateName(currUser.getUserName());
+		model.setCreateTime(new Date());
 		model.setCreateDeptName(currUser.getDept().getDeptName());
 		systemFeedbackService.saveOrUpdate(model);
 
@@ -93,12 +102,4 @@ public class SystemFeedbackAction extends BaseAction implements ModelDriven<Syst
 		return "alist";
 	}
 	
-	//查看
-	public String toview(){
-		SystemFeedback obj = systemFeedbackService.get(SystemFeedback.class, model.getId());
-		super.pushVS(obj);
-
-		//转向查看页面
-		return "pview";
-	}
 }
