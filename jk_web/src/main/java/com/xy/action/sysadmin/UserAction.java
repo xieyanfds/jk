@@ -259,7 +259,7 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		List<User> userList = userService.find("from User where userInfo.manager.id=? ", User.class,new String[]{ model.getId()});
 		if(userList!=null&&userList.size()>0){
 			//存在 将用户转为json写回
-			String jsonString = JSON.toJSONString(userList.get(0));
+			String jsonString = JSON.toJSONString(userList);
 			//设置中文
 			response.setContentType("application/json;charset=utf-8");
 			response.getWriter().write(jsonString);

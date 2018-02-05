@@ -137,14 +137,14 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 
 		String hql = "from User";
 		List<User>  userList = userService.find(hql, User.class, null);
-		super.putContext("userList", userList);		//页面就可以访问messageList
+		super.putContext("userList", userList);
 
 		Message obj = messageService.get(Message.class, model.getId());
 		// 如果查看别人发送的邮件,则state 该为2
 		if(obj.getReceiveId().equals(this.getCurrUser().getId())){
 			//此时是接收人查看，修改状态为已读
 			obj.setState(2);
-			messageService.saveOrUpdate(obj); //重新保存
+//			messageService.saveOrUpdate(obj); //重新保存,快照机制，session延长
 		}
 		super.pushVS(obj);
 
