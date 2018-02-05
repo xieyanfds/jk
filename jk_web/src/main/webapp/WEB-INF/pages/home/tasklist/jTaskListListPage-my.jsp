@@ -4,8 +4,36 @@
 <head>
 <title></title>
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="${ctx }/layer/layer.js"></script>
 <script type="text/javascript">
+    function showDetail(uid) {
+        $.post("${pageContext.request.contextPath}/sysadmin/userAction_findById4ajax.action",
+            {
+                "id" : uid
+            },
+            function(data) {
+                var s = "<table width='100%'; border=1px;>"
+                    + "<tr style='background: #add8d3;height: 40px;'><td >姓名</td><td>部门</td><td >电话</td><td>邮箱</td></tr>"
+                    + "<tr style='background: #fff;height: 40px;'><td>"
+                    + data.userName
+                    + "</td><td>"
+                    + data.dept.deptName
+                    + "</td><td>"
+                    + data.userInfo.telephone
+                    + "</td><td>"
+                    + data.userInfo.email
+                    + "</td></tr></table>";
 
+                layer.open({
+                    type : 0,
+                    title : "查看任务执行者详情",
+                    area : [ '600px', '500px' ],
+                    shadeClose : true,
+                    content : s
+                });
+            }, "json");
+
+    }
     // 实现查看
     function to_view(url) {
         if (isOnlyChecked()) {
@@ -91,7 +119,6 @@
 							<td class="tableHeader">状态</td>
 							<td class="tableHeader">重要程度</td>
 							<td class="tableHeader">执行者详情</td>
-							<td class="tableHeader">任务下放</td>
 						</tr>
 					</thead>
 					<tbody class="tableBody">
@@ -100,7 +127,7 @@
 						<c:forEach items="${page.results}" var="o" varStatus="status">
 							<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
 								<td><input type="checkbox" name="id" value="${o.id}" /></td>
-								<td><a href="taskListAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+								<td style="cursor: pointer;" onclick="statusToAction('taskListAction_toview?id=${o.id}')"><a href="taskListAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 								<td>${o.userName}</td>
 								<td>${o.pusherName}</td>
 								<td>
@@ -122,12 +149,8 @@
 								</td>
 								<td>${o.major}</td>
 								<td><input type="button"
-									onclick="showDetail('${o.userId}')" value="查看执行者详情"
-									style="border-color: #4898d5; background-color: #2e8ded;color: #fff; "></td>
-								<td><input type="button"
-									onclick="further('${o.userId}','${o.id }')" value="任务向下发放"
-									style="border-color: #4898d5; background-color: #2e8ded;color: #fff; "
-									></td>
+								onclick="showDetail('${o.userId}')" value="查看执行者详情"
+								style="border: #4898d5 1px solid; background-color: #add8d3;color: #fff;border-radius: 4px;"></td>
 							</tr>
 						</c:forEach>
 

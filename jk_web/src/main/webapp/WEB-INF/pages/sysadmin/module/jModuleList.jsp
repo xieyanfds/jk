@@ -58,7 +58,7 @@
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td><a href="moduleAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+		<td style="cursor: pointer;" onclick="statusToAction('moduleAction_toview?id=${o.id}')"><a href="moduleAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 		<td>${o.name}</td>
 		<td>${o.layerNum}</td>
 		<td>${o.cpermission}</td>

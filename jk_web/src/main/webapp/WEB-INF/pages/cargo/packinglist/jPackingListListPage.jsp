@@ -53,7 +53,7 @@ ${links}
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" align="center">
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td><a href="packingListAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+		<td style="cursor: pointer;" onclick="statusToAction('packingListAction_toview?id=${o.id}')"><a href="packingListAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 		<td>${o.seller}</td>
 		<td>${o.buyer}</td>
 		<td>${o.invoiceNo}</td>

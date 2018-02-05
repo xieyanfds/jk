@@ -32,4 +32,7 @@
             }
         }
     }
+    function statusToAction(obj){
+        window.location.href=obj;
+    }
 </script>

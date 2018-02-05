@@ -93,7 +93,7 @@ ${page.links}
 	<c:forEach items="${page.results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td>${status.index+1}</td>
+		<td style="cursor: pointer;" onclick="statusToAction('messageAction_toview?id=${o.id}')">${status.index+1}</td>
 		<td>${o.createName}</td>
 		<td>${o.createDeptName}</td>
 		<td>${o.createDept}</td>

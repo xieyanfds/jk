@@ -6,38 +6,6 @@
 <head>
 	<title></title>
 	<script type="text/javascript" src="${ctx }/js/jquery-1.4.4.js"></script>
-	<script>
-	     function isOnlyChecked(){
-	    	 var checkBoxArray = document.getElementsByName('id');
-				var count=0;
-				for(var index=0; index<checkBoxArray.length; index++) {
-					if (checkBoxArray[index].checked) {
-						count++;
-					}	
-				}
-			//jquery
-			//var count = $("[input name='id']:checked").size();
-			if(count==1)
-				return true;
-			else
-				return false;
-	     }
-	     function toView(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('deptAction_toview','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	     //实现更新
-	     function toUpdate(){
-	    	 if(isOnlyChecked()){
-	    		 formSubmit('deptAction_toupdate','_self');
-	    	 }else{
-	    		 alert("请先选择一项并且只能选择一项，再进行操作！");
-	    	 }
-	     }
-	</script>
 </head>
 
 <body>
@@ -91,7 +59,7 @@
 	<c:forEach items="${results }" var="dept"  varStatus="status">
 		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 			<td><input type="checkbox" name="id" value="${dept.id }"/></td>
-			<td><a href="deptAction_toview?id=${dept.id}" style="color:blue;">${status.index+1}</a></td>
+			<td style="cursor: pointer;" onclick="statusToAction('deptAction_toview?id=${dept.id}')"><a href="deptAction_toview?id=${dept.id}" style="color:blue;">${status.index+1}</a></td>
 			<td>${dept.id }</td>
 			<td>${dept.parent.deptName }</td>
 			<td>${dept.deptName }</td>

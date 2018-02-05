@@ -61,13 +61,13 @@
 					</select>
 	            </td>
 	        </tr>	
-	        <tr>
+	        <%--<tr>
 	            <td class="columnTitle">发布日期：</td>
 	             <td class="tableContent">
 	            <input type="text" style="width:90px;" name="pushDate"
 	            	 value=""
 	             	onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd HH:mm:ss'});"/>
-	        </tr>	
+	        </tr>--%>
 	        <tr>
 	            <td class="columnTitle">任务截止日期：</td>
 	             <td class="tableContent">

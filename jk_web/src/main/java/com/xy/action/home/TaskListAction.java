@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,7 +61,7 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 		// 获取当前登录用户
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
 		// 查询自己发布的任务
-		String hql = "from TaskList where  pusherId='" + user.getId() + "' order by pushDate  desc";
+		String hql = "from TaskList where  pusherId='" + user.getId() + "' order by pushDate desc";
 		page.setUrl("tasklistAction_findMyTask");
 		// 给页面提供分页数据
 		page = taskListService.findPage(hql, page, TaskList.class, null);
@@ -74,7 +75,7 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 		// 获取当前登录用户
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
 		// 查询执行者是自己的任务
-		String hql = "from TaskList where userId='" + user.getId() + "' and state = 0 order by pushDate  desc";
+		String hql = "from TaskList where userId='" + user.getId() + "' and state = 0 order by pushDate desc";
 		page.setUrl("tasklistAction_myTask");
 		// 给页面提供分页数据
 		page = taskListService.findPage(hql, page, TaskList.class, null);
@@ -117,7 +118,7 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	public String insert() {
 		User user = userService.get(User.class, model.getUserId());
 		model.setUserName(user.getUserName());
-
+		model.setPushDate(new Date());
 		taskListService.saveOrUpdate(model);
 		// 返回列表
 		return list();

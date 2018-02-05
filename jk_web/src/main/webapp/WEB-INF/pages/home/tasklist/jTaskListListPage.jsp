@@ -9,13 +9,6 @@
 
 
 	function showDetail(uid) {
-		/* layer.open({
-			type:1,
-			title:"订单详情",
-			area:['400px','300px'],
-			shadeClose:false,
-			content:"订单"
-		}); */
 		$.post("${pageContext.request.contextPath}/sysadmin/userAction_findById4ajax.action",
 						{
 							"id" : uid
@@ -51,7 +44,7 @@
             $("#envon #mess").html("您不是任务执行者！不能下放任务！");
             EV_modeAlert('envon');
  		}else{
- 		
+
 		$.post("${ctx}/sysadmin/userAction_hasManager",{"id":cur_u_id},
 				function(data) {
 						console.info(data);
@@ -68,7 +61,7 @@
 									+ "<input type='submit' style='border-radius: 4px;background: aliceblue;' value='下放任务'>"
 									+ "<input type='hidden' name='id' value='"+tid+"'>"
 									+ "</form>";
-								     
+
 									 layer.open({
 											type : 0,
 											title : "任务转移给哪位下属",
@@ -76,13 +69,13 @@
 											shadeClose : true,
 											content : s
 										});
-							}	 
-							
-							
+							}
+
+
 			}, "json");
  		}
 	}
- 
+
 </script>
 
 </head>
@@ -186,6 +179,7 @@
                     }
                 });
             }
+
 		</script>
 
 		<div class="textbox-title">
@@ -220,15 +214,15 @@
 						<c:forEach items="${page.results}" var="o" varStatus="status">
 							<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
 								<td><input type="checkbox" name="id" value="${o.id}" /></td>
-								<td><a href="taskListAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+								<td style="cursor: pointer;" onclick="statusToAction('taskListAction_toview?id=${o.id}')"><a href="#" style="color:blue;">${status.index+1}</a></td>
 								<td>${o.userName}</td>
 								<td>${o.pusherName}</td>
 								<td>
 									<c:if test="${fn:length(o.content) >10}">${fn:substring(o.content,0,6)}...</c:if>
 									<c:if test="${fn:length(o.content) <11}">${o.content}</c:if>
 								</td>
-								<td><fmt:formatDate value="${o.pushDate}" pattern="yyyy-MM-dd" /></td>
-								<td><fmt:formatDate value="${o.endDate}" pattern="yyyy-MM-dd" /></td>
+								<td><fmt:formatDate value="${o.pushDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								<td><fmt:formatDate value="${o.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td>
 									<c:if test="${o.state==0}">
 										<b><font color="red">未完成</font></b>

@@ -47,11 +47,9 @@
 	</tr>
 	${links }
 	<c:forEach items="${results}" var="o" varStatus="status">
-		<!-- class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" -->
 	<tr>
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td><a href="roleAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
-		<%--<td class="directView">${status.index+1}</td>--%>
+		<td style="cursor: pointer;" onclick="statusToAction('roleAction_toview?id=${o.id}')"><a href="roleAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 		<td>${o.id}</td>
 		<td>${o.name}</td>
 		<td>${o.remark}</td>

@@ -61,7 +61,7 @@
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td><a href="exportAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+		<td style="cursor: pointer;" onclick="statusToAction('exportAction_toview?id=${o.id}')"><a href="exportAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 		<td>${o.id}</td>
 		<td align="center">
 			${o.exportProducts.size()}
