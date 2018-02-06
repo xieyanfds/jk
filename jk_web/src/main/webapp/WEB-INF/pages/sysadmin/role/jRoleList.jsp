@@ -41,7 +41,6 @@
 	<tr align="center">
 		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 		<td class="tableHeader">序号</td>
-		<td class="tableHeader">编号</td>
 		<td class="tableHeader">名称</td>
 		<td class="tableHeader">说明</td>
 	</tr>
@@ -50,7 +49,6 @@
 	<tr>
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
 		<td style="cursor: pointer;" onclick="statusToAction('roleAction_toview?id=${o.id}')"><a href="roleAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
-		<td>${o.id}</td>
 		<td>${o.name}</td>
 		<td>${o.remark}</td>
 	</tr>

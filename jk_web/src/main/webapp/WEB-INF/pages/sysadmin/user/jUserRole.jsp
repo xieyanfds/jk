@@ -36,8 +36,12 @@
   
 <div>
 
-
-<div style="text-align:left">
+<style>
+	input{
+		height:13px;
+	}
+</style>
+<div style="text-align:left;font-size: 12pt;line-height: 36px;">
 	<c:forEach items="${roleList}" var="o">
 		<span style="padding:3px;">
 		<input type="checkbox" name="roleIds" value="${o.id}" class="input"

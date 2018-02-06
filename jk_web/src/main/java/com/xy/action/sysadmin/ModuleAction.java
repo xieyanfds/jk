@@ -57,6 +57,8 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String toview()throws Exception{
+		List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
+		putContext("moduleList", mlist);
 		Module Module = moduleService.get(Module.class, model.getId());
 		pushVS(Module);
 		return "toview";
@@ -67,7 +69,7 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String tocreate()throws Exception{
-		List<Module> mlist = moduleService.find("from Module where state = 1", Module.class, null);
+		List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
 		putContext("moduleList", mlist);
 		return "tocreate";
 	}
@@ -83,6 +85,8 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 		model.setCreateBy(user.getId());
 		model.setCreateDept(user.getDept().getId());
 		model.setCreateTime(new Date());
+		Module module = moduleService.get(Module.class, model.getParentId());
+		model.setParentName(module.getName());
 
 		moduleService.saveOrUpdate(model);
 		return "mlist";
@@ -93,6 +97,8 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String toupdate()throws Exception{
+		List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
+		putContext("moduleList", mlist);
 		Module Module = moduleService.get(Module.class, model.getId());
 		pushVS(Module);
 		return "toUpdate";

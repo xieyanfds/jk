@@ -45,36 +45,36 @@
 		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 		<td class="tableHeader">序号</td>
 		<td class="tableHeader">模块名</td>
+		<td class="tableHeader">父模块名</td>
 		<td class="tableHeader">层数</td>
 		<td class="tableHeader">权限标识</td>
+		<td class="tableHeader">描述</td>
 		<td class="tableHeader">链接</td>
 		<td class="tableHeader">类型</td>
-		<td class="tableHeader">从属</td>
 		<td class="tableHeader">状态</td>
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
 	${links }
 	<c:forEach items="${results}" var="o" varStatus="status">
-	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
-		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td style="cursor: pointer;" onclick="statusToAction('moduleAction_toview?id=${o.id}')"><a href="moduleAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
-		<td>${o.name}</td>
-		<td>${o.layerNum}</td>
-		<td>${o.cpermission}</td>
-		<td>${o.curl}</td>
-		<td>${o.ctype}</td>
-		<td>${o.belong}</td>
-		<td>${o.state==1?"启用":"已停用"}</td>
-	</tr>
+		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
+			<td><input type="checkbox" name="id" value="${o.id}"/></td>
+			<td style="cursor: pointer;" onclick="statusToAction('moduleAction_toview?id=${o.id}')"><a href="moduleAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+			<td>${o.name}</td>
+			<td>${o.parentName}</td>
+			<td>${o.layerNum}</td>
+			<td>${o.ico}</td>
+			<td>${o.cpermission}</td>
+			<td>${o.curl}</td>
+			<td>${o.ctype==0?'主菜单':o.ctype==1?'左侧菜单':'按钮'}</td>
+			<td>${o.state==1?"启用":"已停用"}</td>
+		</tr>
 	</c:forEach>
 	
 	</tbody>
 </table>
 </div>
- 
 </div>
- 
  
 </form>
 </body>

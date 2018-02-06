@@ -154,17 +154,7 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 		
 		return "rlist";
 	}
-	/**
-	 * 为了使用 zTree树，就要组织好zTree树所使用的json数据
-	 * json数据结构如下：
-	 * [{"id":"模块的id","pId":"父模块id","name":"模块名","checked":"true|false"},{"id":"模块的id","pId":"父模块id","name":"模块名","checked":"true|false"}]
-	 * 
-	 * 常用的json插件有哪些？
-	 * json-lib    fastjson     struts-json-plugin-xxx.jar,手动拼接
-	 * 
-	 * 如何输出?
-	 * 借助于response对象输出数据
-	 */
+
 	public String tomodule() throws Exception {
 		System.out.println(this);
 		//先根据id查询角色

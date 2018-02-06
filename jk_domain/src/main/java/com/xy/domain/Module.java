@@ -19,9 +19,9 @@ public class Module extends BaseEntity {
 	private String name;  //模块名
 	private Integer layerNum;//层数   
 	private Integer isLeaf;//叶子
-	private String ico;  //图片
-	private String cpermission;//权限
-	private String curl;//路径
+	private String ico;  //权限标识
+	private String cpermission;//显示的描述
+	private String curl;//访问路径
 	private Integer ctype;//菜单的类型：主菜单，左侧菜单，按钮
 	private Integer state;//状态
 	private String belong;//从属于
