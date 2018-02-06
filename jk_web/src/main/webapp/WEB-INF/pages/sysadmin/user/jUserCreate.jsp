@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="../../base.jsp"%>
+<%@ include file="../../baselist.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
@@ -71,11 +71,15 @@
 	            <td class="tableContent">
 					<input type="text" style="width:90px;" name="userInfo.joinDate"
 	            	 value=""
-	             	onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
+	             	 onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
 				</td>
-				<td class="columnTitle">薪水：</td>
-	            <td class="tableContent"><input type="text" name="userInfo.salary" value=""/></td>
-	        </tr>		
+				<td class="columnTitle">出生年月：</td>
+				<td class="tableContent">
+					<input type="text" style="width:90px;" name="userInfo.birthday"
+						   value=""
+						   onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
+				</td>
+	        </tr>
 	        <tr>
 	            <td class="columnTitle">等级：</td>
 	            <td class="tableContentAuto">
@@ -96,21 +100,18 @@
 	            </td>
 	        </tr>	
         	<tr>
+				<td class="columnTitle">薪水：</td>
+				<td class="tableContent"><input type="text" name="userInfo.salary" value=""/></td>
 	            <td class="columnTitle">岗位：</td>
 	            <td class="tableContent"><input type="text" name="userInfo.station" value=""/></td>
-	            <td class="columnTitle">电话：</td>
-	            <td class="tableContent"><input type="text" name="userInfo.telephone" value=""/></td>
+
 	        </tr>	
         	<tr>
+				<td class="columnTitle">电话：</td>
+				<td class="tableContent"><input type="text" name="userInfo.telephone" value=""/></td>
         	    <td class="columnTitle">邮箱：</td>
 	            <td class="tableContent"><input type="text" name="userInfo.email" value=""/></td>
-	            <td class="columnTitle">出生年月：</td>
-	            <td class="tableContent">
-					<input type="text" style="width:90px;" name="userInfo.birthday"
-	            	 value=""
-	             	onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
-				</td>
-	        </tr>	
+	        </tr>
         	<tr>
         	    <td class="columnTitle">排序号：</td>
 	            <td class="tableContent"><input type="text" name="userInfo.orderNo" value=""/></td>

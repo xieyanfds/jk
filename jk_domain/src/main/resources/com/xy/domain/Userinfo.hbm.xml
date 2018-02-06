@@ -27,7 +27,7 @@
 		<property name="email" column="EMAIL"></property>
 		
 		<!--	private User manager;//用户与直属领导    多对一 -->
-      	<many-to-one name="manager" class="User" column="MANAGER_ID"></many-to-one>
+      	<many-to-one name="manager" class="User" column="MANAGER_ID" ></many-to-one>
       	
 	</class>
 </hibernate-mapping>

@@ -45,6 +45,10 @@
 		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 		<td class="tableHeader">序号</td>
 		<td class="tableHeader">用户名</td>
+		<td class="tableHeader">所在部门</td>
+		<td class="tableHeader">等级</td>
+		<td class="tableHeader">电话</td>
+		<td class="tableHeader">入职时间</td>
 		<td class="tableHeader">状态</td>
 	</tr>
 	</thead>
@@ -52,12 +56,16 @@
 ${links}
 	
 	<c:forEach items="${results}" var="o" varStatus="status">
-	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
-		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td style="cursor: pointer;" onclick="statusToAction('userAction_toview?id=${o.id}')"><a href="userAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
-		<td>${o.userName}</td>
-		<td>${o.state==1?"启用":"已停用"}</td>
-	</tr>
+		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+			<td><input type="checkbox" name="id" value="${o.id}"/></td>
+			<td style="cursor: pointer;" onclick="statusToAction('userAction_toview?id=${o.id}')"><a href="userAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+			<td>${o.userName}</td>
+			<td>${o.dept.deptName}</td>
+			<td>${o.userInfo.degree==0?'超级管理员':o.userInfo.degree==1?'跨部门跨人员':o.userInfo.degree==2?'管理所有下属部门和人员':o.userInfo.degree==3?'管理本部门':'普通员工'}</td>
+			<td>${o.userInfo.telephone}</td>
+			<td><fmt:formatDate value='${o.userInfo.joinDate}' pattern="yyyy-MM-dd"/></td>
+			<td>${o.state==1?"<font color='green'>启用</font>":"<font color='red'>已停用</font>"}</td>
+		</tr>
 	</c:forEach>
 	
 	</tbody>

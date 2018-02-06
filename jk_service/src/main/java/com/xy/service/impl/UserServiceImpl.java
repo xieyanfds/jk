@@ -2,6 +2,7 @@ package com.xy.service.impl;
 
 import com.xy.dao.BaseDao;
 import com.xy.domain.User;
+import com.xy.domain.Userinfo;
 import com.xy.service.UserService;
 import com.xy.utils.Encrypt;
 import com.xy.utils.Page;
@@ -64,6 +65,12 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void deleteById(Class<User> entityClass, Serializable id) {
+		List<Userinfo> users = baseDao.find("from Userinfo where manager.id = '" + id + "'", Userinfo.class, null);
+		for(Userinfo user : users){
+			user.setManager(null);
+			//快照机制
+//			baseDao.saveOrUpdate(user);
+		}
 		baseDao.deleteById(entityClass, id);
 	}
 

@@ -47,8 +47,7 @@
 	<tr>
 		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 		<td class="tableHeader">序号</td>
-		<td class="tableHeader">编号</td>
-		<td class="tableHeader">上级</td>
+		<td class="tableHeader">上级部门</td>
 		<td class="tableHeader">名称</td>
 		<td class="tableHeader">状态</td>
 	</tr>
@@ -60,8 +59,10 @@
 		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 			<td><input type="checkbox" name="id" value="${dept.id }"/></td>
 			<td style="cursor: pointer;" onclick="statusToAction('deptAction_toview?id=${dept.id}')"><a href="deptAction_toview?id=${dept.id}" style="color:blue;">${status.index+1}</a></td>
-			<td>${dept.id }</td>
-			<td>${dept.parent.deptName }</td>
+			<td>
+				<c:if test="${dept.parent.deptName!=''and dept.parent.deptName!=null}">${dept.parent.deptName }</c:if>
+				<c:if test="${dept.parent.deptName=='' or dept.parent.deptName==null}">无</c:if>
+			</td>
 			<td>${dept.deptName }</td>
 			<td>
 				${dept.state==1?"启用":"已停用"}

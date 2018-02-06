@@ -22,7 +22,7 @@ public class Module extends BaseEntity {
 	private String ico;  //图片
 	private String cpermission;//权限
 	private String curl;//路径
-	private Integer ctype;//菜单的类型：主菜单，左侧菜单   ，按钮
+	private Integer ctype;//菜单的类型：主菜单，左侧菜单，按钮
 	private Integer state;//状态
 	private String belong;//从属于
 	private String cwhich;//

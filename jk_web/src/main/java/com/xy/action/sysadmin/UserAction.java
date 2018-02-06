@@ -82,6 +82,10 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	public String toview()throws Exception{
 		User User = userService.get(User.class, model.getId());
 		pushVS(User);
+		List<Dept> deptList = deptService.find("from Dept where state = 1", Dept.class, null);
+		putContext("deptList", deptList);
+		List<User> ulist = userService.find("from User where state = 1", User.class, null);
+		putContext("userList", ulist);
 		return "toview";
 	}
 	/**
@@ -141,6 +145,8 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		pushVS(User);
 		List<Dept> deptList = deptService.find("from Dept where state = 1", Dept.class, null);
 		putContext("deptList", deptList);
+		List<User> ulist = userService.find("from User where state = 1", User.class, null);
+		putContext("userList", ulist);
 		return "toUpdate";
 	}
 	/**
