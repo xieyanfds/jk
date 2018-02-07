@@ -21,7 +21,7 @@
 </div>
    
   <div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/folder_edit.png"/>
+	  <img src="${ctx }/skin/default/images/icon/Alert_09.gif" width="32px;" height="32px;"/>
    留言板
   </div>
   

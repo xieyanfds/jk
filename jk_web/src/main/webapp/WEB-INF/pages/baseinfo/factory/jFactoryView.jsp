@@ -23,7 +23,7 @@
 </div>
    
   <div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
+	<img src="${ctx }/skin/default/images/icon/column-chart.png"/>
    浏览厂家
   </div>
   

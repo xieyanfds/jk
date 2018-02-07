@@ -29,7 +29,7 @@
 </div>
    
   <div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
+	<img src="${ctx }/skin/default/images/icon/component.png"/>
    产品新增
   </div> 
   

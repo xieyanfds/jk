@@ -3,6 +3,9 @@ package com.xy.test;
 import com.google.common.collect.Lists;
 import com.xy.interceptor.bean.ActionBean;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -39,16 +42,8 @@ public class StirngTest {
             }
         });
         System.out.println(objects);
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("123");
-        strings.add("14");
-        strings.add("1412");
-        strings.add("14121");
-        System.out.println(strings.size());
-        for (int i = 0; i < strings.size(); i++) {
-            System.out.println(strings.get(i));
-            System.out.println(strings.get(++i));
-        }
 
+        LocalDate localDate = LocalDate.parse("2017-02-07").plusWeeks(1);
+        System.out.println(localDate.toString());
     }
 }

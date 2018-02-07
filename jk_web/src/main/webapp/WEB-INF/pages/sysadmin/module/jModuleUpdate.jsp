@@ -23,13 +23,15 @@
 </div>
    
 <div class="textbox" id="centerTextbox">
-  <div class="textbox-header">
-  <div class="textbox-inner-header">
-  <div class="textbox-title">
-   修改模块
-  </div> 
-  </div>
-  </div>
+<div class="textbox-header">
+<div class="textbox-inner-header">
+	<div class="textbox-title">
+		<img src="${ctx }/skin/default/images/icon/document_attachment.png"/>
+		修改模块
+	</div>
+</div>
+</div>
+</div>
   
 
  

@@ -22,8 +22,8 @@
 </div>
    
   <div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
-修改密码
+	<img src="${ctx }/skin/default/images/icon/users_content.png"/>
+	修改密码
   </div> 
   
 

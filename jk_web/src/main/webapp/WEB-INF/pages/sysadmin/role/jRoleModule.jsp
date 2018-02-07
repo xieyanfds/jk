@@ -85,10 +85,12 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-    配置 [${name}] 角色的模块  
+	<img src="${ctx }/skin/default/images/icon/node.png"/>
+	配置 [${name}] 角色的模块
   </div> 
   </div>
   </div>
+</div>
   
 <%-- <div>
 

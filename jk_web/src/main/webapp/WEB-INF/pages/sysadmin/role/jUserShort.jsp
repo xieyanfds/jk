@@ -76,10 +76,12 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-    配置 [${userName}] 快捷方式  ,5个最佳!!
+	<img src="${ctx }/skin/default/images/icon/node.png"/>
+	配置 [${userName}] 快捷方式  ,5个最佳!!
   </div> 
   </div>
   </div>
+</div>
   
 <%-- <div>
 

@@ -26,7 +26,8 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-   修改角色
+	<img src="${ctx }/skin/default/images/icon/id_card2.png"/>
+	修改角色
   </div> 
   </div>
   </div>

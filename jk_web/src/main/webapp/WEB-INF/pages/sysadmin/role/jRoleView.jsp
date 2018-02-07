@@ -24,7 +24,8 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-   浏览角色
+	<img src="${ctx }/skin/default/images/icon/businessman_view.png"/>
+	浏览角色
   </div> 
   </div>
   </div>

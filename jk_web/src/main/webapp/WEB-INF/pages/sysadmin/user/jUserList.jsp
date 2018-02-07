@@ -31,7 +31,8 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-     用户列表
+	<img src="${ctx }/skin/default/images/icon/users4.png"/>
+	用户列表
   </div> 
   </div>
   </div>

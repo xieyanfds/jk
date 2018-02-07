@@ -16,7 +16,6 @@ public class ApplicationClosed implements ApplicationListener<ContextClosedEvent
 
     @Override
     public void onApplicationEvent(ContextClosedEvent event) {
-
         logger.info("jk关闭");
         System.out.println("jk关闭");
     }

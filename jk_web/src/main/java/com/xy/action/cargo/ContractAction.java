@@ -75,6 +75,7 @@ private static final long serialVersionUID = 1L;
 			//说明是总经理
 			
 		}
+		hql += " order by createTime desc";
 		page = contractService.findPage(hql, page, Contract.class, null);
 		//设置分页的url地址
 		page.setUrl("contractAction_list");

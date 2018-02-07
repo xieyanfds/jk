@@ -28,7 +28,7 @@
 </div>
    
   <div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
+	<img src="${ctx }/skin/default/images/icon/book_blue_next.png"/>
    新增代办任务
   </div> 
   

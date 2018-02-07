@@ -21,7 +21,7 @@ select {
 
 /*默认数据文本框控制*/
 textarea {
-    width:98%;
+    width:100%;
     border: 1px solid #7F9DB9;
 	font-family: "微软雅黑";
     word-wrap:break-word;

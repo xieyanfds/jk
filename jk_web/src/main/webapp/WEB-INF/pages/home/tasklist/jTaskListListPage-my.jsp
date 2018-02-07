@@ -66,7 +66,7 @@
     }
     function to_audit(url){
         if (isAtLeastCheckOne()) {
-            if (window.confirm("确认通过所选项目？")) {
+            if (window.confirm("确认通过所选任务？")) {
                 formSubmit(url, '_self');
             }
         } else {
@@ -74,6 +74,16 @@
             EV_modeAlert('envon');
         }
 	}
+    function to_reject(url){
+        if (isAtLeastCheckOne()) {
+            if (window.confirm("确认驳回所选任务？")) {
+                formSubmit(url, '_self');
+            }
+        } else {
+            $("#envon #mess").html("请至少选择一项，再进行操作！");
+            EV_modeAlert('envon');
+        }
+    }
 </script>
 <%@include file="../../alert.jsp"%>
 </head>
@@ -86,6 +96,7 @@
 					<div id="navMenubar">
 						<ul>
 							<li id="startup"><a href="#" onclick="to_audit('taskListAction_audit');this.blur();">通过</a></li>
+							<li id="cancel"><a href="#" onclick="to_reject('taskListAction_reject');this.blur();">驳回</a></li>
 							<li id="view"><a href="#" onclick="to_view('taskListAction_toview');this.blur();">查看</a></li>
 							<li id="update"><a href="#" onclick="to_update('taskListAction_toupdate');this.blur();">修改</a></li>
 							<li id="delete"><a href="#" onclick="to_delete('taskListAction_delete');this.blur();">删除</a></li>
@@ -97,7 +108,7 @@
 		</div>
 
 		<div class="textbox-title">
-			<img src="${ctx }/skin/default/images/icon/currency_yen.png" />
+			<img src="${ctx }/skin/default/images/icon/books_preferences.png" />
 			我发布的任务列表
 		</div>
 

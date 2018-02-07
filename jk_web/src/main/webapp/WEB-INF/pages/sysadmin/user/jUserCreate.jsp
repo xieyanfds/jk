@@ -26,10 +26,12 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-   新增用户
+	<img src="${ctx }/skin/default/images/icon/users_into.png"/>
+	新增用户
   </div> 
   </div>
   </div>
+</div>
   
 
  

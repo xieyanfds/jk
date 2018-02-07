@@ -13,14 +13,14 @@
 		<property name="userId" column="USER_ID" type="string"/>
 		<property name="pusherId" column="PUSHER_ID" type="string"/>
 		<property name="content" column="CONTENT" type="string"/>
-		<property name="pushDate" column="PUSH_DATE" type="date"/>
-		<property name="endDate" column="END_DATE" type="date"/>
+		<property name="pushDate" column="PUSH_DATE" type="timestamp"/>
+		<property name="endDate" column="END_DATE" type="timestamp"/>
 		<property name="state" column="STATE" type="int"/>
 		<property name="pusherName" column="PUSHER_NAME" type="string"/>
 		<property name="userName" column="USER_NAME" type="string"/>
 		<property name="major" column="MAJOR" type="string"/>
 
-		<property name="createTime" column="CREATE_TIME"/>
+		<property name="createTime" column="CREATE_TIME" type="timestamp"/>
 	</class>
 
 </hibernate-mapping>

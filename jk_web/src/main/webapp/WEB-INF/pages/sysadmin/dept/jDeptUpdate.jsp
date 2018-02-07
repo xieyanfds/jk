@@ -23,8 +23,8 @@
 </div>
    
   <div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
-   修改部门
+	<img src="${ctx }/skin/default/images/icon/index.png"/>
+	修改部门
   </div> 
   
 

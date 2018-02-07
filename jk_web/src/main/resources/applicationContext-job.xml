@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"  
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
-	xmlns:p="http://www.springframework.org/schema/p"  
-	xmlns:context="http://www.springframework.org/schema/context"   
-	xmlns:tx="http://www.springframework.org/schema/tx"  
-	xmlns:aop="http://www.springframework.org/schema/aop"  
-	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd    
 	http://www.springframework.org/schema/aop    
 	http://www.springframework.org/schema/aop/spring-aop.xsd    
@@ -13,34 +13,45 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd    
 	http://www.springframework.org/schema/context    
 	http://www.springframework.org/schema/context/spring-context.xsd">
-	
-	<description>Quartz配置文件</description>
-   
-   <!-- 定义一个任务 -->
-   <bean id="mailJob" class="com.xy.job.MailJob">
-   		<!--<property name="contractService" ref="contractService"></property>-->
-   		<!--<property name="simpleMailMessage" ref="simpleMailMessage"></property>-->
-   		<!--<property name="javaMailSender" ref="javaMailSender"></property>-->
-   </bean>
-   
-   <!-- 定义一个MethodInvoingJobDetailFactoryBean -->
-   <bean id="methodInvokingJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-       <property name="targetObject" ref="mailJob"></property>
-       <property name="targetMethod" value="send"></property>
-   </bean>
-   
-   <!-- 指定时间,，每日七点检查发送消息 -->
-   <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-          <property name="jobDetail" ref="methodInvokingJob"></property>
-          <property name="cronExpression" value="0 0 7 * * ?"></property>
-   </bean>
-   
-   <!-- 指定一个总调度器 -->
-   <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-      <property name="triggers">
-          <list>
-              <ref bean="cronTrigger"></ref>
-          </list>
-      </property>
-   </bean>
+
+    <description>Quartz配置文件</description>
+
+    <!-- 定义一个任务 -->
+    <!--<property name="contractService" ref="contractService"></property>-->
+    <!--<property name="simpleMailMessage" ref="simpleMailMessage"></property>-->
+    <!--<property name="javaMailSender" ref="javaMailSender"></property>-->
+
+    <bean id="contractRemindJob" class="com.xy.job.ContractRemindJob"/>
+    <!-- 定义一个MethodInvoingJobDetailFactoryBean -->
+    <bean id="contractInvokingJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="contractRemindJob"></property>
+        <property name="targetMethod" value="send"></property>
+    </bean>
+    <!-- 指定时间,，每日七点检查发送消息 -->
+    <bean id="contractTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="contractInvokingJob"></property>
+        <property name="cronExpression" value="0 0 7 * * ?"></property>
+    </bean>
+
+
+    <bean id="taskRemindJob" class="com.xy.job.TaskRemindJob"/>
+    <bean id="taskInvokingJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="taskRemindJob"></property>
+        <property name="targetMethod" value="send"></property>
+    </bean>
+    <bean id="taskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="taskInvokingJob"></property>
+        <property name="cronExpression" value="0 30 6 * * ?"></property>
+    </bean>
+
+
+    <!-- 指定一个总调度器 -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="contractTrigger"></ref>
+                <ref bean="taskTrigger"></ref>
+            </list>
+        </property>
+    </bean>
 </beans>

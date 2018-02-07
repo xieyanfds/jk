@@ -12,22 +12,24 @@
 <div id="middleMenubar">
 <div id="innerMenubar">
   <div id="navMenubar">
-<ul>
-<li id="back"><a href="#" onclick="history.go(-1);">返回</a></li>
-</ul>
+		<ul>
+		<li id="back"><a href="#" onclick="history.go(-1);">返回</a></li>
+		</ul>
   </div>
 </div>
 </div>
 </div>
    
 <div class="textbox" id="centerTextbox">
-  <div class="textbox-header">
-  <div class="textbox-inner-header">
-  <div class="textbox-title">
-	浏览模块
-  </div> 
-  </div>
-  </div>
+	<div class="textbox-header">
+	<div class="textbox-inner-header">
+		<div class="textbox-title">
+			<img src="${ctx }/skin/default/images/icon/documents_gear.png"/>
+			浏览模块
+		</div>
+	</div>
+	</div>
+</div>
   
 
  

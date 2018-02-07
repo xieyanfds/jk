@@ -86,7 +86,7 @@
 		</div>
 
 		<div class="textbox-title">
-			<img src="${ctx }/skin/default/images/icon/currency_yen.png" />
+			<img src="${ctx }/skin/default/images/icon/book_red.png" />
 			待办任务列表
 		</div>
 

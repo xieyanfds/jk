@@ -66,7 +66,7 @@
 </div>
    
   <div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
+	<img src="${ctx }/skin/default/images/icon/desktop.png"/>
 	系统使用反馈
   </div> 
 

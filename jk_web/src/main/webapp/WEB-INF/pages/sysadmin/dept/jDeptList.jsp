@@ -31,6 +31,7 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
+	<img src="${ctx }/skin/default/images/icon/index.png"/>
     部门列表
   </div> 
   </div>

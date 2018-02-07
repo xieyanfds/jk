@@ -22,7 +22,7 @@
 </div>
    
 	<div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/folder_edit.png"/>
+	<img src="${ctx }/skin/default/images/icon/printer2.png"/>
 	购销合同月统计（出货表）
 	</div>
 

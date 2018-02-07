@@ -29,7 +29,8 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-    用户 [${userInfo.name}] 角色列表
+	<img src="${ctx }/skin/default/images/icon/users_family.png"/>
+	用户 [${userInfo.name}] 角色列表
   </div> 
   </div>
   </div>

@@ -20,8 +20,8 @@
 </div>
    
   <div class="textbox-title">
-	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
-   查看用户
+	<img src="${ctx }/skin/default/images/icon/user1_find.png"/>
+	查看用户
   </div> 
   
 

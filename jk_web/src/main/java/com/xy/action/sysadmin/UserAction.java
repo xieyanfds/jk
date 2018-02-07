@@ -112,6 +112,9 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		model.setCreateBy(user.getId());
 		model.setCreateDept(user.getDept().getId());
 		model.setCreateTime(new Date());
+		model.getUserInfo().setCreateBy(user.getId());
+		model.getUserInfo().setCreateDept(user.getDept().getId());
+		model.getUserInfo().setCreateTime(new Date());
 
 		userService.saveOrUpdate(model);
 

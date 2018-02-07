@@ -251,4 +251,20 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 		return findMyTask();
 	}
 
+	/**
+	 * 驳回
+	 * @return
+	 * @throws Exception
+	 */
+	public String reject() throws Exception {
+		String[] split = model.getId().split(",");
+		for(String id : split){
+			if(!id.trim().isEmpty()) {
+				TaskList taskList = taskListService.get(TaskList.class, id);
+				taskList.setState(0);
+			}
+		}
+		return findMyTask();
+	}
+
 }
