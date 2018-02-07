@@ -29,8 +29,7 @@
 		<mapping resource="com/xy/domain/Contract.hbm.xml"/>
 		<mapping resource="com/xy/domain/ContractProduct.hbm.xml"/>
 		<mapping resource="com/xy/domain/ExtCproduct.hbm.xml"/>
-		<mapping resource="com/xy/domain/Factory.hbm.xml"/>
-		
+
 		<mapping resource="com/xy/domain/Export.hbm.xml"/>
 		<mapping resource="com/xy/domain/ExportProduct.hbm.xml"/>
 		<mapping resource="com/xy/domain/ExtEproduct.hbm.xml"/>

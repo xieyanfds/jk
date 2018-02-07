@@ -26,10 +26,13 @@
         		<td class="model_intro_right">统计公司最畅销的产品是哪些？<br>统计公司最滞销的产品是哪些？</td>
         	</tr>
         	<tr>
-        		<td class="subModelTitle">系统访问</td>
+        		<td class="subModelTitle">系统访问压力图</td>
         		<td class="model_intro_right">统计系统一天用户访问系统的情况，何时访问频繁，何时访问较少，方便开发人员对系统进行优化。</td>
         	</tr>
-			
+			<tr>
+				<td class="subModelTitle">访问排行统计</td>
+				<td class="model_intro_right">统计访问系统所有ip的排行。</td>
+			</tr>
 			<tfoot>
 				<tr>
 					<td colspan="2" class="tableFooter"></td>

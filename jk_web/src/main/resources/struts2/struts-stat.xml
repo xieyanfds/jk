@@ -8,11 +8,16 @@
 	
 		<action name="statChartAction_*" method="{1}" class="statChartAction">
 		
-			<result name="factorysale">/WEB-INF/pages/stat/chart/funnel4Factory.jsp</result>
-			<result name="productsale">/WEB-INF/pages/stat/chart/jStat.jsp?forward=productsale</result>
-			<result name="onlineinfo" >/WEB-INF/pages/stat/chart/jStat.jsp?forward=onlineinfo</result>
-			<result name="productsale1" >/WEB-INF/pages/stat/chart/columnCylinders.jsp</result>
-			
+			<result name="factorysale">/WEB-INF/pages/stat/chart/factorySale.jsp</result>
+			<!--<result name="factorysale">/WEB-INF/pages/stat/chart/jStat.jsp?forward=factorysale</result>-->
+			<!--<result name="productsale">/WEB-INF/pages/stat/chart/jStat.jsp?forward=productsale</result>-->
+			<result name="productSale" >/WEB-INF/pages/stat/chart/productSale.jsp</result>
+			<!--<result name="onlineinfo" >/WEB-INF/pages/stat/chart/jStat.jsp?forward=onlineinfo</result>-->
+			<result name="onlineinfo" >/WEB-INF/pages/stat/chart/onlineInfo.jsp</result>
+			<result name="loginlog">/WEB-INF/pages/stat/chart/loginlog.jsp</result>
+			<!--<result name="productsale1" >/WEB-INF/pages/stat/chart/columnCylinders.jsp</result>-->
+			<!--<result name="productSale" >/WEB-INF/pages/stat/chart/columnCylinders.jsp</result>-->
+
 		</action>
 		
 	</package>

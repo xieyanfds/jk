@@ -13,7 +13,7 @@
 		<!-- 2.配置其他属性 -->
 		<property name="loginName" column="LOGIN_NAME" type="string"/>
 		<property name="ipAddress" column="IP_ADDRESS" type="string"/>
-		<property name="loginTime" column="LOGIN_TIME" type="date"/>
+		<property name="loginTime" column="LOGIN_TIME" type="timestamp"/>
 
 	</class>
 

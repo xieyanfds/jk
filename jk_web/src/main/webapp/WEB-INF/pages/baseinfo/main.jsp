@@ -15,8 +15,8 @@
         		<td colspan="2" class="modelTitle">基础信息管理模块介绍</td>
         	</tr>
 			<tr>
-				<td class="subModelTitle">系统代码：</td>
-				<td class="model_intro_right">统一管理系统中的基础代码, 相比“基础代码”它结果将形成多级树型结构。</td>
+				<td class="subModelTitle">产品信息：</td>
+				<td class="model_intro_right">统一管理系统中的产品。</td>
 			</tr>
 
 			<tr>

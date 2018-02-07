@@ -24,17 +24,21 @@
         		<td class="subModelTitle">出货表</td>
         		<td class="model_intro_right">根据合同和指定的船期月份，统计当月的出货情况。<br></td>
         	</tr>
+			<tr>
+				<td class="subModelTitle">合同管理</td>
+				<td class="model_intro_right">报运已经提交的购销合同，填写报运相关信息。<br></td>
+			</tr>
         	<tr>
-        		<td class="subModelTitle">出口报运单</td>
+        		<td class="subModelTitle">出口报运</td>
         		<td class="model_intro_right">根据购销合同制定出口商品报运单。报运时可以将多个购销合同形成一单报运；也可以只走部分货物。<br>
         		分批走货：合同可以多个一起报运; 而一个合同可以分多次走货; 根据合同和合同货物的走货状态可以查看合同的走货情况。
         		<!-- 修改走货状态：1)合同新增货物、修改货物 2)报运货物修改、删除货物、增补货物、删除报运 -->
         		</td>
         	</tr>
-        	<tr>
+        	<%--<tr>
         		<td class="subModelTitle">HOME装箱单</td>
         		<td class="model_intro_right">根据出口报运单制定HOME装箱单，先制作HOME装箱单给客户看，客人同意，则直接制定相应装箱单；如有调整，则重新复制修改出口报运单，可能拆成多个报运。<br></td>
-        	</tr>
+        	</tr>--%>
         	<tr>
         		<td class="subModelTitle">装箱单</td>
         		<td class="model_intro_right">根据出口报运单制定装箱单，填写发票号、发票时间，以及客人等相关信息。<br></td>

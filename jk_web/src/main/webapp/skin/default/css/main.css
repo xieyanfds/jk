@@ -26,7 +26,8 @@
 	FONT: bold 9pt 微软雅黑, 宋体;
 	COLOR: #369e92; 
 	HEIGHT: 20pt; 
-	TEXT-ALIGN: left;	
+	TEXT-ALIGN: left;
+	width:169px;
 }
 .model_intro_left {
 	white-space: nowrap;

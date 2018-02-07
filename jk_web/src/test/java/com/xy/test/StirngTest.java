@@ -3,6 +3,7 @@ package com.xy.test;
 import com.google.common.collect.Lists;
 import com.xy.interceptor.bean.ActionBean;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -38,6 +39,16 @@ public class StirngTest {
             }
         });
         System.out.println(objects);
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("123");
+        strings.add("14");
+        strings.add("1412");
+        strings.add("14121");
+        System.out.println(strings.size());
+        for (int i = 0; i < strings.size(); i++) {
+            System.out.println(strings.get(i));
+            System.out.println(strings.get(++i));
+        }
 
     }
 }

@@ -44,6 +44,17 @@ public class StatChartAction extends BaseAction{
 		super.putContext("result", xmlStr.toString());
 		return "factorysale";
 	}
+	/*public String factorysale() throws Exception {
+		//查询数据
+		String sql = "select factory_name,sum(amount) samount from contract_product_c group by factory_name order by samount desc";
+		List<String> dataList = statChartService.execSQL(sql);
+
+		String sb = getPieData(dataList);
+		//输出到文件
+		writeToFile("stat\\chart\\factorysale\\data.xml",sb);
+
+		return "factorysale";
+	}*/
 	/**
 	 * 新版amChart实现
 	 * 前十五名产品销售排行
@@ -63,7 +74,7 @@ public class StatChartAction extends BaseAction{
                     "color": "#FF0F00"
                 }
 	     */
-	    String colors[]={"#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09","#04D215","#0D52D1","#2A0CD0","#8A0CCF","#CD0D74","#754DEB"};
+	    String colors[]={"#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09","#04D215","#0D52D1","#2A0CD0","#8A0CCF","#CD0D74","#754DEB","#DDDDDD","#999999","#333333"};
 	    int j=0;
 	    for(int i=0;i<list.size();i++){
 	    	sb.append("{").append("\"product_no\":\"").append(list.get(i).substring(0, 3)).append("\",")
@@ -82,7 +93,7 @@ public class StatChartAction extends BaseAction{
 	    super.putContext("result", sb.toString());
 	    
 	    //4.返回结果
-		return "productsale1";
+		return "productSale";
 	}
 	/**
 	 * 旧版
@@ -108,7 +119,7 @@ public class StatChartAction extends BaseAction{
 	 * @return
 	 * @throws Exception
 	 */
-	public String onlineinfo() throws Exception {
+	/*public String onlineinfo() throws Exception {
 		//查询数据
 		String sql = "select a.a1, ifnull(b.c,0) from (select * from online_info_t) a left join (select date_format(login_time,'%H') a1, count(*) c" 
 				+" from login_log_p group by  date_format(login_time,'%H') order by a1) b on (a.a1=b.a1) order by a.a1";
@@ -121,6 +132,50 @@ public class StatChartAction extends BaseAction{
 		writeToFile("stat\\chart\\onlineinfo\\data.xml",sb);
 	    
 		return "onlineinfo";
+	}*/
+	public String onlineinfo() throws Exception {
+		//查询数据
+//		String sql = "select a.a1, ifnull(b.c,0) from (select * from online_info_t) a left join (select date_format(login_time,'%H') a1, count(*) c"
+//				+" from login_log_p group by  date_format(login_time,'%H') order by a1) b on (a.a1=b.a1) order by a.a1";
+		String sql = "select date_format(login_time,'%H') a1, count(*) c " +
+				"from login_log_p where date_format(login_time,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d') group by  date_format(login_time,'%H') order by a1;";
+		List<String> dataList = statChartService.execSQL(sql);
+
+		StringBuilder xmlStr = new StringBuilder();
+		xmlStr.append("[");
+		for (int i = 0; i < dataList.size(); i++) {
+			xmlStr.append("{").append("\"time\": \"" + dataList.get(i) + "\",");
+			xmlStr.append("\"amount\": \"" + dataList.get(++i) + "\"},");
+		}
+		xmlStr.setLength(xmlStr.length() - 1);
+		xmlStr.append("]");
+
+		super.putContext("result", xmlStr.toString());
+		return "onlineinfo";
+	}
+
+	/**
+	 * 用户登录统计表
+	 * @return
+	 * @throws Exception
+	 */
+	public String loginList() throws Exception {
+		//1、准备数据
+		String sql="select IP_ADDRESS , count(IP_ADDRESS) from login_log_p group by IP_ADDRESS order by count(IP_ADDRESS) desc limit 0,10";
+		List<String> list= statChartService.execSQL(sql);
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		//list中size是偶数位，此时是可以这么写的
+		for (int i = 0; i < list.size(); i++) {
+			sb.append("{\"ipaddress\":\""+list.get(i)+"\",");
+			sb.append("\"count\":\""+list.get(++i)+"\"},");
+		}
+		sb.setLength(sb.length()-1);
+		sb.append("]");
+		super.putContext("result", sb.toString());
+
+		return "loginlog";
 	}
 	/**
 	 * 输出到文件
