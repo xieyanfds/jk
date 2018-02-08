@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="../../base.jsp"%>
+<%@ include file="../../baselist.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
@@ -73,8 +73,20 @@
 	        </tr>
 	        <tr>
 	            <td class="columnTitle">留言：</td>
-	            <td class="tableContent">
-	            <textarea name="message" style="height: 200px;width: 70%" >${message}</textarea>
+				<td class="tableContent">
+					<%--<div id='phiz' style="width:300px;height:30px;line-height:30px;margin-left:10px;.img{cursor:pointer;margin-right:4px;}">
+						<img src="${ctx }/skin/images/phiz/zhuakuang.gif" alt="抓狂" /> <img
+							src="${ctx }/skin/images/phiz/baobao.gif" alt="抱抱" /> <img
+							src="${ctx }/skin/images/phiz/haixiu.gif" alt="害羞" /> <img
+							src="${ctx }/skin/images/phiz/ku.gif" alt="酷" /> <img
+							src="${ctx }/skin/images/phiz/xixi.gif" alt="嘻嘻" /> <img
+							src="${ctx }/skin/images/phiz/taikaixin.gif" alt="太开心" /> <img
+							src="${ctx }/skin/images/phiz/touxiao.gif" alt="偷笑" /> <img
+							src="${ctx }/skin/images/phiz/qian.gif" alt="钱" /> <img
+							src="${ctx }/skin/images/phiz/huaxin.gif" alt="花心" /> <img
+							src="${ctx }/skin/images/phiz/jiyan.gif" alt="挤眼" />
+					</div>--%>
+					<textarea name="message" style="height: 200px;width: 70%" >${message}</textarea>
 	          	</td>
 	        </tr>
 		</table>

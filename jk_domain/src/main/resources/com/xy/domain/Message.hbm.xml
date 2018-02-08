@@ -10,13 +10,13 @@
 			<generator class="uuid" />
 		</id>
 
+		<property name="receive" column="RECEIVE" />
 		<property name="receiveId" column="RECEIVE_ID" />
 
 		<property name="state" column="state" />
 		<property name="messageTime" column="MESSAGE_TIME" />
 		<property name="message" column="MESSAGE" />
 		<property name="title" column="TITLE" />
-		<property name="receive" column="RECEIVE" />
 		<property name="createBy" column="CREATE_BY" />
 		<property name="createTime" column="CREATE_TIME" />
 	</class>

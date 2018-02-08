@@ -3,8 +3,8 @@ $(function () {
 	$( '#main' ).height( $( window ).height() - $( '#top' ).height() - 45);
 
 	var paper = $( '.paper' );
-	var FW = $( window ).width();
-	var FH = $( '#main' ).height();
+	var FW = $( window ).width()+22;
+	var FH = $( '#main' ).height()+60;
 	for (var i = 0; i < paper.length; i++) {
 		var obj = paper.eq(i);
 		obj.css( {
@@ -12,11 +12,11 @@ $(function () {
 			top : parseInt(Math.random() * (FH - obj.height())) + 'px'
 		} );
 		drag(obj, $( 'dt', obj ));
-	}
+        obj.click( function () {
+            $( this ).css( 'z-index', 1 ).siblings().css( 'z-index', 0 );
+        } );
+    }
 
-	paper.click( function () {
-		$( this ).css( 'z-index', 1 ).siblings().css( 'z-index', 0 );
-	} );
 
 	$( '.close' ).click( function () {
 		$( this ).parents( 'dl' ).fadeOut('slow');

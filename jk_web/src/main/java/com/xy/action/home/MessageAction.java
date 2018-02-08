@@ -151,6 +151,24 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 		return "pview";			//转向查看页面
 	}
 
+	/**
+	 * 主页查看，返回键冲突
+	 * @return
+	 */
+	public String toview_(){
+		String hql = "from User";
+		List<User>  userList = userService.find(hql, User.class, null);
+		super.putContext("userList", userList);
+		//此时接收人必定是自己，修改状态
+		Message obj = messageService.get(Message.class, model.getId());
+		obj.setState(2);
+		//重新保存,快照机制，session延长
+		messageService.saveOrUpdate(obj);
+		super.pushVS(obj);
+
+		return "pview_";			//转向查看页面
+	}
+
 
 	/**
 	 * 未读信息

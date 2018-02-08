@@ -22,7 +22,7 @@
 </style>
 	
 </head>
-<script language="javascript"> 
+<%--<script language="javascript">
 if(top.location!=main.location){
 	top.location = main.location;
 }
@@ -31,8 +31,8 @@ var Obj='';
 var index=10000;//z-index;
 var color='';
 var str='';
-document.onmouseup=MUp
-document.onmousemove=MMove
+/*document.onmouseup=MUp
+document.onmousemove=MMove*/
  
 function MMove(){
 	if(Obj!=''){
@@ -72,7 +72,7 @@ function getFocus(obj)
                index = index + 2;
                var idx = index;
                obj.style.zIndex=idx;
-               //obj.nextSibling.style.zIndex=idx-1;
+               obj.nextSibling.style.zIndex=idx-1;
        }
 }
  
@@ -116,7 +116,7 @@ function msgupdate( id , flag ){
  
 function msgdel( id ){
 	if(confirm("是否确定要删除此条信息?")){
-		//_Submit("/home/olmsgDeleteAction.do?delId="+id,null,"删除");
+		_Submit("/home/olmsgDeleteAction.do?delId="+id,null,"删除");
 	}
 }
  
@@ -161,24 +161,26 @@ function killErrors() {
 }
  
 window.onerror = killErrors;
+</script>--%>
+<script type="text/javascript">
+	function to_view(obj){
+	    location.href='messageAction_toview_?id='+obj;
+	}
 </script>
  
 <body class="curbody">
  
-<form name="form2">
 <!-- 工具栏部分 ToolBar -->
 <div id="menubar">
 <div id="middleMenubar">
 <div id="innerMenubar">
     <div id="navMenubar">
-<ul>
- 
-<li id="new"><a href="#">新建</a></li>
-<li id="save"><a href="#" title="保存留言窗口的位置信息">位置</a></li>
- 
-<li id="stat"><a href="#">历史</a></li>
- 
-</ul>
+		<ul>
+			<%--<input id="send"  type="text"/>--%>
+			<%--<li id="save"><a href="#" title="保存留言窗口的位置信息">位置</a></li>
+			<li id="stat"><a href="#">历史</a></li>--%>
+
+		</ul>
     </div>
 </div>
 </div>
@@ -188,7 +190,7 @@ window.onerror = killErrors;
  
 	
 		
-		<div id='ff8080813d00613e013d0067909e0009' style='position:absolute;left:122px;top:97px;z-index:1001; height:164px;background:none;' onmousedown='getFocus(this)'>
+	<div id='ff8080813d00613e013d0067909e0009' style='position:absolute;left:22px;top:60px;z-index:1001; height:164px;background:none;' onmousedown='getFocus(this)'>
 			<table border=0 cellspacing="0" cellpadding="0" width="220">
 				<tr>
 					<td style='cursor:move;' onmousedown="MDown(this,'ff8080813d00613e013d0067909e0009')" background="${ctx}/images/olmsg/C0FFE51.gif" height="45">
@@ -201,22 +203,22 @@ window.onerror = killErrors;
 				</tr>
 				<tr>
 					<td style='cursor:move;white-space:nowrap;' width='100%' onmousedown="MDown('ff8080813d00613e013d0067909e0009')" background="${ctx}/images/olmsg/C0FFE52.gif" >
-						<div style="float:left;width:130px;padding-left:7px;font-family:Tahoma;color:gray;font-style : oblique;">
+						<div style="float:center;width:130px;padding-left:7px;font-family:Tahoma;color:gray;font-style : oblique;">
 							2013-02-22 13:37
 						</div>
-						<div style="float:right;width:80px;text-align:right;padding-right:7px;">
+						<%--<div style="float:right;width:80px;text-align:right;padding-right:7px;">
 
 							<a style='cursor:pointer;' title="编辑" onclick="msgupdate('ff8080813d00613e013d0067909e0009','edit')"><img src="${ctx}/images/olmsg/doc_edit.gif"/></a>
 
 							<a style='cursor:pointer;' title="删除" onclick="msgdel('ff8080813d00613e013d0067909e0009')"><img src="${ctx}/images/olmsg/doc_del.gif"/></a>
 
-						</div>
+						</div>--%>
 					</td>
 				</tr>
 				<tr>
 					<td background="${ctx}/images/olmsg/C0FFE52.gif">
 					<div class="msgcontent">
-					欢迎使用杰管理平台
+					欢迎使用综合管理平台<br/>双击查看留言
 					</div>
 					</td>
 				</tr>
@@ -228,7 +230,6 @@ window.onerror = killErrors;
 								<img border="0" src="${ctx}/images/olmsg/2.gif">
 								</td>
 								<td style="text-align:right;padding-right:8px;" nowrap>
-								[备忘]
 								</td>
 							</tr>
 						</table>
@@ -238,7 +239,7 @@ window.onerror = killErrors;
 		</div>
 	
 		
-		<div id='ff8080813d00613e013d00681494000a' style='position:absolute;left:442px;top:91px;z-index:1002; height:164px;background:none;' onmousedown='getFocus(this)'>
+		<%--<div id='ff8080813d00613e013d00681494000a' style='position:absolute;left:442px;top:91px;z-index:1002; height:164px;background:none;' onmousedown='getFocus(this)'>
 			<table border=0 cellspacing="0" cellpadding="0" width="220">
 				<tr>
 					<td style='cursor:move;' onmousedown="MDown(this,'ff8080813d00613e013d00681494000a')" background="${ctx}/images/olmsg/FFE7E81.gif" height="45">
@@ -283,69 +284,29 @@ window.onerror = killErrors;
 					</td>
 				</tr>
 			</table>
-		</div>
-
+		</div>--%>
 	<div id='main'>
 		<c:forEach items="${megList }" var="meg" varStatus="v">
-			<dl class='paper a${v.count }' style="height: 63px;">
-				<dt>
-					<span class='username'></span>${meg.createBy }
-					<span class='num'><fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd' /></span>
+			<dl class='paper a${v.count }' style="height: 300px;" ondblclick="to_view('${meg.id}')">
+				<dt class="name">
+					<span class='username'></span><%--${meg.createBy }--%>cgx12321312312
+					<span class='num'><%--<fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd' />--%></span>
 				</dt>
-				<dd class='content'>${meg.message } </dd>
-
+				<dt class='content'>${meg.message }</dt>
+				<dt class='bottom'>
+					<span class='time'>2017-02-13</span>
+					<span class='close'></span>
+				</dt>
 			</dl>
 
 		</c:forEach>
-		<table border=0 cellspacing="0" cellpadding="0" width="220" class="paper a7">
-			<tr>
-				<td style='cursor:move;'  background="${ctx}/images/olmsg/FFE7E81.gif" height="45">
-					<input type="hidden" name="id" class="input" value="ff8080813d00613e013d00681494000a" />
-					<input type="hidden" name="isChange" class="input" value="0" />
-					<input type="hidden" name="posX" class="input" value="442" />
-					<input type="hidden" name="posY" class="input" value="91" />
-					&nbsp;
-				</td>
-			</tr>
-			<tr>
-				<td class='username' 	style='cursor:move;white-space:nowrap;' width='100%' onmousedown="MDown('ff8080813d00613e013d00681494000a')" background="${ctx}/images/olmsg/FFE7E82.gif" >
-					<div style="float:left;width:130px;padding-left:7px;font-family:Tahoma;color:gray;font-style : oblique;">
-						2013-02-22 13:37
-					</div>
-					<div style="float:right;width:80px;text-align:right;padding-right:7px;">
-						<a style='cursor:pointer;' title="编辑" onclick="msgupdate('ff8080813d00613e013d00681494000a','edit')"><img src="${ctx}/images/olmsg/doc_edit.gif"/></a>
-						<a style='cursor:pointer;' title="删除" onclick="msgdel('ff8080813d00613e013d00681494000a')"><img src="${ctx}/images/olmsg/doc_del.gif"/></a>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class='content' background="${ctx}/images/olmsg/FFE7E82.gif">
-					<div class="msgcontent">
-						本系统实现货运企业日常管理<br />
-						包括合同、报运、装箱、委托、发票等业务
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td id="tagBPic3" background="${ctx}/images/olmsg/FFE7E83.gif" height="63">
-					<table border="0" width="100%" cellspacing="0" cellpadding="0">
-						<tr>
-							<td width="50" align="center">
-								<img border="0" src="${ctx}/images/olmsg/0.gif">
-							</td>
-							<td style="text-align:right;padding-right:8px;" nowrap>
-								[备忘]
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
+
 	</div>
 
 	<div id='send-form'>
 		<p class='title'>
-			<span>写下你的留言</span><a href="" id='close'></a>
+			<span>写下你的留言</span>
+			<a href="#" id='close'>关闭</a>
 		</p>
 		<form action="" name='wish' id="message_form" method="post">
 			<p>
@@ -353,7 +314,7 @@ window.onerror = killErrors;
 				</label>
 				<textarea name="content" id='content'></textarea>
 
-					<%-- 	<div id='phiz'>
+				<div id='phiz'>
                     <img src="${ctx }/skin/images/phiz/zhuakuang.gif" alt="抓狂" /> <img
                         src="${ctx }/skin/images/phiz/baobao.gif" alt="抱抱" /> <img
                         src="${ctx }/skin/images/phiz/haixiu.gif" alt="害羞" /> <img
@@ -364,12 +325,12 @@ window.onerror = killErrors;
                         src="${ctx }/skin/images/phiz/qian.gif" alt="钱" /> <img
                         src="${ctx }/skin/images/phiz/huaxin.gif" alt="花心" /> <img
                         src="${ctx }/skin/images/phiz/jiyan.gif" alt="挤眼" />
-                </div> --%>
+                </div>
 
 
 			</p>
 			<span id='send-btn'
-				  onclick="formSubmit('messageAction_insert','_self');this.blur();"></span>
+				  onclick="formSubmit('messageAction_insert','_self');this.blur();">添加</span>
 		</form>
 	</div>
 
@@ -383,7 +344,6 @@ window.onerror = killErrors;
 </logic:notEmpty>
  
  
-</form>
 </body>
 <script type="text/javascript">
     top.leftFrame.location.href="homeAction_toleft.action?moduleName=home";

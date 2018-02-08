@@ -34,6 +34,7 @@
 			<result name="pcreate">/WEB-INF/pages/home/message/jMessageCreate.jsp</result>
 			<result name="pupdate">/WEB-INF/pages/home/message/jMessageUpdate.jsp</result>
 			<result name="pview">/WEB-INF/pages/home/message/jMessageView.jsp</result>
+			<result name="pview_">/WEB-INF/pages/home/message/jMessageView_.jsp</result>
 		</action>
 
 		<!-- 意见反馈 -->
