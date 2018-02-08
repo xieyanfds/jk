@@ -49,12 +49,13 @@ public class ContractRemindJob {
 		if(list!=null&&list.size()>0){
 			//有需要提醒的
 			for (final Contract contract : list) {
-				User user = userService.get(User.class, contract.getCreateBy());
+				final User user = userService.get(User.class, contract.getCreateBy());
 
 
 				Thread.sleep(3000);//让当前线程休眠  3秒
 				
 				Thread th = new Thread(new Runnable() {
+					@Override
 					public void run() {
 //						simpleMailMessage.setTo("644934121@qq.com");
 						simpleMailMessage.setTo(user.getUserInfo().getEmail());

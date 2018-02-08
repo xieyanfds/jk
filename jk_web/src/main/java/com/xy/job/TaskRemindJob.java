@@ -43,7 +43,7 @@ public class TaskRemindJob {
         if(list!=null&&list.size()>0){
             //有需要提醒的
             for (final TaskList taskList : list) {
-                User user = userService.get(User.class, taskList.getUserId());
+                final User user = userService.get(User.class, taskList.getUserId());
                 Thread.sleep(3000);//让当前线程休眠  3秒
 
                 Thread th = new Thread(new Runnable() {

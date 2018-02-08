@@ -1,5 +1,6 @@
 package com.xy.test;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
@@ -51,7 +52,11 @@ public class PoiTest {
 		
 		cell.setCellStyle(style);
 		//7.保存，io流
-		OutputStream os =  new FileOutputStream("F://testPoi.xls");
+		File file = new File("E://testPoi.xls");
+		if(!file.exists()){
+			file.createNewFile();
+		}
+		OutputStream os =  new FileOutputStream(file);
 		wb.write(os);
 		
 		//8.关闭流

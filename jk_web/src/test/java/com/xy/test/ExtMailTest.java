@@ -18,7 +18,7 @@ public class ExtMailTest {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:applicationContext-mail.xml");
 		
 		
-		JavaMailSender sender = (JavaMailSender) ac.getBean("mailSender");       //得到邮件的发送对象，专门用于邮件发送
+		JavaMailSender sender = (JavaMailSender) ac.getBean("javaMailSender");       //得到邮件的发送对象，专门用于邮件发送
 		
 		//发送一个允许带图片，同时带附件的邮件
 		MimeMessage message = sender.createMimeMessage();//创建一封允许带图片，同时带附件的邮件对象
@@ -35,7 +35,7 @@ public class ExtMailTest {
 					+"<a href=http://www.sojson.com>点我点我</a>"	+ "<img src=cid:image/></body></html>",true);//第二个参数说明内容要解析为html代码
 		
 		//添加图片
-		FileSystemResource resource = new FileSystemResource(new File("F:\\雷利.png"));
+		FileSystemResource resource = new FileSystemResource(new File("D:\\不要在意程序运行速度.jpg"));
 		helper.addInline("image", resource);
 		
 		sender.send(message);
