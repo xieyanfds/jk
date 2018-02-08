@@ -10,7 +10,8 @@
 	<link rel="stylesheet" href="${ctx }/skin/default/css/index.css" />
 	<script type="text/javascript" src='${ctx }/skin/js/jquery-1.7.2.min.js'></script>
 	<script type="text/javascript" src='${ctx }/skin/js/index.js'></script>
-<style> 
+	<script type="text/javascript" src='${ctx }/js/circle_JT_min.js'></script>
+<style>
 	.curbody{ CURSOR: url(${ctx}/images/olmsg/shubiao.ani);background:url(${ctx}/images/olmsg/pic738x571.jpg); }
 	.msgcontent{ width:218px;overflow:hidden;word-break:break-all;padding:10px;font-size:14px;color:#339966;font-family:Tahoma;line-height:180%; }
 	.msgcontent p{ text-indent:0px;}
@@ -169,7 +170,29 @@ window.onerror = killErrors;
 </script>
  
 <body class="curbody">
- 
+
+<div id="dom"></div>
+<script type="text/javascript">
+	$.circleJt({
+		domId:'dom',//必须
+		radius:100,//必须
+		pbColor:'#00796b',//必需
+		pbWidth:10,//非必需
+		value:0,//必须
+		totalValue:1000,//非必需
+		percentage:true,//非必需
+		fontSize:30,
+
+		clock:true,//如果clock为真的时候，上述属性除value,totalValue,percentage均全都无效
+		digitalWatch:true//以电子表形式显示
+	});
+</script>
+<style>
+	#dom #Circle_JT_cancvsDom{
+		position: absolute;
+		left: 1.289px;
+	}
+</style>
 <!-- 工具栏部分 ToolBar -->
 <div id="menubar">
 <div id="middleMenubar">
@@ -190,7 +213,7 @@ window.onerror = killErrors;
  
 	
 		
-	<div id='ff8080813d00613e013d0067909e0009' style='position:absolute;left:22px;top:60px;z-index:1001; height:164px;background:none;' onmousedown='getFocus(this)'>
+	<div id='ff8080813d00613e013d0067909e0009' style='position:absolute;right:2px;top:14px;z-index:1001; height:164px;background:none;' onmousedown='getFocus(this)'>
 			<table border=0 cellspacing="0" cellpadding="0" width="220">
 				<tr>
 					<td style='cursor:move;' onmousedown="MDown(this,'ff8080813d00613e013d0067909e0009')" background="${ctx}/images/olmsg/C0FFE51.gif" height="45">
