@@ -10,12 +10,14 @@ import com.xy.domain.User;
 import com.xy.service.*;
 import com.xy.service.InvoiceService;
 import com.xy.utils.Page;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -62,7 +64,12 @@ public class InvoiceAction extends BaseAction implements ModelDriven<Invoice> {
 	 */
 	public String list(){
 		//查询所有内容
-		//可以添加细粒度权限控制
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from Invoice ";
 		//给页面提供分页数据
 		//配置分页按钮的转向链接

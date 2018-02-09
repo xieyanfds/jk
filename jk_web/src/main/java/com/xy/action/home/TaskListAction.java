@@ -12,6 +12,7 @@ import com.xy.utils.SysConstant;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -45,13 +46,18 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	// 列表展示
 	public String list() {
 		// 查询所有内容
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from TaskList order by pushDate desc";
 		// 配置分页按钮的转向链接
-		page.setUrl("tasklistAction_list");
+		page.setUrl("taskListAction_list");
 		// 给页面提供分页数据
 		page = taskListService.findPage(hql, page, TaskList.class, null);
-		super.putContext("page", page);
-
+		pushVS(page);
 		return "plist";
 	}
 	
@@ -59,28 +65,38 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	// 我发布的
 	public String findMyTask() {
 		// 获取当前登录用户
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
 		// 查询自己发布的任务
 		String hql = "from TaskList where  pusherId='" + user.getId() + "' order by pushDate desc";
-		page.setUrl("tasklistAction_findMyTask");
+		page.setUrl("taskListAction_findMyTask");
 		// 给页面提供分页数据
 		page = taskListService.findPage(hql, page, TaskList.class, null);
-		super.putContext("page", page);
-
+		pushVS(page);
 		return "flist";
 	}
 
 	// 我待办的
 	public String myTask() {
 		// 获取当前登录用户
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
 		// 查询执行者是自己的任务
 		String hql = "from TaskList where userId='" + user.getId() + "' and state = 0 order by pushDate desc";
-		page.setUrl("tasklistAction_myTask");
+		page.setUrl("taskListAction_myTask");
 		// 给页面提供分页数据
 		page = taskListService.findPage(hql, page, TaskList.class, null);
-		super.putContext("page", page);
-
+		pushVS(page);
 		return "mlist";
 	}
 	

@@ -87,30 +87,27 @@
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
-${page.links}
-	
-	<c:forEach items="${page.results}" var="o" varStatus="status">
-	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
-		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td>${status.index+1}</td>
-		<td>${o.createName}</td>
-		<td>${o.createDeptName}</td>
-		<td>
-			<c:if test="${fn:length(o.message)  >6}">${fn:substring(o.message,0,6)}...</c:if>
-			<c:if test="${fn:length(o.message)  <7}">${o.message}</c:if>
-		</td>
-		<td><fmt:formatDate value="${o.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /><input type="hidden" id="${o.id }" value="${o.message }"></td>
-		<td><input type="button" id="btn11" value="详情" onclick="view('${o.id}')"/></td>
-	</tr>
+
+	<c:forEach items="${results}" var="o" varStatus="status">
+		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
+			<td><input type="checkbox" name="id" value="${o.id}"/></td>
+			<td>${status.index+1}</td>
+			<td>${o.createName}</td>
+			<td>${o.createDeptName}</td>
+			<td>
+				<c:if test="${fn:length(o.message)  >6}">${fn:substring(o.message,0,6)}...</c:if>
+				<c:if test="${fn:length(o.message)  <7}">${o.message}</c:if>
+			</td>
+			<td><fmt:formatDate value="${o.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /><input type="hidden" id="${o.id }" value="${o.message }"></td>
+			<td><input type="button" id="btn11" value="详情" onclick="view('${o.id}')"/></td>
+		</tr>
 	</c:forEach>
 	
 	</tbody>
 </table>
 </div>
- 
 </div>
- 
- 
+	<%@include file="../../page.jsp"%>
 </form>
 </body>
 </html>

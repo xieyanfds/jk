@@ -8,8 +8,10 @@ import com.xy.domain.User;
 import com.xy.service.FinanceService;
 import com.xy.service.InvoiceService;
 import com.xy.utils.Page;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +55,12 @@ public class FinanceAction extends BaseAction implements ModelDriven<Finance> {
 	 */
 	public String list(){
 		//查询所有内容
-		//可以添加细粒度权限控制
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from Finance ";
 		//给页面提供分页数据
 		//配置分页按钮的转向链接

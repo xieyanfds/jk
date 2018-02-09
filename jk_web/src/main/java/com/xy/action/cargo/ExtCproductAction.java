@@ -7,8 +7,10 @@ import com.xy.domain.Factory;
 import com.xy.service.ExtCproductService;
 import com.xy.service.FactoryService;
 import com.xy.utils.Page;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -48,10 +50,15 @@ private static final long serialVersionUID = 1L;
 	 */
 	public String tocreate()throws Exception{
 		//根据购销合同查询生产货物
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		extCproductService.findPage("from ExtCproduct where contractProduct.id = ?", page, ExtCproduct.class, new String []{model.getContractProduct().getId()});
 		page.setUrl("extCproductAction_tocreate");
 		pushVS(page);
-//		putContext("page",page);
 		//查询生产厂家
 		List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
 		

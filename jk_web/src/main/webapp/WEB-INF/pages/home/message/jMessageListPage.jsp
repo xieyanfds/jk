@@ -1,10 +1,11 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
 <%@ include file="../../baselist.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
 </head>
+
 <body>
 <form name="icform" method="post">
 
@@ -72,29 +73,32 @@
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
-	${page.links}
+	<%--${page.links}--%>
 	
-	<c:forEach  items="${page.results}" var="o" varStatus="status">
-	<tr  class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
-		<td><input type="checkbox" name="id" value="${o.id}"/></td>
-		<td style="cursor: pointer;" onclick="statusToAction('messageAction_toview?id=${o.id}')"><a href="messageAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
-		<td>${o.receive}</td>
-		<td>${o.title}</td>
-		<td>${o.messageTime}</td>
-		<td>
-			<c:if test="${o.state==1}"><font color="red"><b>未读</b></font></c:if>
-			<c:if test="${o.state==2}"><font color="green"><b>已读</b></font></c:if>
-			<input type="hidden" value="${o.state}" id="${o.id}">
-		</td>
-		
-	</tr>
-	</c:forEach>
+		<c:forEach  items="${results}" var="o" varStatus="status">
+		<tr  class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
+			<td><input type="checkbox" name="id" value="${o.id}"/></td>
+			<td style="cursor: pointer;" onclick="statusToAction('messageAction_toview?id=${o.id}')"><a href="messageAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+			<td>${o.receive}</td>
+			<td>${o.title}</td>
+			<td>${o.messageTime}</td>
+			<td>
+				<c:if test="${o.state==1}"><font color="red"><b>未读</b></font></c:if>
+				<c:if test="${o.state==2}"><font color="green"><b>已读</b></font></c:if>
+				<input type="hidden" value="${o.state}" id="${o.id}">
+			</td>
+
+		</tr>
+		</c:forEach>
 	
 	</tbody>
 </table>
 </div>
 </div>
+<%@include file="../../page.jsp"%>
 </form>
 </body>
+
+
 </html>
 

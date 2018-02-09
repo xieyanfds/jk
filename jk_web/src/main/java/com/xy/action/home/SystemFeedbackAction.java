@@ -6,8 +6,10 @@ import com.xy.domain.SystemFeedback;
 import com.xy.domain.User;
 import com.xy.service.SystemFeedbackService;
 import com.xy.utils.Page;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -32,6 +34,12 @@ public class SystemFeedbackAction extends BaseAction implements ModelDriven<Syst
 
 	//列表展示
 	public String list(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		User user = super.getCurrUser();
 		String hql = "from SystemFeedback s where 1=1 ";
 		int degree = user.getUserInfo().getDegree();
@@ -62,9 +70,8 @@ public class SystemFeedbackAction extends BaseAction implements ModelDriven<Syst
 		//给页面提供分页数据
 		page.setUrl("systemFeedbackAction_list");		//配置分页按钮的转向链接
 		page = systemFeedbackService.findPage(hql, page, SystemFeedback.class, null);
-		super.putContext("page", page);
-		
-		return "plist";						//page list
+		pushVS(page);
+		return "plist";
 	}
 	
 	//转向新增页面

@@ -13,6 +13,7 @@ import com.xy.utils.SysConstant;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashSet;
@@ -60,6 +61,12 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 	 */
 	public String list() throws Exception {
 		//设置分页的url地址
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		page = roleService.findPage("from Role", page, Role.class, null);
 		page.setUrl("roleAction_list");
 		//将page对象压入栈顶

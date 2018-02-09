@@ -17,10 +17,12 @@ import com.xy.service.ExportService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
 import com.xy.webservice.EpService;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author xieyan
@@ -66,6 +68,12 @@ private static final long serialVersionUID = 1L;
 	 */
 	public String contractList() throws Exception {
 		//查询状态为1的购销合同
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from Contract where state=1";
 		//分页查询
 		contractService.findPage(hql, page, Contract.class, null);
@@ -83,6 +91,12 @@ private static final long serialVersionUID = 1L;
 	 */
 	public String list() throws Exception {
 		//根据权限控制显示的数据
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from Export where 1=1";
 		User currUser = super.getCurrUser();
 		//获取用户等级

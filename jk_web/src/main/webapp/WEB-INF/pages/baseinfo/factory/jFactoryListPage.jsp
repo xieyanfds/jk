@@ -56,8 +56,7 @@
 		</tr>
 	</thead>
 	<tbody class="tableBody" >
-${links}
-	
+
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
@@ -86,10 +85,8 @@ ${links}
 	</tbody>
 </table>
 </div>
- 
 </div>
- 
- 
+	<%@include file="../../page.jsp"%>
 </form>
 </body>
 </html>

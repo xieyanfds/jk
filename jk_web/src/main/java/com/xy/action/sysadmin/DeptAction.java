@@ -5,8 +5,10 @@ import com.xy.action.BaseAction;
 import com.xy.domain.Dept;
 import com.xy.service.DeptService;
 import com.xy.utils.Page;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -44,6 +46,12 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	 */
 	public String list() throws Exception {
 		//设置分页的url地址
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		page = deptService.findPage("from Dept", page, Dept.class, null);
 		page.setUrl("deptAction_list");
 		//将page对象压入栈顶

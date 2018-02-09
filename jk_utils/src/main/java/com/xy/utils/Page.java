@@ -9,7 +9,7 @@ import java.util.Map;
  * 用来传递分页参数和查询参数params
  */
 public class Page<T> {
-    private int pageNo = 1;							//页码，默认是第一页
+    private Integer pageNo = SysConstant.PAGE_NO;							//页码，默认是第一页
     private int pageSize = SysConstant.PAGE_SIZE;	//每页显示的记录数，默认是8
     private int totalRecord;						//总记录数
     private int totalPage;							//总页数
@@ -77,6 +77,10 @@ public class Page<T> {
     public String url;		//分页按钮中的转向链接
     public void setUrl(String url) {
     	this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public String links;

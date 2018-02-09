@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
@@ -60,14 +61,19 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 	 */
 	public String list(){
 		//查询所有内容
-		//可以添加细粒度权限控制
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from ShippingOrder ";
 		//给页面提供分页数据
 		//配置分页按钮的转向链接
 		page.setUrl("shippingOrderAction_list");
 		page = shippingOrderService.findPage(hql, page, ShippingOrder.class, null);
 		pushVS(page);
-		return "list";						//page list
+		return "list";
 	}
 	
 	//转向新增页面

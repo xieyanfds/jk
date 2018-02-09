@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashSet;
@@ -68,6 +69,12 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 */
 	public String list() throws Exception {
 		//设置分页的url地址
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		page = userService.findPage("from User", page, User.class, null);
 		page.setUrl("userAction_list");
 		//将page对象压入栈顶

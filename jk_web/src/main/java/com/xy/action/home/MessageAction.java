@@ -13,9 +13,11 @@ import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xieyan
@@ -25,9 +27,6 @@ import java.util.List;
 public class MessageAction extends BaseAction implements ModelDriven<Message> {
 
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private SqlDao sqlDao;
 
 	private Message model = new Message();
 
@@ -48,22 +47,32 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 
 	//列表展示
 	public String list(){
-
+		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
+        String parameter = request.getParameter("page.pageNo");
+        if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from Message where createBy='"+this.getCurrUser().getId()+"' or receiveId = '"+this.getCurrUser().getId()+"' order by createTime desc";
 		//给页面提供分页数据
 		page.setUrl("messageAction_list");		//配置分页按钮的转向链接
 		page = messageService.findPage(hql, page, Message.class, null);
-		super.putContext("page", page);
+		pushVS(page);
 		return "plist";
 	}
 
 	public String listReceive(){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        //查询所有内容
+        String parameter = request.getParameter("page.pageNo");
+        if(parameter!=null){
+            page.setPageNo(Integer.parseInt(parameter));
+        }
 		String hql = "from Message where receiveId='"+this.getCurrUser().getId()+"' order by createTime desc";			//查询所有接收内容
 		//给页面提供分页数据
 		page.setUrl("messageAction_listReceive");		//配置分页按钮的转向链接
 		page = messageService.findPage(hql, page, Message.class, null);
-		super.putContext("page", page);
+        pushVS(page);
 		return "rlist";						//已接收页面
 	}
 

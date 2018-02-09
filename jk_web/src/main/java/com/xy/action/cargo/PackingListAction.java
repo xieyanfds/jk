@@ -23,6 +23,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -56,12 +57,19 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 
 	//列表展示
 	public String list(){
-		String hql = "from PackingList ";			//查询所有内容
-		//给页面提供分页数据
-		page.setUrl("packingListAction_list");		//配置分页按钮的转向链接
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
+		//查询所有内容
+		String hql = "from PackingList ";
+		//配置分页按钮的转向链接
+		page.setUrl("packingListAction_list");
 		page = packingListService.findPage(hql, page, PackingList.class, null);
 		pushVS(page);
-		return "plist";						//page list
+		return "plist";
 	}
 
 	/**

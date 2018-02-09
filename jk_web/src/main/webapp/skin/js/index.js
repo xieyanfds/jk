@@ -3,8 +3,8 @@ $(function () {
 	$( '#main' ).height( $( window ).height() - $( '#top' ).height() - 45);
 
 	var paper = $( '.paper' );
-	var FW = $( window ).width()+22;
-	var FH = $( '#main' ).height()+60;
+	var FW = $( window ).width()+220;
+	var FH = $( '#main' ).height()+220;
 	for (var i = 0; i < paper.length; i++) {
 		var obj = paper.eq(i);
 		obj.css( {

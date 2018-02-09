@@ -45,7 +45,7 @@
 		<td class="tableHeader">名称</td>
 		<td class="tableHeader">说明</td>
 	</tr>
-	${links }
+
 	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr>
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
@@ -56,39 +56,10 @@
 	</c:forEach>
 </table>
 </div>
- 
-</div>r
- 
 </div>
+</div>
+	<%@include file="../../page.jsp"%>
 </form>
-<%--<script type="text/javascript">
-	window.onload=function(){
-	    var table = document.getElementById("ec_table");
-//	    alert(321)
-//	    alert(table.firstElementChild.children[0].innerHTML)
-        var trs = table.getElementsByTagName("tr");
-        for (var i = 0; i < trs.length; i++) {
-            var j = i + 1;
-            if (j % 2 == 0) { //偶数行
-                trs[i].className= "even";
-                trs[i].onmouseover=function(){
-                    this.className='highlight';
-                }
-                trs[i].onmouseout=function(){
-                    this.className='even';
-                }
-            }else{
-                trs[i].className= "odd";
-                trs[i].onmouseover=function(){
-                    this.className='highlight';
-                }
-                trs[i].onmouseout=function(){
-                    this.className='odd';
-                }
-			}
-        }
-	}
-</script>--%>
 </body>
 </html>
 

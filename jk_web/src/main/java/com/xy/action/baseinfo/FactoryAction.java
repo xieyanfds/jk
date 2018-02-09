@@ -6,7 +6,10 @@ import com.xy.action.BaseAction;
 import com.xy.domain.Factory;
 import com.xy.service.FactoryService;
 import com.xy.utils.Page;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author xieyan
@@ -32,6 +35,12 @@ public class FactoryAction extends BaseAction implements ModelDriven<Factory> {
 
 	//列表展示
 	public String list(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from Factory";			//查询所有内容
 		//给页面提供分页数据
 		//配置分页按钮的转向链接

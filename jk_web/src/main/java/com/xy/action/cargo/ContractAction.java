@@ -1,5 +1,6 @@
 package com.xy.action.cargo;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xy.action.print.ContractPrint;
@@ -50,6 +51,12 @@ private static final long serialVersionUID = 1L;
 	 */
 	public String list() throws Exception {
 		//根据权限控制显示的数据
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		String hql = "from Contract where 1=1";
 		User currUser = super.getCurrUser();
 		//获取用户等级

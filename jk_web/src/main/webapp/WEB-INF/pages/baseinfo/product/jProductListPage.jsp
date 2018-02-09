@@ -53,9 +53,8 @@
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
-${page.links}
-	
-	<c:forEach items="${page.results}" var="o" varStatus="status">
+
+	<c:forEach items="${results}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 		<td><input type="checkbox" name="id" value="${o.id}"/></td>
 		<td style="cursor: pointer;" onclick="statusToAction('productAction_toview?id=${o.id}')"><a href="productAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
@@ -67,12 +66,6 @@ ${page.links}
 		<td>${o.sizeWidth}</td>
 		<td>${o.sizeHeight}</td>
 		<td>${o.type}</td>
-		<%-- <td>${o.type}</td>
-		<td>${o.qty}</td>
-		<td>${o.cbm}</td>
-		<td>${o.mpsizeLenght}</td>
-		<td>${o.mpsizeWidth}</td>
-		<td>${o.mpsizeHeight}</td> --%>
 		<td>${o.inputTime}</td>
 	</tr>
 	</c:forEach>
@@ -80,10 +73,8 @@ ${page.links}
 	</tbody>
 </table>
 </div>
- 
 </div>
- 
- 
+	<%@include file="../../page.jsp"%>
 </form>
 </body>
 </html>

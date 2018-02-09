@@ -6,8 +6,10 @@ import com.xy.domain.Module;
 import com.xy.domain.User;
 import com.xy.service.ModuleService;
 import com.xy.utils.Page;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +46,12 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 */
 	public String list() throws Exception {
 		//设置分页的url地址
+		HttpServletRequest request = ServletActionContext.getRequest();
+		//查询所有内容
+		String parameter = request.getParameter("page.pageNo");
+		if(parameter!=null){
+			page.setPageNo(Integer.parseInt(parameter));
+		}
 		page = moduleService.findPage("from Module", page, Module.class, null);
 		page.setUrl("moduleAction_list");
 		//将page对象压入栈顶
