@@ -11,6 +11,7 @@ import com.xy.utils.FastJsonUtil;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -48,10 +49,11 @@ public class FeedbackAction extends BaseAction implements ModelDriven<Feedback> 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
-		String hql = "from Feedback where (1 = 1 ";			//查询所有内容
+		//查询所有内容
+		String hql = "from Feedback where (1 = 1 ";
 		User user = super.getCurrUser();
 		Integer degree = user.getUserInfo().getDegree();
 		if (degree == 4) {

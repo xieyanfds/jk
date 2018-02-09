@@ -12,6 +12,7 @@ import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,7 +65,7 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		page = roleService.findPage("from Role", page, Role.class, null);

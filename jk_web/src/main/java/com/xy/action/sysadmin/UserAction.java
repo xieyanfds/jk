@@ -15,6 +15,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -72,7 +73,7 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		page = userService.findPage("from User", page, User.class, null);

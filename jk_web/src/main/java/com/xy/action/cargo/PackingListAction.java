@@ -22,6 +22,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +61,7 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		//查询所有内容

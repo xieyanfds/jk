@@ -14,6 +14,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -67,7 +68,7 @@ public class InvoiceAction extends BaseAction implements ModelDriven<Invoice> {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		String hql = "from Invoice ";

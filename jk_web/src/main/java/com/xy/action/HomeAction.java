@@ -56,14 +56,10 @@ public class HomeAction extends BaseAction{
 
 				Message message = new Message();
 				message.setId((String) map.get("MESSAGES_ID"));
-				message.setReceive((String) map.get("RECEIVE"));
-				message.setReceiveId((String) map.get("RECEIVE_ID"));
 				message.setMessageTime((Date) map.get("MESSAGE_TIME"));
 				message.setTitle((String) map.get("TITLE"));
 				message.setMessage((String)map.get("MESSAGE"));
-				message.setState((Integer) map.get("state"));
-				message.setCreateBy((String) map.get("CREATE_BY"));
-				message.setCreateTime((Date) map.get("CREATE_TIME"));
+				message.setCreateName((String) map.get("CREATE_NAME"));
 				megList.add(message);
 			}
 

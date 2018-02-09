@@ -13,6 +13,7 @@ import com.xy.domain.User;
 import com.xy.service.ContractService;
 import com.xy.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -54,7 +55,7 @@ private static final long serialVersionUID = 1L;
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		String hql = "from Contract where 1=1";

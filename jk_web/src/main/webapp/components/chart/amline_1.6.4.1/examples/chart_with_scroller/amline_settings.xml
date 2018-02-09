@@ -292,7 +292,7 @@
     <DD></DD>                                                <!-- [d. ] unit of days -->        
   </strings>
 
-  <context_menu>                                              <!-- context menu allows you to controll right-click menu items. You can add custom menu items to create custom controls -->                                                              
+  <context_menu>                                              <!-- context menu allows you to controll right-click menu items. You can add custom menu itemscreateeate custom controls -->
                                                               <!-- "function_name" specifies JavaScript function which will be called when user clicks on this menu. You can pass variables, for example: function_name="alert('something')" -->
                                                               <!-- "title" sets menu item text. Do not use for title: Show all, Zoom in, Zoom out, Print, Settings... -->
                                                               <!-- you can have any number of custom menus. Uncomment the line below to enable this menu and add apropriate JS function to your html file. -->

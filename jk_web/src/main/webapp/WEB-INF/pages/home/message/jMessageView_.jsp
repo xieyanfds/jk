@@ -33,6 +33,12 @@
  
     <div>
 		<table class="commonTable" cellspacing="1">
+			<tr>
+				<td class="columnTitle">创建人：</td>
+				<td class="tableContent">
+					<input type="text" name="createName" value="${createName}" style="width: 70%" readonly/>
+				</td>
+			</tr>
 	        <tr>  
 	            <td class="columnTitle">接收人：</td>
 	            <td class="tableContent">

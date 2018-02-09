@@ -7,6 +7,7 @@ import com.xy.service.DeptService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -49,7 +50,7 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		page = deptService.findPage("from Dept", page, Dept.class, null);

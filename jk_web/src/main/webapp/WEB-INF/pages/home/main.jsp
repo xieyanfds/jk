@@ -312,12 +312,12 @@ window.onerror = killErrors;
 		<c:forEach items="${megList }" var="meg" varStatus="v">
 			<dl class='paper a${v.count }' style="height: 300px;" ondblclick="to_view('${meg.id}')">
 				<dt class="name">
-					<span class='username'></span><%--${meg.createBy }--%>cgx12321312312
-					<span class='num'><%--<fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd' />--%></span>
+					<span class='username'>${meg.createName }</span>
+					<span class='num'>${meg.title }</span>
 				</dt>
 				<dt class='content'>${meg.message }</dt>
 				<dt class='bottom'>
-					<span class='time'>2017-02-13</span>
+					<span class='time'><fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd' /></span>
 					<span class='close'></span>
 				</dt>
 			</dl>

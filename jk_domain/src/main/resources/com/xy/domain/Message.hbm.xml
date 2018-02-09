@@ -13,6 +13,7 @@
 		<property name="receive" column="RECEIVE" />
 		<property name="receiveId" column="RECEIVE_ID" />
 
+		<property name="createName" column="CREATE_NAME" />
 		<property name="state" column="state" />
 		<property name="messageTime" column="MESSAGE_TIME" />
 		<property name="message" column="MESSAGE" />

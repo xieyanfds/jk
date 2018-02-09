@@ -12,6 +12,7 @@ import com.xy.utils.FastJsonUtil;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
         String parameter = request.getParameter("page.pageNo");
-        if(parameter!=null){
+        if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		String hql = "from Message where createBy='"+this.getCurrUser().getId()+"' or receiveId = '"+this.getCurrUser().getId()+"' order by createTime desc";
@@ -65,7 +66,7 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
         HttpServletRequest request = ServletActionContext.getRequest();
         //查询所有内容
         String parameter = request.getParameter("page.pageNo");
-        if(parameter!=null){
+        if(!StringUtils.isEmpty(parameter)){
             page.setPageNo(Integer.parseInt(parameter));
         }
 		String hql = "from Message where receiveId='"+this.getCurrUser().getId()+"' order by createTime desc";			//查询所有接收内容
@@ -89,6 +90,7 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 	public String insert(){
 		User curUser = super.getCurrUser();
 		model.setCreateBy(curUser.getId());
+        model.setCreateName(curUser.getUserInfo().getName());
 		model.setCreateTime(new Date());
 		User user = userService.get(User.class, model.getReceiveId());
 		model.setReceive(user.getUserName());

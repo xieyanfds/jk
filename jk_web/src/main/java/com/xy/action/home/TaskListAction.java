@@ -11,6 +11,7 @@ import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		String hql = "from TaskList order by pushDate desc";
@@ -68,7 +69,7 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
@@ -87,7 +88,7 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
+		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);

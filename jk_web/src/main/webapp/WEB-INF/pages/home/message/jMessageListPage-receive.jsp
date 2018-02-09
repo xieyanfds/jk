@@ -54,6 +54,7 @@
 	<tr>
 		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 		<td class="tableHeader">序号</td>
+		<td class="tableHeader">创建人</td>
 		<td class="tableHeader">接收人</td>
 		<td class="tableHeader">标题</td>
 		<td class="tableHeader">时间</td>
@@ -66,6 +67,7 @@
 		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 			<td><input type="checkbox" name="id" value="${o.id}"/></td>
 			<td style="cursor: pointer;" onclick="statusToAction('messageAction_toview?id=${o.id}')"><a href="messageAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
+			<td>${o.createName}</td>
 			<td>${o.receive}</td>
 			<td>${o.title}</td>
 			<td>${o.messageTime}</td>

@@ -11,12 +11,21 @@ public class Message extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
+	private String createName;          // 创建人姓名
 	private String receive;          // 接收人姓名
 	private String receiveId;			//接收人id
 	private Date messageTime;			//时间
 	private String title;
 	private String message;			//留言
 	private Integer state = 1;			//状态
+
+	public String getCreateName() {
+		return createName;
+	}
+
+	public void setCreateName(String createName) {
+		this.createName = createName;
+	}
 
 	public String getTitle() {
 		return title;
