@@ -51,6 +51,9 @@ public class MyInterceptor implements Interceptor{
             HttpSession session = ServletActionContext.getRequest().getSession();
             Map<String,ActionBean> actionMap = (Map<String,ActionBean>)session.getAttribute(SysConstant.ALL_ACTIONNAME);
             if(actionMap==null){
+                System.out.println("==============================================================");
+                System.out.println("session 得到的actionmap为空");
+                System.out.println("==============================================================");
                 actionMap = Maps.newLinkedHashMap();
                 session.setAttribute(SysConstant.ALL_ACTIONNAME, actionMap);
             }
