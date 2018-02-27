@@ -120,6 +120,7 @@ private static final long serialVersionUID = 1L;
 			//说明是总经理
 			
 		}
+		hql += " order by createTime desc";
 		page = exportService.findPage(hql, page, Export.class, null);
 		//设置分页的url地址
 		page.setUrl("exportAction_list");

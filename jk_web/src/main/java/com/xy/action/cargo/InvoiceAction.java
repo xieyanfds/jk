@@ -71,7 +71,7 @@ public class InvoiceAction extends BaseAction implements ModelDriven<Invoice> {
 		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
-		String hql = "from Invoice ";
+		String hql = "from Invoice order by createTime desc";
 		//给页面提供分页数据
 		//配置分页按钮的转向链接
 		page.setUrl("invoiceAction_list");
@@ -82,13 +82,9 @@ public class InvoiceAction extends BaseAction implements ModelDriven<Invoice> {
 	
 	//转向新增页面
 	public String tocreate(){
-		//准备数据
-		// 获取所有的已提交的报运单
-		List<ShippingOrder> list = shippingOrderService.find("from ShippingOrder where state=1", ShippingOrder.class,null);
-
-
-		// 将json数据压栈
-		putContext("results",list);
+		//准备数据，获取已提交或已委托的装箱单，因为他们是公用主键
+		List<PackingList> list = packingListService.find("from PackingList where state != 0 order by createTime desc", PackingList.class, null);
+		putContext("results", list);
 		return "tocreate";
 	}
 	
@@ -103,11 +99,16 @@ public class InvoiceAction extends BaseAction implements ModelDriven<Invoice> {
 
 		//从货运单获取发票号和发票时间
 		PackingList packingList = packingListService.get(PackingList.class, model.getId());
-		model.setScNo(packingList.getInvoiceNo());
-		model.setCreateTime(packingList.getInvoiceDate());
+		//设置报运的合同号
+		model.setScNo(packingList.getExportNos());
+		model.setCreateTime(new Date());
+		packingList.setInvoiceDate(model.getCreateTime());
+		packingList.setInvoiceNo(model.getId());
+		//已开发票
+		packingList.setState(3);
 		//获取对应委托单，修改状态为二
-		ShippingOrder shippingOrder = shippingOrderService.get(ShippingOrder.class, model.getId());
-		shippingOrder.setState(2);
+//		ShippingOrder shippingOrder = shippingOrderService.get(ShippingOrder.class, model.getId());
+//		shippingOrder.setState(2);
 		invoiceService.saveOrUpdate(model);
 		
 		return "alist";			//返回列表，重定向action_list

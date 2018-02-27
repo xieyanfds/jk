@@ -68,7 +68,7 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
-		String hql = "from ShippingOrder ";
+		String hql = "from ShippingOrder order by createTime desc";
 		//给页面提供分页数据
 		//配置分页按钮的转向链接
 		page.setUrl("shippingOrderAction_list");
@@ -80,7 +80,7 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 	//转向新增页面
 	public String tocreate(){
 		//准备数据
-		List<PackingList> list = packingListService.find("from PackingList where state = 1", PackingList.class, null);
+		List<PackingList> list = packingListService.find("from PackingList where state = 1 order by createTime desc", PackingList.class, null);
 		putContext("results", list);
 		return "create";
 	}

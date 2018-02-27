@@ -27,6 +27,94 @@
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+        // 实现更新
+        function to_update(url) {
+            if (isOnlyChecked()) {
+                var s = $("input:checked");
+                var oid = s.val();
+                var state = document.getElementById(oid).value;
+                if(state==1){
+                    $("#envon #mess").html("抱歉，此委托单已提交，必须取消才能更改！");
+                    EV_modeAlert('envon');
+                    return;
+                }else{
+                    formSubmit(url,'_self')
+                }
+            } else {
+                $("#envon #mess").html("抱歉，请先选择一项并且只能选择一项，再进行操作！");
+                EV_modeAlert('envon');
+            }
+        }
+
+        // 确认删除
+        function to_delete(url) {
+            if (!isAtLeastCheckOne()) {
+                $("#envon #mess").html("抱歉，请至少选择一项进行删除！！");
+                EV_modeAlert('envon');
+                return;
+            }
+            var checks = $("input[name='id']:checked");
+            for(var i=0;i<checks.size();i++){
+                var state = document.getElementById(checks[i].value).value;
+                if(state==1){
+                    $("#envon #mess").html("抱歉，此委托单已提交，请先取消！！");
+                    EV_modeAlert('envon');
+                    return;
+                }
+            }
+			/*checks.each(function(i,n){
+			 var state = document.getElementById(n.value).value;
+			 if(state==2){
+			 $("#envon #mess").html("抱歉，已报运的购销合同不能删除！！");
+			 EV_modeAlert('envon');
+			 return;
+			 }
+			 })*/
+            if (window.confirm("确认删除所选项目？")) {
+                formSubmit(url, '_self');
+            }
+        }
+        //实现提交
+        function to_submit(url) {
+            if (isOnlyChecked()) {
+                var s = $("input:checked");
+                var oid = s.val();
+                var state = document.getElementById(oid).value;
+                if(state==1){
+                    $("#envon #mess").html("抱歉，此委托单已经提交过！");
+                    EV_modeAlert('envon');
+                    return;
+                }else{
+                    formSubmit(url,'_self')
+                }
+            } else {
+                $("#envon #mess").html("请先选择一项并且只能选择一项，再进行操作！");
+                EV_modeAlert('envon');
+            }
+        }
+
+        //实现取消
+        function to_cancel(url) {
+            if (isOnlyChecked()) {
+                var s = $("input:checked");
+                var oid = s.val();
+                var state = document.getElementById(oid).value;
+                if(state==0){
+                    $("#envon #mess").html("抱歉，此委托单是取消状态！！");
+                    EV_modeAlert('envon');
+                    return;
+                }else{
+                    formSubmit(url,'_self')
+                }
+            } else {
+                $("#envon #mess").html("请先选择一项并且只能选择一项，再进行操作！");
+                EV_modeAlert('envon');
+            }
+        }
+	</script>
+
    
   <div class="textbox-title">
 	<img src="${ctx }/skin/default/images/icon/screen.png"/>
@@ -94,7 +182,7 @@
 		<td>
 			<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
 			<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>
-			<c:if test="${o.state==2}"><font color="#00bfff">已报账</font></c:if>
+			<input type="hidden" value="${o.state}" id="${o.id}">
 		</td>
 	</tr>
 	</c:forEach>

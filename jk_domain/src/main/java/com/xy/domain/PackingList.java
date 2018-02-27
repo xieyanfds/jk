@@ -3,12 +3,10 @@ package com.xy.domain;
 import java.util.Date;
 
 /**
- * @Description:	PackingList
- * @Author:			
- * @Company:		
- * @CreateDate:		2016-8-15 16:07:10
+ * @author xieyan
+ * @description 装箱单
+ * @date 2017/12/27.
  */
-
 public class PackingList extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
@@ -17,11 +15,11 @@ public class PackingList extends BaseEntity {
 	private ShippingOrder shippingOrder;
 
 	private String seller;			
-	private String buyer;			
+	private String buyer;
 	private String invoiceNo;			//选择
 	private Date invoiceDate;			
 	private String marks;			
-	private String descriptions;			
+	private String descriptions;
 	private String exportIds;			//报运ID集合
 	private String exportNos;			//报运NO集合x,y|z,h
 	private Integer state;			//0草稿 1已上报

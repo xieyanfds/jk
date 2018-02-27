@@ -454,7 +454,7 @@
     <column id="152" parent="14" name="LCNO">
       <Position>5</Position>
       <Comment>L/C T/T</Comment>
-      <DataType>varchar(10)|0</DataType>
+      <DataType>varchar(20)|0</DataType>
     </column>
     <column id="153" parent="14" name="CONSIGNEE">
       <Position>6</Position>
@@ -1268,7 +1268,7 @@
     <column id="336" parent="27" name="INVOICE_NO">
       <Position>4</Position>
       <Comment>选择</Comment>
-      <DataType>varchar(30)|0</DataType>
+      <DataType>varchar(40)|0</DataType>
     </column>
     <column id="337" parent="27" name="INVOICE_DATE">
       <Position>5</Position>

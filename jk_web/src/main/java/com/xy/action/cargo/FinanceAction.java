@@ -4,9 +4,11 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Finance;
 import com.xy.domain.Invoice;
+import com.xy.domain.PackingList;
 import com.xy.domain.User;
 import com.xy.service.FinanceService;
 import com.xy.service.InvoiceService;
+import com.xy.service.PackingListService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class FinanceAction extends BaseAction implements ModelDriven<Finance> {
 
 	@Autowired
 	private FinanceService financeService;
+	@Autowired
+	private PackingListService packingListService;
 	@Autowired
 	private InvoiceService invoiceService;
 
@@ -62,7 +66,7 @@ public class FinanceAction extends BaseAction implements ModelDriven<Finance> {
 		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
-		String hql = "from Finance ";
+		String hql = "from Finance order by createTime desc";
 		//给页面提供分页数据
 		//配置分页按钮的转向链接
 		page.setUrl("financeAction_list");
@@ -73,9 +77,9 @@ public class FinanceAction extends BaseAction implements ModelDriven<Finance> {
 	
 	//转向新增页面
 	public String tocreate(){
-		//准备数据
-		List<Invoice> invoices = invoiceService.find("from Invoice where state = 1", Invoice.class, null);
-		putContext("invoiceList",invoices);
+		//准备数据，获取已提交或已委托的装箱单，因为他们是公用主键
+		List<PackingList> list = packingListService.find("from PackingList where state != 0 order by createTime desc", PackingList.class, null);
+		putContext("results", list);
 		return "tocreate";
 	}
 	
@@ -87,6 +91,10 @@ public class FinanceAction extends BaseAction implements ModelDriven<Finance> {
 		model.setCreateTime(new Date());
 		model.setCreateBy(user.getId());
 		model.setCreateDept(user.getDept().getId());
+		//获取装箱单
+		PackingList packingList = packingListService.get(PackingList.class, model.getId());
+		//已报账
+		packingList.setState(4);
 
 		financeService.saveOrUpdate(model);
 		

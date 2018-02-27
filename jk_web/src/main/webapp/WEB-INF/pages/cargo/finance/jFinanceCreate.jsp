@@ -44,31 +44,46 @@
 		</tr>
 	</table>
 </div>
+
 <br/><br/>
-	<!-- 选择发票 -->
+<div class="textbox-title">
+	<img src="${ctx }/skin/default/images/icon/currency_yen.png"/>
+	选择装箱单
+</div>
 <div class="eXtremeTable" >
 	<table id="ec_table" class="tableRegion" width="98%" >
 		<thead>
-		<tr  style="height: 42px;">
+		<tr align="center" style="height: 42px;">
 			<td class="tableHeader"></td>
 			<td class="tableHeader">序号</td>
+			<td class="tableHeader">卖方</td>
+			<td class="tableHeader">买方</td>
 			<td class="tableHeader">发票号</td>
-			<td class="tableHeader">提单号</td>
-			<td class="tableHeader">贸易条款</td>
+			<td class="tableHeader">发票日期</td>
+			<td class="tableHeader">状态</td>
 		</tr>
 		</thead>
-
 		<tbody class="tableBody" >
-		<c:forEach items="${invoiceList}" var="o" varStatus="status">
-		<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" style="height: 42px;">
-			<td align="center"><input type="radio" name="id" value="${o.id}"/></td>
-			<td align="center">${status.index+1}</td>
+		${links}
 
-			<td align="center">${o.scNo}</td>
-			<td align="center">${o.blNo}</td>
-			<td align="center">${o.tradeTerms}</td>
-		</tr>
+		<c:forEach items="${results}" var="o" varStatus="status">
+			<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" style="height: 42px;">
+				<td><input type="radio" name="id" value="${o.id}"/></td>
+				<td>${status.index+1}</td>
+				<td>${o.seller}</td>
+				<td>${o.buyer}</td>
+				<td>${o.invoiceNo}</td>
+				<td>${o.invoiceDate}</td>
+				<td>
+					<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
+					<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>
+					<c:if test="${o.state==2}"><font color="#00bfff">已委托</font></c:if>
+					<c:if test="${o.state==3}"><font color="rgb(92, 37, 177)">已开发票</font></c:if>
+					<c:if test="${o.state==4}"><font color="rgb(0, 96, 0)">已报账</font></c:if>
+				</td>
+			</tr>
 		</c:forEach>
+
 		</tbody>
 	</table>
 </div>

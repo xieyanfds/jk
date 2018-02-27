@@ -132,7 +132,7 @@
 		<table id="ec_table" class="tableRegion" width="98%" >
 			<thead>
 			<tr align="center" style="height: 42px;">
-				<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
+				<td class="tableHeader"></td>
 				<td class="tableHeader">序号</td>
 				<td class="tableHeader">卖方</td>
 				<td class="tableHeader">买方</td>

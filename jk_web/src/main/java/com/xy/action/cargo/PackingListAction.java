@@ -65,7 +65,7 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 			page.setPageNo(Integer.parseInt(parameter));
 		}
 		//查询所有内容
-		String hql = "from PackingList ";
+		String hql = "from PackingList order by createTime desc";
 		//配置分页按钮的转向链接
 		page.setUrl("packingListAction_list");
 		page = packingListService.findPage(hql, page, PackingList.class, null);
@@ -79,7 +79,7 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
 	 */
 	public String tocreate(){
 		//准备数据,已报运但未装船的
-		List<Export> list = exportService.find("from Export where state = 2", Export.class, null);
+		List<Export> list = exportService.find("from Export where state = 2 order by createTime desc", Export.class, null);
 		putContext("results", list);
 		return "pcreate";
 	}
