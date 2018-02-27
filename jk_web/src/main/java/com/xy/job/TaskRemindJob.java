@@ -30,7 +30,7 @@ public class TaskRemindJob {
     private UserService userService;
 
     /**
-     * 以当前时间为标准，查询出交期到期的购销合同，并进行邮件发送，以提醒负责人
+     * 以当前时间为标准，查询出有快要到截止日期的待办任务,提前三天提醒，并进行邮件发送，以提醒负责人
      * @throws InterruptedException
      */
     public void send() throws Exception{
