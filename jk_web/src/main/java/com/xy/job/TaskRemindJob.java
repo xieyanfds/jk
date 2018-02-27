@@ -1,9 +1,7 @@
 package com.xy.job;
 
-import com.xy.domain.Contract;
 import com.xy.domain.TaskList;
 import com.xy.domain.User;
-import com.xy.service.ContractService;
 import com.xy.service.TaskListService;
 import com.xy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
