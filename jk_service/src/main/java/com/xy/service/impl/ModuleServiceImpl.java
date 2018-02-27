@@ -56,7 +56,10 @@ public class ModuleServiceImpl implements ModuleService {
 				deleteById(Module.class, Module.getId());
 			}
 		}
-		baseDao.deleteById(entityClass, id);
+		Module module = baseDao.get(Module.class, id);
+		if(module != null){
+			baseDao.deleteById(entityClass, id);
+		}
 	}
 
 	@Override

@@ -47,12 +47,12 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 */
 	public String list() throws Exception {
 		//设置分页的url地址
-		HttpServletRequest request = ServletActionContext.getRequest();
+		/*HttpServletRequest request = ServletActionContext.getRequest();
 		//查询所有内容
 		String parameter = request.getParameter("page.pageNo");
 		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
-		}
+		}*/
 		page = moduleService.findPage("from Module", page, Module.class, null);
 		page.setUrl("moduleAction_list");
 		//将page对象压入栈顶
