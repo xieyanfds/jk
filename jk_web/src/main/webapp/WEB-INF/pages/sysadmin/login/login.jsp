@@ -7,12 +7,11 @@
 	<meta charset="utf-8" />
 	<title>用户登录</title>
 	<meta name="author" content="DeathGhost" />
-	<link rel="stylesheet" type="text/css"
-		  href="${pageContext.request.contextPath }/loginCss/style.css" />
+	<link rel="stylesheet" type="text/css" href="${cgx}/loginCss/style.css" />
 	<style>
 		body {
 			height: 100%;
-			background: #16a085;
+			background: #0f7d77;
 			/*background: #00897F;*/
 			/*background: #169f84;*/
 			/*background: url(../../../../skin/default/images/login/bg.png) no-repeat;*/
@@ -25,11 +24,9 @@
 			position: absolute;
 		}
 	</style>
-	<script src="${pageContext.request.contextPath }/loginJs/jquery.js"></script>
-	<script
-			src="${pageContext.request.contextPath }/loginJs/verificationNumbers.js"></script>
-	<script
-			src="${pageContext.request.contextPath }/loginJs/Particleground.js"></script>
+	<script src="${cgx }/loginJs/jquery.js"></script>
+	<script src="${cgx }/loginJs/verificationNumbers.js"></script>
+	<script src="${cgx }/loginJs/Particleground.js"></script>
 	<script type="text/javascript">
         if (top.location != self.location) {
             top.location = self.location;

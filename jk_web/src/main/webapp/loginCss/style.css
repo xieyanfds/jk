@@ -53,8 +53,8 @@ small,weak{color:#666}
 .center{text-align:center;}
 .fl{float:left;}
 .fr{float:right;}
-.admin_login{width:300px;height:auto;overflow:hidden;margin:10% auto 0 auto;padding:40px;box-shadow:0 -15px 30px #0d957a;border-radius:5px;}
-.admin_login dt{font-size:20px;font-weight:bold;text-align:center;color:#45bda6;text-shadow:0 0 1px #0e947a;margin-bottom:15px;}
+.admin_login{width:300px;height:auto;overflow:hidden;margin:10% auto 0 auto;padding:40px;box-shadow:0px 0px 17px #0D95B4;border-radius:5px;}
+.admin_login dt{font-size:20px;font-weight:bold;text-align:center;color:#53c6b0;text-shadow:0 0 1px #0e947a;margin-bottom:15px;}
 .admin_login dt strong{display:block;}
 .admin_login dt em{display:block;font-size:12px;margin-top:8px;}
 .admin_login dd{margin:5px 0;height:42px;overflow:hidden;position:relative;}
