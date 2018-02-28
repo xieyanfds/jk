@@ -2,6 +2,7 @@ package com.xy.action.cargo;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
+import com.xy.domain.ContractProduct;
 import com.xy.domain.ExtCproduct;
 import com.xy.domain.Factory;
 import com.xy.service.ExtCproductService;
@@ -127,5 +128,20 @@ private static final long serialVersionUID = 1L;
 	    
 		extCproductService.saveOrUpdate(extCproduct);
 		return tocreate();
+	}
+	/**
+	 * 查看
+	 * @return
+	 * @throws Exception
+	 */
+	public String toview()throws Exception{
+		//查询货物
+		ExtCproduct ExtCproduct = extCproductService.get(ExtCproduct.class, model.getId());
+		pushVS(ExtCproduct);
+		//查询生产厂家
+		List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
+
+		putContext("factoryList", fList);
+		return "toView";
 	}
 }

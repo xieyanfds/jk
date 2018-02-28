@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
+import com.xy.domain.Contract;
 import com.xy.domain.ContractProduct;
 import com.xy.domain.Factory;
 import com.xy.service.ContractProductService;
@@ -135,4 +136,20 @@ private static final long serialVersionUID = 1L;
 		contractProductService.saveOrUpdate(contractProduct);
 		return tocreateAndList();
 	}
+	/**
+	 * 查看
+	 * @return
+	 * @throws Exception
+	 */
+	public String toview()throws Exception{
+		//查询货物
+		ContractProduct contractProduct = contractProductService.get(ContractProduct.class, model.getId());
+		pushVS(contractProduct);
+		//查询生产厂家
+		List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '货物'", Factory.class, null);
+
+		putContext("factoryList", fList);
+		return "toView";
+	}
+
 }

@@ -115,7 +115,7 @@ public class RoleAction extends BaseAction implements ModelDriven<Role>{
 	 */
 	public String toupdate()throws Exception{
 		model = roleService.get(Role.class, model.getId());
-		//pushVS(role);
+		pushVS(model);
 		return "toUpdate";
 	}
 	/**

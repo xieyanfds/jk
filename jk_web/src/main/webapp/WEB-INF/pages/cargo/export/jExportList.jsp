@@ -141,6 +141,7 @@
         function to_work_assign(url) {
             if (isOnlyChecked()){
                 var s = $("input:checked");
+                alert($("input:checked").next().next().next().value)
                 var oid = s.val();
                 var state = document.getElementById(oid).value;
                 if(state==0){
@@ -156,7 +157,8 @@
                     EV_modeAlert('envon');
                     return;
                 }
-                formSubmit(url, '_self');
+
+//                formSubmit(url, '_self');
 
             } else {
                 $("#envon #mess").html("请先选择一项并且只能选择一项，再进行操作！");
@@ -192,6 +194,7 @@
 		<td class="tableHeader">价格条件</td>
 		<td class="tableHeader">制单日期</td>
 		<td class="tableHeader">状态</td>
+		<td class="tableHeader">操作</td>
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
@@ -226,6 +229,7 @@
 			<c:if test="${o.state==3}"><font color="rgb(55, 214, 75)">已装船</font></c:if>
 			<input type="hidden" value="${o.state}" id="${o.id}">
 		</td>
+		<td><a href="${ctx }/cargo/contractProductAction_tocreateAndList?contract.id=${o.id}" style="color: blue;">[货物]</a></td>
 	</tr>
 	</c:forEach>
 	

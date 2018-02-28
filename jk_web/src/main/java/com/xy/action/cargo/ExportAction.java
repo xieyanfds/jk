@@ -1,10 +1,12 @@
 package com.xy.action.cargo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Contract;
@@ -63,7 +65,7 @@ private static final long serialVersionUID = 1L;
 	private EpService epService;
 
 	/**
-	 * 查询状态唯一的所有购销合同
+	 * 查询状态为一的所有购销合同
 	 * @return
 	 * @throws Exception
 	 */
@@ -75,7 +77,7 @@ private static final long serialVersionUID = 1L;
 		if(parameter!=null){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
-		String hql = "from Contract where state=1";
+		String hql = "from Contract where state=1 order by createTime desc";
 		//分页查询
 		contractService.findPage(hql, page, Contract.class, null);
 		page.setUrl("exportAction_contractList");
@@ -98,7 +100,7 @@ private static final long serialVersionUID = 1L;
 		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
-		String hql = "from Export where 1=1";
+		String hql = "from Export where 1=1 ";
 		User currUser = super.getCurrUser();
 		//获取用户等级
 		int degree = currUser.getUserInfo().getDegree();
@@ -144,7 +146,19 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String tocreate()throws Exception{
-		
+		//查询选择的购销合同，显示在添加页面
+		ArrayList<Contract> results = Lists.newArrayList();
+		String[] split = model.getId().split(", ");
+		for(String id:split){
+			if(id.trim() != ""){
+				Contract contract = contractService.get(Contract.class, id);
+				results.add(contract);
+			}
+		}
+		//放入栈顶
+//		page.setResults(results);
+//		pushVS(page);
+		putContext("results",results);
 		return "tocreate";
 	}
 	/**

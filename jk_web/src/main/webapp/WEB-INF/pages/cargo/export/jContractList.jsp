@@ -83,7 +83,6 @@
 	</tbody>
 </table>
 </div>
-</div>
 	<%@include file="../../page.jsp"%>
 </form>
 </body>

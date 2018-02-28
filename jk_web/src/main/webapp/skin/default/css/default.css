@@ -706,6 +706,7 @@ menu a:hover,menu a:active{
 #navMenubar #update { margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/update.gif") no-repeat;}
 #navMenubar #edit { margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/update.gif") no-repeat;}
 #navMenubar #create { margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/new.gif") no-repeat;}
+#navMenubar #export { margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/new.gif") no-repeat;}
 #navMenubar #new { margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/new.gif") no-repeat;}
 #navMenubar #back {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/back.gif") no-repeat;}
 #navMenubar #module {margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/back.gif") no-repeat;}
