@@ -13,14 +13,14 @@ public class ExtEproduct extends BaseEntity implements Serializable{
 	private Factory factory;					//附件和厂家，多对一
 
 	private String id;	  	
-	private String productNo;			
-	private String productImage;			
-	private String productDesc;			
-	private Integer cnumber;			
-	private String packingUnit;			//PCS/SETS
-	private Double price;			
-	private Double amount;			//自动计算: 数量x单价
-	private String productRequest;			
+	private String productNo;	//货号
+	private String productImage;	//货物照片
+	private String productDesc;		//货物描述
+	private Integer cnumber;			//数量
+	private String packingUnit;			//包装单位 PCS/SETS
+	private Double price;			//单价
+	private Double amount;			//自动计算: 数量x单价，总金额
+	private String productRequest;  //要求
 	private Integer orderNo;			
 
 	

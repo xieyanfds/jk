@@ -61,7 +61,7 @@ private static final long serialVersionUID = 1L;
 		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}
-		contractProductService.findPage("from ContractProduct where contract.id = ?", page,ContractProduct.class,
+		contractProductService.findPage("from ContractProduct where contract.id = ? order by createTime desc", page,ContractProduct.class,
 				new String[]{model.getContract().getId()});
 		page.setUrl("contractProductAction_tocreateAndList");
 		pushVS(page);

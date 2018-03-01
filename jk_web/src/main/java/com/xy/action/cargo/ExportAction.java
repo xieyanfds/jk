@@ -1,10 +1,5 @@
 package com.xy.action.cargo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.opensymphony.xwork2.ModelDriven;
@@ -21,11 +16,14 @@ import com.xy.utils.UtilFuns;
 import com.xy.webservice.EpService;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author xieyan
@@ -37,6 +35,7 @@ private static final long serialVersionUID = 1L;
 	
 	private Export model = new Export();
 	
+	@Override
 	public Export getModel() {
 		return model;
 	}
@@ -337,7 +336,10 @@ private static final long serialVersionUID = 1L;
 	public String export() throws Exception {
 		//获取报运单对象
 		Export export = exportService.get(Export.class, model.getId());
-		
+		//判断报运单下是否有货物，没有就不发送报运请求
+		if(export.getExportProducts().size()==0){
+			return NONE;
+		}
 		//转json串
 		String jsonString = JSON.toJSONString(export);
 		System.out.println(jsonString);
@@ -349,5 +351,21 @@ private static final long serialVersionUID = 1L;
 		
 		//跳转
 		return list();
+	}
+	/**
+	 * 查看报运单下货物
+	 * @return
+	 * @throws Exception
+	 */
+	public String toProductList() throws Exception {
+		//获取报运单对象
+		exportProductService.findPage("from ExportProduct where export.id = ?", page,ExportProduct.class,
+				new String[]{model.getId()});
+		page.setUrl("exportAction_toProductList");
+		pushVS(page);
+//		putContext("page",page);
+
+		//跳转
+		return "toProduct";
 	}
 }

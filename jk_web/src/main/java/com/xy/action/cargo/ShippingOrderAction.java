@@ -2,9 +2,7 @@ package com.xy.action.cargo;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
-import com.xy.action.print.InvoicePrint;
 import com.xy.action.print.ShippingOrderPrint;
-import com.xy.domain.Export;
 import com.xy.domain.PackingList;
 import com.xy.domain.ShippingOrder;
 import com.xy.domain.User;
@@ -18,7 +16,6 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 

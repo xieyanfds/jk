@@ -3,17 +3,14 @@ package com.xy.action.cargo;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.action.print.InvoicePrint;
-import com.xy.domain.PackingList;
 import com.xy.domain.Invoice;
-import com.xy.domain.ShippingOrder;
+import com.xy.domain.PackingList;
 import com.xy.domain.User;
-import com.xy.service.*;
 import com.xy.service.InvoiceService;
+import com.xy.service.PackingListService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
@@ -33,11 +30,8 @@ public class InvoiceAction extends BaseAction implements ModelDriven<Invoice> {
 	@Autowired
 	private InvoiceService invoiceService;
 	@Autowired
-	private ShippingOrderService shippingOrderService;
-	@Autowired
 	private PackingListService packingListService;
-	@Autowired
-	static ContractService contractService;
+
 	/**
 	 * model驱动
 	 */

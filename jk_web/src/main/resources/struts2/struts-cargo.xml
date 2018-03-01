@@ -41,7 +41,17 @@
 			<result name="toview">/WEB-INF/pages/cargo/export/jExportView.jsp</result>
 			<result name="tocreate">/WEB-INF/pages/cargo/export/jExportCreate.jsp</result>
 			<result name="toupdate">/WEB-INF/pages/cargo/export/jExportUpdate.jsp</result>
-			<result name="contractList">/WEB-INF/pages/cargo/export/jContractList.jsp</result>
+			<result name="toProduct">/WEB-INF/pages/cargo/export/jExportProductList.jsp</result>
+		</action>
+
+		<!-- 出口报运单下货物 -->
+		<action name="exportProductAction_*" class="exportProductAction" method="{1}">
+			<result name="toview">/WEB-INF/pages/cargo/export/jExportProductView.jsp</result>
+		</action>
+
+		<!-- 出口报运单下货物附件 -->
+		<action name="extEproductAction_*" class="extEproductAction" method="{1}">
+			<result name="toview">/WEB-INF/pages/cargo/export/jExtEproductView.jsp</result>
 		</action>
 
 		<!-- 装箱单 -->

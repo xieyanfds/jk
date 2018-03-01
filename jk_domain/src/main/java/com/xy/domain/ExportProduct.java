@@ -20,18 +20,18 @@ public class ExportProduct extends BaseEntity implements Serializable{
 
 	@JSONField(name="exportProductId")
 	private String id;	  	
-	private String productNo;			
-	private String packingUnit;			//PCS/SETS
-	private Integer cnumber;			
-	private Integer boxNum;			
-	private Double grossWeight;			
-	private Double netWeight;			
-	private Double sizeLength;			
-	private Double sizeWidth;			
-	private Double sizeHeight;			
-	private Double exPrice;			//sales confirmation 中的价格（手填）
-	private Double price;			
-	private Double tax;			//收购单价=合同单价
+	private String productNo;	//货号
+	private String packingUnit;			// 包装单位 PCS/SETS
+	private Integer cnumber;			//数量
+	private Integer boxNum;			//件数
+	private Double grossWeight;			//毛重
+	private Double netWeight;			//净重
+	private Double sizeLength;			//尺寸长
+	private Double sizeWidth;			//尺寸宽
+	private Double sizeHeight;			//尺寸高
+	private Double exPrice;			//出口单价 sales confirmation 中的价格（手填）
+	private Double price;			//单价
+	private Double tax;			//含税
 	@JSONField(serialize=false)
 	private Integer orderNo;			
 

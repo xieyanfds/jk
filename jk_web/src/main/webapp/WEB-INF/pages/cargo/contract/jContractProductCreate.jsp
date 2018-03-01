@@ -121,7 +121,10 @@
 		<td>${o.productNo}</td>
 		<td>${o.loadingRate}</td>
 		<td>${o.boxNum}</td>
-		<td>${o.packingUnit}</td>
+		<td>
+			<c:if test="${o.packingUnit=='PCS'}">只</c:if>
+			<c:if test="${o.packingUnit=='SETS'}">套</c:if>
+		</td>
 		<td>${o.cnumber}</td>
 		<td>${o.price}</td>
 		<td>${o.amount}</td>
@@ -135,7 +138,7 @@
 		<c:forEach items="${o.extCproducts}" var="ext" varStatus="status">
 		<tr style="height: 42px;" class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 			<td>&nbsp;</td>
-			<td align="right"><font color="blue">附件：${status.index+1}&nbsp;</font></td>
+			<td align="right" onclick="statusToAction('extCproductAction_toview?id=${ext.id}')"><font color="blue"><a href="extCproductAction_toview?id=${ext.id}">附件：${status.index+1}&nbsp;</a></font></td>
 			<td>${ext.factoryName}</td>
 			<td>${ext.productNo}</td>
 			<td>&nbsp;</td>

@@ -229,7 +229,7 @@
 			<c:if test="${o.state==3}"><font color="rgb(55, 214, 75)">已装船</font></c:if>
 			<input type="hidden" value="${o.state}" id="${o.id}">
 		</td>
-		<td><a href="${ctx }/cargo/contractProductAction_tocreateAndList?contract.id=${o.id}" style="color: blue;">[货物]</a></td>
+		<td><a href="${ctx }/cargo/exportAction_toProductList?id=${o.id}" style="color: blue;">[货物]</a></td>
 	</tr>
 	</c:forEach>
 	

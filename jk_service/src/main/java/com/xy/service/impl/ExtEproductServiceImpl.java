@@ -9,15 +9,14 @@ import com.xy.domain.ExtEproduct;
 import com.xy.service.ExtEproductService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ExtEproductServiceImpl implements ExtEproductService {
 
+	@Autowired
 	private BaseDao baseDao;
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
 
 	public List<ExtEproduct> find(String hql, Class<ExtEproduct> entityClass, Object[] params) {
 		return baseDao.find(hql, entityClass, params);

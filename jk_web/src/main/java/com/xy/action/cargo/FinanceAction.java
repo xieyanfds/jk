@@ -3,11 +3,9 @@ package com.xy.action.cargo;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Finance;
-import com.xy.domain.Invoice;
 import com.xy.domain.PackingList;
 import com.xy.domain.User;
 import com.xy.service.FinanceService;
-import com.xy.service.InvoiceService;
 import com.xy.service.PackingListService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
@@ -30,8 +28,6 @@ public class FinanceAction extends BaseAction implements ModelDriven<Finance> {
 	private FinanceService financeService;
 	@Autowired
 	private PackingListService packingListService;
-	@Autowired
-	private InvoiceService invoiceService;
 
 	/**
 	 * model驱动

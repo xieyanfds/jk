@@ -25,12 +25,18 @@
 	<bean id="contractProductAction" class="com.xy.action.cargo.ContractProductAction" scope="prototype"></bean>
 	<!-- extCproduct 购销合同下货物附件-->
 	<bean id="extCproductAction" class="com.xy.action.cargo.ExtCproductAction" scope="prototype"></bean>
-	
+
+
 	<!-- outProductAction,出货表 -->
 	<bean id="outProductAction" class="com.xy.action.cargo.OutProductAction" scope="prototype"></bean>
 
 	<!-- exportAction,报运单 -->
 	<bean id="exportAction" class="com.xy.action.cargo.ExportAction" scope="prototype"></bean>
+	<!-- exportProduct 报运单下货物-->
+	<bean id="exportProductAction" class="com.xy.action.cargo.ExportProductAction" scope="prototype"></bean>
+	<!-- extEproduct 报运单下货物附件-->
+	<bean id="extEproductAction" class="com.xy.action.cargo.ExtEproductAction" scope="prototype"></bean>
+
 	<!-- packingListAction 装箱单-->
 	<bean id="packingListAction" class="com.xy.action.cargo.PackingListAction" scope="prototype"></bean>
 
