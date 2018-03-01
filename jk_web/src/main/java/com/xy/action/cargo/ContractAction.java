@@ -52,12 +52,12 @@ private static final long serialVersionUID = 1L;
 	 */
 	public String list() throws Exception {
 		//根据权限控制显示的数据
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
+		/*HttpServletRequest request = ServletActionContext.getRequest();
 		String parameter = request.getParameter("page.pageNo");
 		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
-		}
+		}*/
+		//查询所有内容
 		String hql = "from Contract where 1=1";
 		User currUser = super.getCurrUser();
 		//获取用户等级

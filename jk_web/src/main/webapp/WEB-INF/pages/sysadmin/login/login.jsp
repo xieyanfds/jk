@@ -99,6 +99,6 @@
 </form>
 </body>
 <script type="text/JavaScript">
-    document.getElementById('login_main').userName.focus();
+    document.getElementById('userName').focus();
 </script>
 </html>
