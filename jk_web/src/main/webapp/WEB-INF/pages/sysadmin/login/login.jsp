@@ -37,7 +37,7 @@
         function checkUsername() {
             var username = $("#userName").val();
             if (username.trim().length==0) {
-                $("#divId").html("<font color='red' size='4px'>用户名不能为空!!!</font>");
+                $("#divId").html("<font color='#C91F27' size='4px' >用户名不能为空!!!</font>");
             }else{
                 $("#divId").html("");
             }
@@ -46,7 +46,7 @@
         function checkPwd() {
             var password = $("#password").val();
             if (password.trim().length==0) {
-                $("#divId").html("<font color='red' size='4px'>密码不能为空!!!</font>");
+                $("#divId").html("<font color='#C91F27' size='4px' >密码不能为空!!!</font>");
             }else{
                 $("#divId").html("");
             }
@@ -57,6 +57,7 @@
             $('body').particleground({
                 dotColor : '#5cbdaa',
                 lineColor : '#5cbdaa'
+
             });
         });
 	</script>
@@ -84,10 +85,10 @@
 		<dd>
 			<input type="submit" value="立即登陆" class="submit_btn" />
 		</dd>
-		<dd>
-			<div class="msgtip" align="center" id="divId">
+		<dd style="border-top: 4px;">
+			<div class="msgtip" align="center" id="divId" >
 				<c:if test="${!empty errorInfo}">
-					<font color="red" size="4px">${errorInfo}</font>
+					<font color="#C91F27" size="4px">${errorInfo}</font>
 				</c:if>
 			</div>
 		</dd>
