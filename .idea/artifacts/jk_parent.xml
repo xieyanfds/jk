@@ -1,8 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" name="jk_parent">
     <output-path>$PROJECT_DIR$/jk_web/target</output-path>
-    <root id="archive" name="jk_parent.war">
-      <element id="dir-copy" path="$PROJECT_DIR$/jk_web/src/main/webapp" />
-    </root>
+    <root id="archive" name="jk_parent.war" />
   </artifact>
 </component>

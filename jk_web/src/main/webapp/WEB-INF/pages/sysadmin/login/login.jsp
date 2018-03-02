@@ -7,7 +7,7 @@
 	<meta charset="utf-8" />
 	<title>用户登录</title>
 	<meta name="author" content="DeathGhost" />
-	<link rel="stylesheet" type="text/css" href="${cgx}/loginCss/style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login/style.css" />
 	<style>
 		body {
 			height: 100%;
@@ -24,9 +24,9 @@
 			position: absolute;
 		}
 	</style>
-	<script src="${cgx }/loginJs/jquery.js"></script>
-	<script src="${cgx }/loginJs/verificationNumbers.js"></script>
-	<script src="${cgx }/loginJs/Particleground.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/login/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/login/verificationNumbers.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/login/Particleground.js"></script>
 	<script type="text/javascript">
         if (top.location != self.location) {
             top.location = self.location;
@@ -66,7 +66,7 @@
 	  method="post" target="_self">
 	<dl class="admin_login">
 		<dt>
-			<strong><font color="black">商务综合管理平台</font></strong> <em>Management
+			<strong>商务综合管理平台</strong> <em>Management
 			System</em>
 		</dt>
 		<dd class="user_icon">
