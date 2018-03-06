@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
+	xmlns:p="http://www.springframework.org/schema/p"  
+	xmlns:context="http://www.springframework.org/schema/context"   
+	xmlns:tx="http://www.springframework.org/schema/tx"  
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    
+	http://www.springframework.org/schema/aop    
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd    
+	http://www.springframework.org/schema/tx    
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd    
+	http://www.springframework.org/schema/context    
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:redis="http://www.springframework.org/schema/redis" xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	
+	<description>redis的配置</description>
+
+	<!-- 读取属性文件 -->
+	<context:property-placeholder location="classpath*:redis.properties" />
+	<!--<bean id="propertyConfigurer" class="com.xy.utils.PropertyUtil">
+		<property name="locations">
+			<list>
+				<value>classpath*:redis.properties</value>
+			</list>
+		</property>
+	</bean>-->
+
+	<!-- redis -->
+	<!-- 定义Redis连接池  -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig" >
+		<property name="maxTotal" value="20" />
+		<property name="maxIdle" value="20" />
+		<property name="minIdle" value="5" />
+	</bean >
+	<!-- 定义Spring Redis连接工厂 -->
+	<bean id="redisConnectionFactory"  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
+		<property name="poolConfig" ref="jedisPoolConfig" />
+		<property name="hostName" value="106.14.145.116" />
+		<property name="port" value="6379" />
+		<property name="password" value="" />
+		<property name="usePool" value="true" />
+		<property name="database" value="0" ></property>
+	</bean >
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" >
+		<property name="connectionFactory" ref="redisConnectionFactory" />
+		<property name="keySerializer" >
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="valueSerializer" >
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+	</bean >
+
+	<!-- 定义Spring Redis的序列化器 -->
+	<!--<bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer" />-->
+	<bean id="jsonRedisSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer" />
+
+	<!-- Spring Session配置  将session放入redis -->
+	<util:constant static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>
+	<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+		<property name="defaultRedisSerializer" ref="jsonRedisSerializer" />
+		<property name="maxInactiveIntervalInSeconds" value="36000" />
+	</bean>
+
+	<bean id="redisService" class="com.xy.jedis.RedisService" />
+</beans>
+
+
+
+
+
+
+
+

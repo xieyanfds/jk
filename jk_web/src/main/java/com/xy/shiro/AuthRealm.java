@@ -4,8 +4,10 @@ import com.google.common.collect.Sets;
 import com.xy.domain.Module;
 import com.xy.domain.Role;
 import com.xy.domain.User;
+import com.xy.jedis.RedisService;
 import com.xy.service.UserService;
 import com.xy.utils.SysConstant;
+import com.xy.utils.redis.RedisCacheKey;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -23,6 +25,8 @@ public class AuthRealm extends AuthorizingRealm{
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RedisService redisService;
 
 	//授权   当jsp页面出现Shiro标签时，就会执行授权方法
 	@Override
@@ -38,8 +42,9 @@ public class AuthRealm extends AuthorizingRealm{
 					mSet.add(module.getName());
 				}
 			}*/
-			HttpSession session = ServletActionContext.getRequest().getSession();
-			Set allPermission = (Set)session.getAttribute(SysConstant.ALL_PERMISSION);
+//			HttpSession session = ServletActionContext.getRequest().getSession();
+//			Set allPermission = (Set)session.getAttribute(SysConstant.ALL_PERMISSION);
+			Set<String> allPermission = redisService.smembers(String.format(RedisCacheKey.USER_PERMISSION_ID, user.getId()));
 			SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 			authorizationInfo.addStringPermissions(allPermission);//添加用户的权限
 			return authorizationInfo;

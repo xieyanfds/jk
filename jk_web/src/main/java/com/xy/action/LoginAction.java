@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.xy.domain.*;
 import com.xy.interceptor.bean.ActionBean;
+import com.xy.jedis.RedisService;
 import com.xy.service.*;
+import com.xy.utils.redis.RedisCacheKey;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -15,6 +17,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author xieyan
@@ -36,6 +39,8 @@ public class LoginAction extends BaseAction {
 	private LoginLogService loginLogService;
 	@Autowired
 	private AccessLogService accessLogService;
+	@Autowired
+	private RedisService redisService;
 
 	//SSH传统登录方式
 	public String login() throws Exception {
@@ -43,6 +48,8 @@ public class LoginAction extends BaseAction {
 		if(UtilFuns.isNotEmpty(getCurrUser())){
 			return SUCCESS;
 		}
+		//此时可能是session过期
+//		ew
 		if(UtilFuns.isEmpty(username)){
 			return "login";
 		}
@@ -61,6 +68,8 @@ public class LoginAction extends BaseAction {
 
 			initSessionInfo(user);
 
+			// 往redis中记录用户拥有的菜单权限
+			initPermission(user);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,10 +82,12 @@ public class LoginAction extends BaseAction {
 	
 	//退出
 	public String logout(){
+		//删除redis中数据
+		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+		redisService.delete(String.format(RedisCacheKey.USER_PERMISSION_ID,user.getId()));
 		//删除session中数据
 		ServletActionContext.getRequest().getSession().invalidate();
 //		session.remove(SysConstant.CURRENT_USER_INFO);		//删除session
-		
 		return "logout";
 	}
 
@@ -106,9 +117,6 @@ public class LoginAction extends BaseAction {
 
 		// 取出用户使用快捷使用方式
 		initAccessLog(user);
-
-		// 记录用户拥有的菜单权限
-		initPermission(user);
 
 	}
 	private void log(User user){
@@ -155,16 +163,25 @@ public class LoginAction extends BaseAction {
 	private void initPermission(User user){
 		Set<Role> roles = user.getRoles();
 		HashSet<String> mSet = Sets.newHashSet();
+		ArrayList<Module> allModule = Lists.newArrayList();
 		for (Role role : roles) {
 			//获取每个角色的权限
 			Set<Module> modules = role.getModules();
 			for (Module module : modules) {
+				//将用户的所有权限添加到集合中
+				allModule.add(module);
 				if(module.getCtype()==0) {
 					mSet.add(module.getName());
 				}
 			}
 		}
-		session.put(SysConstant.ALL_PERMISSION,mSet);
+		session.put(SysConstant.ALL_PERMISSION,allModule);
+		//设置和session一样的半小时的有效期
+		String key = String.format(RedisCacheKey.USER_PERMISSION_ID, user.getId());
+		redisService.sadd(key,mSet);
+		redisService.expire(key,30,TimeUnit.MINUTES);
+//		redisService.setex(String.format(RedisCacheKey.USER_PERMISSION_ID,user.getId()),mSet,30, TimeUnit.MINUTES);
+//		session.put(SysConstant.ALL_PERMISSION,mSet);
 	}
 }
 

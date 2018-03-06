@@ -1,6 +1,9 @@
 package com.xy.service.impl;
 
+import com.google.common.collect.Sets;
 import com.xy.dao.BaseDao;
+import com.xy.domain.Module;
+import com.xy.domain.Role;
 import com.xy.domain.User;
 import com.xy.domain.Userinfo;
 import com.xy.service.UserService;
@@ -12,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author xieyan
@@ -53,7 +54,8 @@ public class UserServiceImpl implements UserService{
 			//设置密码
 			entity.setPassword(Encrypt.md5(SysConstant.DEFAULT_PASS, entity.getUserName()));
 		}
-		
+		//重载session中用户权限
+
 		baseDao.saveOrUpdate(entity);
 		
 	}

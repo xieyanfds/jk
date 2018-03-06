@@ -70,5 +70,6 @@
 	<import resource="classpath:applicationContext-shiro.xml"></import>
 	<import resource="classpath:applicationContext-mail.xml"></import>
 	<import resource="classpath:applicationContext-job.xml"></import>
+	<import resource="classpath:applicationContext-redis.xml"></import>
 
 </beans>
