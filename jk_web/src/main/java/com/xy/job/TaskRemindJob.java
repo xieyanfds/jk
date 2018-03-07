@@ -57,8 +57,8 @@ public class TaskRemindJob {
                 th.start();
             }
         }else{
-            //没有到期的货物
-            System.out.println("没有需要提醒的合同");
+            //没有快到期的代办任务
+            System.out.println("没有需要提醒的代办任务");
         }
     }
 }

@@ -4,8 +4,11 @@ import com.xy.dao.springdao.SqlDao;
 import com.xy.domain.Dept;
 import com.xy.domain.Message;
 import com.xy.domain.User;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,8 +73,15 @@ public class HomeAction extends BaseAction{
 	public String toleft(){
 		//获取request
 		//String moduleName = (String)request.get("moduleName");
-		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(request.getSession().getCreationTime()));
+		System.out.println("session init time : "+format);
+		String formatl = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(request.getSession().getLastAccessedTime()));
+		System.out.println("session LastAccessed time : "+formatl);
+		int formatm = request.getSession().getMaxInactiveInterval();
+		System.out.println("session MaxInactiveInterval time : "+formatm);
 		//this.setModuleName(moduleName);
+
 		return "toleft";
 	}
 	public void tomodule(){

@@ -27,7 +27,6 @@
 	<description>redis的配置</description>
 
 	<!-- 读取属性文件 -->
-	<context:property-placeholder location="classpath*:redis.properties" />
 	<!--<bean id="propertyConfigurer" class="com.xy.utils.PropertyUtil">
 		<property name="locations">
 			<list>
@@ -39,18 +38,18 @@
 	<!-- redis -->
 	<!-- 定义Redis连接池  -->
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig" >
-		<property name="maxTotal" value="20" />
-		<property name="maxIdle" value="20" />
-		<property name="minIdle" value="5" />
+		<property name="maxTotal" value="${redis.maxTotal}" />
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="minIdle" value="${redis.minIdle}" />
 	</bean >
 	<!-- 定义Spring Redis连接工厂 -->
 	<bean id="redisConnectionFactory"  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
 		<property name="poolConfig" ref="jedisPoolConfig" />
-		<property name="hostName" value="106.14.145.116" />
-		<property name="port" value="6379" />
-		<property name="password" value="" />
-		<property name="usePool" value="true" />
-		<property name="database" value="0" ></property>
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="password" value="${redis.password}" />
+		<property name="usePool" value="${redis.usePool}" />
+		<property name="database" value="${redis.database}" />
 	</bean >
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" >
 		<property name="connectionFactory" ref="redisConnectionFactory" />
@@ -70,7 +69,7 @@
 	<util:constant static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>
 	<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
 		<property name="defaultRedisSerializer" ref="jsonRedisSerializer" />
-		<property name="maxInactiveIntervalInSeconds" value="36000" />
+		<property name="maxInactiveIntervalInSeconds" value="3600" />
 	</bean>
 
 	<bean id="redisService" class="com.xy.jedis.RedisService" />

@@ -30,19 +30,14 @@ public class ContractRemindJob {
 	private UserService userService;
 
 	/**
-	 * 以当前时间为标准，查询出交期到期的购销合同，并进行邮件发送，以提醒负责人
+	 * 以当前时间为标准，查询出一个星期后到交期的购销合同，并进行邮件发送，以提醒负责人
 	 * @throws InterruptedException 
 	 */
 	public void send() throws Exception{
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		for (StackTraceElement s : stackTrace) {
-			System.out.println(s);
-		}
 		System.out.println("到位了。。。。。。。。。");
 		//查询是否有快要到船期的货物,提前一个星期提醒，已提交但是还没有报运
 		LocalDate localDate = LocalDate.now().plusWeeks(1);
-		LocalDate localDate1 = LocalDate.now().plusDays(3);
-		String hql = "from Contract where (deliveryPeriod = '"+localDate+"' or deliveryPeriod = '"+localDate1+"') and state = 1";
+		String hql = "from Contract where deliveryPeriod = '"+localDate+"' and state = 1";
 		List<Contract> list = contractService.find(hql, Contract.class,null);
 		//判断是否有值
 

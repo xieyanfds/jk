@@ -7,6 +7,8 @@ import com.xy.interceptor.bean.ActionBean;
 import com.xy.jedis.RedisService;
 import com.xy.service.*;
 import com.xy.utils.redis.RedisCacheKey;
+import org.apache.commons.lang.time.DateUtils;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -16,6 +18,8 @@ import com.xy.utils.UtilFuns;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -48,8 +52,6 @@ public class LoginAction extends BaseAction {
 		if(UtilFuns.isNotEmpty(getCurrUser())){
 			return SUCCESS;
 		}
-		//此时可能是session过期
-//		ew
 		if(UtilFuns.isEmpty(username)){
 			return "login";
 		}
@@ -84,7 +86,10 @@ public class LoginAction extends BaseAction {
 	public String logout(){
 		//删除redis中数据
 		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		redisService.delete(String.format(RedisCacheKey.USER_PERMISSION_ID,user.getId()));
+		//session没过期
+		if(user!=null){
+			redisService.delete(String.format(RedisCacheKey.USER_PERMISSION_ID,user.getId()));
+		}
 		//删除session中数据
 		ServletActionContext.getRequest().getSession().invalidate();
 //		session.remove(SysConstant.CURRENT_USER_INFO);		//删除session
@@ -108,12 +113,15 @@ public class LoginAction extends BaseAction {
 	}
 
 	private void initSessionInfo(User user){
+		//设置session的有效期为一小时
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.getSession().setMaxInactiveInterval(60*60);
+
 		//记录登录日志
 		log(user);
 
 		// 将自定义快捷方式菜单放入session
 		initShortCut(user);
-
 
 		// 取出用户使用快捷使用方式
 		initAccessLog(user);
@@ -175,11 +183,12 @@ public class LoginAction extends BaseAction {
 				}
 			}
 		}
+		//将用户拥有模块添加到session中
 		session.put(SysConstant.ALL_PERMISSION,allModule);
-		//设置和session一样的半小时的有效期
+		//设置和session一样的一小时的有效期
 		String key = String.format(RedisCacheKey.USER_PERMISSION_ID, user.getId());
 		redisService.sadd(key,mSet);
-		redisService.expire(key,30,TimeUnit.MINUTES);
+		redisService.expire(key,1,TimeUnit.HOURS);
 //		redisService.setex(String.format(RedisCacheKey.USER_PERMISSION_ID,user.getId()),mSet,30, TimeUnit.MINUTES);
 //		session.put(SysConstant.ALL_PERMISSION,mSet);
 	}

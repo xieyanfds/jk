@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService{
 		}
 		//重载session中用户权限
 
+
 		baseDao.saveOrUpdate(entity);
 		
 	}

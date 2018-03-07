@@ -16,10 +16,7 @@
 	
 	<description>JavaMail配置文件</description>
 	
-	<!-- 加载mail.properties文件 -->
-	<context:property-placeholder location="classpath:mail.properties"/>
-	
-	
+
 	<!-- 配置一个简单邮件对象 -->
 	<bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
 	   <property name="from" value="${mail.from}"></property>

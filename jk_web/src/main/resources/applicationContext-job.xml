@@ -27,7 +27,7 @@
         <property name="targetObject" ref="contractRemindJob"></property>
         <property name="targetMethod" value="send"></property>
     </bean>
-    <!-- 指定时间,，每日七点检查发送消息 -->
+    <!-- 指定时间,，每日七点检查购销合同 -->
     <bean id="contractTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="contractInvokingJob"></property>
         <property name="cronExpression" value="0 0 7 * * ?"></property>
@@ -39,6 +39,7 @@
         <property name="targetObject" ref="taskRemindJob"></property>
         <property name="targetMethod" value="send"></property>
     </bean>
+    <!-- 指定时间,，每日六点半检查待办任务 -->
     <bean id="taskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="taskInvokingJob"></property>
         <property name="cronExpression" value="0 30 6 * * ?"></property>
