@@ -61,6 +61,9 @@
         <property name="loginUrl" value="/index.jsp"></property>
         <!-- 登录成功后 -->      
         <property name="successUrl" value="/WEB-INF/pages/home/fmain.jsp"></property>
+		<!-- 用户访问未对其授权的资源时，所显示的连接 -->
+		<property name="unauthorizedUrl" value="/WEB-INF/pages/error.jsp" />
+
         <property name="filterChainDefinitions">
             <!-- /**代表下面的多级目录也过滤 -->
             <value>

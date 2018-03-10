@@ -92,7 +92,6 @@ public class LoginAction extends BaseAction {
 		}
 		//删除session中数据
 		ServletActionContext.getRequest().getSession().invalidate();
-//		session.remove(SysConstant.CURRENT_USER_INFO);		//删除session
 		return "logout";
 	}
 
@@ -189,8 +188,6 @@ public class LoginAction extends BaseAction {
 		String key = String.format(RedisCacheKey.USER_PERMISSION_ID, user.getId());
 		redisService.sadd(key,mSet);
 		redisService.expire(key,1,TimeUnit.HOURS);
-//		redisService.setex(String.format(RedisCacheKey.USER_PERMISSION_ID,user.getId()),mSet,30, TimeUnit.MINUTES);
-//		session.put(SysConstant.ALL_PERMISSION,mSet);
 	}
 }
 

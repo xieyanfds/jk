@@ -2,12 +2,31 @@ package com.xy.jedis;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xy.shiro.JSONObject;
+import com.xy.shiro.SerializeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -19,19 +38,33 @@ import java.util.concurrent.TimeUnit;
 public class RedisService {
 
     private static Logger logger = Logger.getLogger(RedisService.class);
-    private ObjectMapper mapper = new ObjectMapper();
+
+    private static ObjectMapper mapper = new ObjectMapper();
+
+    static {
+        //对象的所有字段全部列入
+        mapper.setSerializationInclusion(JsonSerialize.Inclusion.ALWAYS);
+        //取消默认转换timestamps形式
+        mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
+        //忽略空bean转json的错误
+        mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
+        //所有日期统一格式
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        //忽略在json中存在，但是在对象中不存在时转换错误
+        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 
     @Autowired
     private RedisTemplate redisTemplate;
 
     /**
      * 写入或更新缓存
+     *
      * @param key
      * @param value
      * @return
      */
-    public boolean set(String key, Object value)
-    {
+    public boolean set(String key, Object value) {
         this.redisTemplate.opsForValue().set(key, value);
         return Boolean.valueOf(true);
     }
@@ -39,6 +72,7 @@ public class RedisService {
     /**
      * 写入缓存
      * 设置失效时间
+     *
      * @param key
      * @param timeout
      * @param timeUnit
@@ -48,9 +82,9 @@ public class RedisService {
         boolean result = true;
 
         try {
-            String json = this.mapper.writeValueAsString(t);
+            String json = mapper.writeValueAsString(t);
             this.redisTemplate.opsForValue().set(key, json, timeout, timeUnit);
-        } catch (JsonProcessingException var9) {
+        } catch (Exception var9) {
             logger.error("RedisService.setnx error, key=" + key + " value=" + t, var9);
             result = false;
         }
@@ -60,15 +94,58 @@ public class RedisService {
 
     /**
      * 读取缓存
+     *
      * @param key
      * @return
      */
     public String get(String key) {
-        return (String)redisTemplate.opsForValue().get(key);
+        return (String) redisTemplate.opsForValue().get(key);
+    }
+
+    /**
+     * 根据class类型读取缓存
+     *
+     * @param key
+     * @return
+     */
+    public <T> T get(String key, Class<T> clazz) {
+        T result = null;
+        try {
+            result = clazz.newInstance();
+            String value = (String) this.redisTemplate.opsForValue().get(key);
+            if (StringUtils.isEmpty(value)) {
+                return null;
+            }
+            JSONObject jsonObject = JSONObject.fromObject(value);
+            BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+                String name = propertyDescriptor.getName();
+                Object o = jsonObject.get(name);
+                if (o != null) {
+                    Method writeMethod = propertyDescriptor.getWriteMethod();
+                    if (writeMethod != null) {
+                        if (propertyDescriptor.getPropertyType() == Date.class) {
+                            if(o instanceof String){
+                                o = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(o.toString());
+                            }else {
+                                o = new Date(Long.parseLong(o.toString()));
+                            }
+                        }
+                        writeMethod.invoke(result, o);
+                    }
+                }
+            }
+//            t = this.mapper.readValue(value, clazz);
+        } catch (Exception var6) {
+            logger.error("RedisService.get error", var6);
+        }
+        return result;
     }
 
     /**
      * 删除对应的value
+     *
      * @param key
      */
     public Boolean delete(String key) {
@@ -79,6 +156,7 @@ public class RedisService {
 
     /**
      * 删除对应的集合
+     *
      * @param keys
      */
     public Boolean delete(Set<String> keys) {
@@ -110,6 +188,7 @@ public class RedisService {
 
     /**
      * 判断缓存中是否有对应的value
+     *
      * @param key
      * @return
      */
@@ -119,6 +198,7 @@ public class RedisService {
 
     /**
      * 设置string 的value
+     *
      * @param key
      * @param value
      * @return
@@ -130,13 +210,14 @@ public class RedisService {
 
     /**
      * 添加set集合元素
+     *
      * @param key
      * @param set
      * @return
      */
     public Long sadd(String key, Set<String> set) {
         long l = 0;
-        for(String s:set) {
+        for (String s : set) {
             this.redisTemplate.opsForSet().add(key, s);
             l++;
         }
@@ -145,6 +226,7 @@ public class RedisService {
 
     /**
      * 添加hash子元素
+     *
      * @param key
      * @param hashKey
      * @param t
@@ -156,14 +238,14 @@ public class RedisService {
 
         try {
             String json;
-            if(t != null && t instanceof String) {
+            if (t != null && t instanceof String) {
                 json = t.toString();
             } else {
-                json = this.mapper.writeValueAsString(t);
+                json = mapper.writeValueAsString(t);
             }
 
             this.redisTemplate.opsForHash().put(key, hashKey, json);
-        } catch (JsonProcessingException var7) {
+        } catch (Exception var7) {
             logger.error("RedisService.set error, key=" + key + " value=" + t, var7);
             result = false;
         }
@@ -172,9 +254,9 @@ public class RedisService {
     }
 
 
-
     /**
      * 设置key的有效期
+     *
      * @param key
      * @param timeout
      * @param unit
@@ -187,11 +269,76 @@ public class RedisService {
 
     /**
      * 获取set集合元素
+     *
      * @param key
      * @return
      */
     public Set<String> smembers(String key) {
         return this.redisTemplate.opsForSet().members(key);
+    }
+
+    public byte[] getByte(String s) {
+        Object o = this.redisTemplate.opsForValue().get(s);
+        return SerializeUtils.serialize(o);
+    }
+
+    public void flushDB() {
+        redisTemplate.execute(new RedisCallback() {
+            @Override
+            public String doInRedis(RedisConnection connection) throws DataAccessException {
+                connection.flushDb();
+                return "ok";
+            }
+        });
+    }
+
+    public Set<String> keys(String pattern) {
+        final ScanOptions scanOptions = ScanOptions.scanOptions().match(pattern).build();
+        return (Set) this.redisTemplate.execute(new RedisCallback<Set<String>>() {
+            @Override
+            public Set<String> doInRedis(RedisConnection connection) throws DataAccessException {
+                boolean done = false;
+                HashSet keySet = new HashSet();
+
+                while (!done) {
+                    Cursor c = connection.scan(scanOptions);
+
+                    try {
+                        while (c.hasNext()) {
+                            byte[] b = (byte[]) c.next();
+                            keySet.add(new String(b));
+                        }
+
+                        done = true;
+                    } catch (NoSuchElementException var6) {
+                        RedisService.logger.error("RedisService.scan error", var6);
+                    }
+                }
+
+                return keySet;
+            }
+        });
+    }
+
+    public long dbSize() {
+        return (long) redisTemplate.execute(new RedisCallback() {
+            @Override
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.dbSize();
+            }
+        });
+    }
+
+    /**
+     * @return
+     */
+    public String ping() {
+        return (String) redisTemplate.execute(new RedisCallback() {
+            public String doInRedis(RedisConnection connection) throws DataAccessException {
+
+                return connection.ping();
+            }
+        });
     }
 
     /*public Boolean setnx(int dbIndex, String key, String value) {

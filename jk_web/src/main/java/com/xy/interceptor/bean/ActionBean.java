@@ -1,11 +1,13 @@
 package com.xy.interceptor.bean;
 
+import java.io.Serializable;
+
 /**
  * @author xieyan
  * @description 使用快捷方式中间记录对象
  * @date 2018/1/23.
  */
-public class ActionBean {
+public class ActionBean implements Serializable{
     private String accessId;
     private String moduleName;
     private String curl;

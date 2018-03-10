@@ -32,21 +32,11 @@ public class AuthRealm extends AuthorizingRealm{
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		User user = (User) arg0.fromRealm(this.getName()).iterator().next();
-		HashSet<String> mSet = Sets.newHashSet();
 		if(user!=null) {
-			/*Set<Role> roles = user.getRoles();//对象导航
-			for (Role role : roles) {
-				//获取每个角色的权限
-				Set<Module> modules = role.getModules();
-				for (Module module : modules) {
-					mSet.add(module.getName());
-				}
-			}*/
-//			HttpSession session = ServletActionContext.getRequest().getSession();
-//			Set allPermission = (Set)session.getAttribute(SysConstant.ALL_PERMISSION);
 			Set<String> allPermission = redisService.smembers(String.format(RedisCacheKey.USER_PERMISSION_ID, user.getId()));
 			SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-			authorizationInfo.addStringPermissions(allPermission);//添加用户的权限
+			//添加用户主菜单的权限
+			authorizationInfo.addStringPermissions(allPermission);
 			return authorizationInfo;
 		}
 		return null;
