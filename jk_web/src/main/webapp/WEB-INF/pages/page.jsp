@@ -7,8 +7,8 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<input type="hidden" value="" id="pageSize" name="page.pageSize" />
-<input type="hidden" value="" id="pageNo1" name="page.pageNo" />
+<input type="hidden"  id="pageSize" value="${pageSize}" name="page.pageSize" />
+<input type="hidden"  id="pageNo1" value="${pageNo}" name="page.pageNo" />
 <div id="pageToolbar"></div>
 
 <link rel="stylesheet" type="text/css" href="${ctx}/css/paging.css">
@@ -22,8 +22,12 @@
      }});*/
     $('#pageToolbar').Paging({pagesize:${pageSize},count:${totalRecord},current:${pageNo},toolbar:true,callback:function(currentNo,pagesize,count){
         console.log(arguments)
-        $("#pageNo1").val(currentNo);
-        $("#pageSize").val(pagesize);
+        if(currentNo != null && currentNo != '') {
+            $("#pageNo1").val(currentNo);
+        }
+        if(pagesize != null && pagesize != '') {
+            $("#pageSize").val(pagesize);
+        }
         formSubmit('${url}',"_self");
     }});
     $('#pageToolbar ul').append('<li>共${totalRecord}条记录</li>');
