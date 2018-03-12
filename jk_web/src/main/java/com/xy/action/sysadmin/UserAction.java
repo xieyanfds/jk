@@ -12,6 +12,8 @@ import com.xy.service.UserService;
 import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,6 +21,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +35,8 @@ import java.util.Set;
 public class UserAction extends BaseAction implements ModelDriven<User>{
 
 	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(UserAction.class);
 
 	@Autowired
 	private SimpleMailMessage simpleMailMessage;
@@ -69,17 +74,21 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public String list() throws Exception {
-		//设置分页的url地址
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(!StringUtils.isEmpty(parameter)){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			//设置分页的url地址
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(!StringUtils.isEmpty(parameter)){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			page = userService.findPage("from User", page, User.class, null);
+			page.setUrl("userAction_list");
+			//将page对象压入栈顶
+			pushVS(page);
+		} catch (NumberFormatException e) {
+			logger.error("list exception:{}",e);
 		}
-		page = userService.findPage("from User", page, User.class, null);
-		page.setUrl("userAction_list");
-		//将page对象压入栈顶
-		pushVS(page);
 		return "list";
 	}
 	/**
@@ -88,12 +97,16 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public String toview()throws Exception{
-		User User = userService.get(User.class, model.getId());
-		pushVS(User);
-		List<Dept> deptList = deptService.find("from Dept where state = 1", Dept.class, null);
-		putContext("deptList", deptList);
-		List<User> ulist = userService.find("from User where state = 1", User.class, null);
-		putContext("userList", ulist);
+		try {
+			User User = userService.get(User.class, model.getId());
+			pushVS(User);
+			List<Dept> deptList = deptService.find("from Dept where state = 1", Dept.class, null);
+			putContext("deptList", deptList);
+			List<User> ulist = userService.find("from User where state = 1", User.class, null);
+			putContext("userList", ulist);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
 		return "toview";
 	}
 	/**
@@ -102,10 +115,14 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public String tocreate()throws Exception{
-		List<Dept> list = deptService.find("from Dept where state = 1", Dept.class, null);
-		putContext("deptList", list);
-		List<User> ulist = userService.find("from User where state = 1", User.class, null);
-		putContext("userList", ulist);
+		try {
+			List<Dept> list = deptService.find("from Dept where state = 1", Dept.class, null);
+			putContext("deptList", list);
+			List<User> ulist = userService.find("from User where state = 1", User.class, null);
+			putContext("userList", ulist);
+		} catch (Exception e) {
+			logger.error("tocreate exception:{}",e);
+		}
 		return "tocreate";
 	}
 	/**
@@ -114,35 +131,39 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
-		//添加细粒度权限控制
-		//获取当前用户
-		User user = super.getCurrUser();
-		model.setCreateBy(user.getId());
-		model.setCreateDept(user.getDept().getId());
-		model.setCreateTime(new Date());
-		model.getUserInfo().setCreateBy(user.getId());
-		model.getUserInfo().setCreateDept(user.getDept().getId());
-		model.getUserInfo().setCreateTime(new Date());
+		try {
+			//添加细粒度权限控制
+			//获取当前用户
+			User user = super.getCurrUser();
+			model.setCreateBy(user.getId());
+			model.setCreateDept(user.getDept().getId());
+			model.setCreateTime(new Date());
+			model.getUserInfo().setCreateBy(user.getId());
+			model.getUserInfo().setCreateDept(user.getDept().getId());
+			model.getUserInfo().setCreateTime(new Date());
 
-		userService.saveOrUpdate(model);
+			userService.saveOrUpdate(model);
 
-		//再开启一个线程完成邮件发送功能
-		//spring集成javaMail
-		Thread th = new Thread(new Runnable() {
-			public void run() {
-				try {
-					simpleMailMessage.setTo(model.getUserInfo().getEmail());
-					simpleMailMessage.setSubject("新员工入职的系统账户通知");
-					simpleMailMessage.setText("欢迎您加入本集团，您的用户名:"+model.getUserName()+",初始密码："+ SysConstant.DEFAULT_PASS);
+			//再开启一个线程完成邮件发送功能
+			//spring集成javaMail
+			Thread th = new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        simpleMailMessage.setTo(model.getUserInfo().getEmail());
+                        simpleMailMessage.setSubject("新员工入职的系统账户通知");
+                        simpleMailMessage.setText("欢迎您加入本集团，您的用户名:"+model.getUserName()+",初始密码："+ SysConstant.DEFAULT_PASS);
 
-					javaMailSender.send(simpleMailMessage);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+                        javaMailSender.send(simpleMailMessage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
-		th.start();
+			th.start();
+		} catch (Exception e) {
+			logger.error("insert exception:{}",e);
+		}
 
 		return "ulist";
 	}
@@ -152,12 +173,16 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public String toupdate()throws Exception{
-		User User = userService.get(User.class, model.getId());
-		pushVS(User);
-		List<Dept> deptList = deptService.find("from Dept where state = 1", Dept.class, null);
-		putContext("deptList", deptList);
-		List<User> ulist = userService.find("from User where state = 1", User.class, null);
-		putContext("userList", ulist);
+		try {
+			User User = userService.get(User.class, model.getId());
+			pushVS(User);
+			List<Dept> deptList = deptService.find("from Dept where state = 1", Dept.class, null);
+			putContext("deptList", deptList);
+			List<User> ulist = userService.find("from User where state = 1", User.class, null);
+			putContext("userList", ulist);
+		} catch (Exception e) {
+			logger.error("toupdate exception:{}",e);
+		}
 		return "toUpdate";
 	}
 	/**
@@ -166,18 +191,22 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public String update()throws Exception{
-		// 先查询
-		User user = userService.get(User.class, model.getId());
-		User currUser = super.getCurrUser();
+		try {
+			// 先查询
+			User user = userService.get(User.class, model.getId());
+			User currUser = super.getCurrUser();
 
-		//设置修改的属性
-		user.setDept(model.getDept());
-		user.setUserName(model.getUserName());
-		user.setState(model.getState());
-		user.setUpdateBy(currUser.getId());
-		user.setUpdateTime(new Date());
+			//设置修改的属性
+			user.setDept(model.getDept());
+			user.setUserName(model.getUserName());
+			user.setState(model.getState());
+			user.setUpdateBy(currUser.getId());
+			user.setUpdateTime(new Date());
 
-		userService.saveOrUpdate(user);
+			userService.saveOrUpdate(user);
+		} catch (Exception e) {
+			logger.error("update exception:{}",e);
+		}
 		return "ulist";
 	}
 	/**
@@ -186,17 +215,21 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public String torole()throws Exception{
-		//查询所有角色
-		List<Role> rList = roleService.find("from Role", Role.class, null);
-		putContext("roleList", rList);
-		User userInfo = userService.get(User.class, model.getId());
-		pushVS(userInfo);
-		//设置用户的 角色字符串
-		StringBuffer buffer = new StringBuffer();
-		for (Role role : userInfo.getRoles()) {
-			buffer.append(role.getName()).append(",");
+		try {
+			//查询所有角色
+			List<Role> rList = roleService.find("from Role", Role.class, null);
+			putContext("roleList", rList);
+			User userInfo = userService.get(User.class, model.getId());
+			pushVS(userInfo);
+			//设置用户的 角色字符串
+			StringBuffer buffer = new StringBuffer();
+			for (Role role : userInfo.getRoles()) {
+                buffer.append(role.getName()).append(",");
+            }
+			putContext("userRoleStr", buffer.toString());
+		} catch (Exception e) {
+			logger.error("torole exception:{}",e);
 		}
-		putContext("userRoleStr", buffer.toString());
 		return "torole";
 	}
 	/**
@@ -209,21 +242,26 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 		this.roleIds = roleIds;
 	}
 	public String role()throws Exception{
-		//先获取修改用户
-		User user = userService.get(User.class, model.getId());
-		//设置用户角色
-		Set<Role> roles = new HashSet<Role>();
-		for (String string : roleIds) {
-			Role role = roleService.get(Role.class, string);
-			roles.add(role);
+
+		try {
+			//先获取修改用户
+			User user = userService.get(User.class, model.getId());
+			//设置用户角色
+			Set<Role> roles = new HashSet<Role>();
+			for (String string : roleIds) {
+                Role role = roleService.get(Role.class, string);
+                roles.add(role);
+            }
+			//3.设置用户与角色列表之间的关系
+			user.setRoles(roles);
+
+
+			//4.保存到数据库表中
+			userService.saveOrUpdate(user);//影响的是用户角色的中间表
+		} catch (Exception e) {
+			logger.error("role exception:{}",e);
 		}
-		//3.设置用户与角色列表之间的关系
-		user.setRoles(roles);
-		
-		
-		//4.保存到数据库表中
-		userService.saveOrUpdate(user);//影响的是用户角色的中间表
-		
+
 		//5.跳页面
 		return "ulist";
 	}
@@ -245,10 +283,14 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 *                       
 	 */
 	public String delete()throws Exception{
-		// 先获取需要删除的id
-		String[] ids = model.getId().split(", ");
-		userService.delete(User.class, ids);
-		
+		try {
+			// 先获取需要删除的id
+			String[] ids = model.getId().split(", ");
+			userService.delete(User.class, ids);
+		} catch (Exception e) {
+			logger.error("delete exception:{}",e);
+		}
+
 		return "ulist";
 	}
 	/**
@@ -256,35 +298,40 @@ public class UserAction extends BaseAction implements ModelDriven<User>{
 	 * @throws Exception
 	 */
 	public void findById4ajax() throws Exception {
-		//根据主键查出用户详情
-		User user = userService.get(User.class, model.getId());
-		//将用户转为json写回
-		String jsonString = JSON.toJSONString(user);
-		HttpServletResponse response = ServletActionContext.getResponse();
-		//设置中文
-		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(jsonString);
-
+		try {
+			//根据主键查出用户详情
+			User user = userService.get(User.class, model.getId());
+			//将用户转为json写回
+			String jsonString = JSON.toJSONString(user);
+			HttpServletResponse response = ServletActionContext.getResponse();
+			//设置中文
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().write(jsonString);
+		} catch (IOException e) {
+			logger.error("findById4ajax exception:{}",e);
+		}
 	}
 	/**
 	 * ajax查询用户的下属
 	 * @throws Exception
 	 */
 	public void hasManager() throws Exception {
-		HttpServletResponse response = ServletActionContext.getResponse();
-		//根据主键查出用户详情
-		List<User> userList = userService.find("from User where userInfo.manager.id=? ", User.class,new String[]{ model.getId()});
-		if(userList!=null&&userList.size()>0){
-			//存在 将用户转为json写回
-			String jsonString = JSON.toJSONString(userList);
-			//设置中文
-			response.setContentType("application/json;charset=utf-8");
-			response.getWriter().write(jsonString);
-		}else{
-			//不存在
-			response.getWriter().write("0");
+		try {
+			HttpServletResponse response = ServletActionContext.getResponse();
+			//根据主键查出用户详情
+			List<User> userList = userService.find("from User where userInfo.manager.id=? ", User.class,new String[]{ model.getId()});
+			if(userList!=null&&userList.size()>0){
+                //存在 将用户转为json写回
+                String jsonString = JSON.toJSONString(userList);
+                //设置中文
+                response.setContentType("application/json;charset=utf-8");
+                response.getWriter().write(jsonString);
+            }else{
+                //不存在
+                response.getWriter().write("0");
+            }
+		} catch (IOException e) {
+			logger.error("hasManager exception:{}",e);
 		}
-
-
 	}
 }

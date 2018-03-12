@@ -1,6 +1,5 @@
 package com.xy.utils;
 
-import org.apache.log4j.Logger;
 
 /**
  * @author xieyan
@@ -8,7 +7,6 @@ import org.apache.log4j.Logger;
  * @date 2018/3/2.
  */
 public class SysConstant {
-	private static Logger log = Logger.getLogger(SysConstant.class);
 
 	//当前用户session name
 	public static String CURRENT_USER_INFO = "_CURRENT_USER";

@@ -2,12 +2,15 @@ package com.xy.action.cargo;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
+import com.xy.action.sysadmin.DeptAction;
 import com.xy.domain.ExtEproduct;
 import com.xy.domain.Factory;
 import com.xy.service.ExtEproductService;
 import com.xy.service.FactoryService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -20,8 +23,10 @@ import java.util.List;
  * @date 2018/03/01.
  */
 public class ExtEproductAction extends BaseAction implements ModelDriven<ExtEproduct>{
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(ExtEproductAction.class);
+
 	private ExtEproduct  model = new ExtEproduct();
 	@Override
 	public ExtEproduct getModel() {
@@ -49,13 +54,17 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String toview()throws Exception{
-		//查询货物
-		ExtEproduct extEproduct = extEproductService.get(ExtEproduct.class, model.getId());
-		pushVS(extEproduct);
-		//查询生产厂家
-		List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
+		try {
+			//查询货物
+			ExtEproduct extEproduct = extEproductService.get(ExtEproduct.class, model.getId());
+			pushVS(extEproduct);
+			//查询生产厂家
+			List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
 
-		putContext("factoryList", fList);
+			putContext("factoryList", fList);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
 		return "toview";
 	}
 }

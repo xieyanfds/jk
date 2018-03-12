@@ -10,6 +10,8 @@ import com.xy.service.PackingListService;
 import com.xy.service.ShippingOrderService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.ContextLoader;
@@ -26,6 +28,8 @@ import java.util.List;
  * @date 2017/12/26.
  */
 public class ShippingOrderAction extends BaseAction implements ModelDriven<ShippingOrder> {
+
+	private Logger logger = LoggerFactory.getLogger(ShippingOrderAction.class);
 
 	@Autowired
 	private ShippingOrderService shippingOrderService;
@@ -58,80 +62,100 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 	 * @return
 	 */
 	public String list(){
-		//查询所有内容
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(!StringUtils.isEmpty(parameter)){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			//查询所有内容
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(!StringUtils.isEmpty(parameter)){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			String hql = "from ShippingOrder order by createTime desc";
+			//给页面提供分页数据
+			//配置分页按钮的转向链接
+			page.setUrl("shippingOrderAction_list");
+			page = shippingOrderService.findPage(hql, page, ShippingOrder.class, null);
+			pushVS(page);
+		} catch (Exception e) {
+			logger.error("list exception:{}",e);
 		}
-		String hql = "from ShippingOrder order by createTime desc";
-		//给页面提供分页数据
-		//配置分页按钮的转向链接
-		page.setUrl("shippingOrderAction_list");
-		page = shippingOrderService.findPage(hql, page, ShippingOrder.class, null);
-		pushVS(page);
 		return "list";
 	}
 	
 	//转向新增页面
 	public String tocreate(){
-		//准备数据
-		List<PackingList> list = packingListService.find("from PackingList where state = 1 order by createTime desc", PackingList.class, null);
-		putContext("results", list);
+		try {
+			//准备数据
+			List<PackingList> list = packingListService.find("from PackingList where state = 1 order by createTime desc", PackingList.class, null);
+			putContext("results", list);
+		} catch (Exception e) {
+			logger.error("tocreate exception:{}",e);
+		}
 		return "create";
 	}
 	
 	//新增保存
 	public String insert(){
-		//添加细粒度权限控制
-		//获取当前用户
-		User user = super.getCurrUser();
-		model.setCreateBy(user.getId());
-		model.setCreateTime(new Date());
-		model.setCreateDept(user.getDept().getId());
+		try {
+			//添加细粒度权限控制
+			//获取当前用户
+			User user = super.getCurrUser();
+			model.setCreateBy(user.getId());
+			model.setCreateTime(new Date());
+			model.setCreateDept(user.getDept().getId());
 
-		shippingOrderService.saveOrUpdate(model);
-		
-		return "alist";			//返回列表，重定向action_list
+			shippingOrderService.saveOrUpdate(model);
+		} catch (Exception e) {
+			logger.error("insert exception:{}",e);
+		}
+		//返回列表，重定向action_list
+		return "alist";
 	}
 
 	//转向修改页面
 	public String toupdate(){
-		//准备数据,查询出所有已提交装箱单
-        List<PackingList> list = packingListService.find("from PackingList where state = 1", PackingList.class, null);
+		try {
+			//准备数据,查询出所有已提交装箱单
+			List<PackingList> list = packingListService.find("from PackingList where state = 1", PackingList.class, null);
 
-        //准备修改的数据
-        ShippingOrder obj = shippingOrderService.get(ShippingOrder.class, model.getId());
-        PackingList packingList = obj.getPackingList();
-        list.add(packingList);
+			//准备修改的数据
+			ShippingOrder obj = shippingOrderService.get(ShippingOrder.class, model.getId());
+			PackingList packingList = obj.getPackingList();
+			list.add(packingList);
 
-        //将原来选择的装箱单放入
-        putContext("results", list);
-        pushVS(obj);
+			//将原来选择的装箱单放入
+			putContext("results", list);
+			pushVS(obj);
+		} catch (Exception e) {
+			logger.error("toupdate exception:{}",e);
+		}
 		return "update";
 	}
 	
 	//修改保存
 	public String update(){
-	    if(model.getId() != model.getPackingList().getId()){
-	        //说明修改了对应的装箱单
-            //修改之前装箱单的状态为提交未委托
-            PackingList oldPackingList = packingListService.get(PackingList.class, model.getPackingList().getId());
-            oldPackingList.setState(1);
-            //修改选择装箱单的状态，saveOrUpdate方法中有
-            //删除之前生成的委托单
-            shippingOrderService.deleteById(ShippingOrder.class,model.getPackingList().getId());
-            //添加一条记录，新的委托单
-            User user = super.getCurrUser();
-            model.setCreateBy(user.getId());
-            model.setCreateTime(new Date());
-            model.setCreateDept(user.getDept().getId());
-        }else{
-	        //只是修改了相应属性
-        }
-        shippingOrderService.saveOrUpdate(model);
-        return "alist";
+		try {
+			if(model.getId() != model.getPackingList().getId()){
+                //说明修改了对应的装箱单
+                //修改之前装箱单的状态为提交未委托
+                PackingList oldPackingList = packingListService.get(PackingList.class, model.getPackingList().getId());
+                oldPackingList.setState(1);
+                //修改选择装箱单的状态，saveOrUpdate方法中有
+                //删除之前生成的委托单
+                shippingOrderService.deleteById(ShippingOrder.class,model.getPackingList().getId());
+                //添加一条记录，新的委托单
+                User user = super.getCurrUser();
+                model.setCreateBy(user.getId());
+                model.setCreateTime(new Date());
+                model.setCreateDept(user.getDept().getId());
+            }else{
+                //只是修改了相应属性
+            }
+			shippingOrderService.saveOrUpdate(model);
+		} catch (Exception e) {
+			logger.error("update exception:{}",e);
+		}
+		return "alist";
         //设置修改的属性
 		/*ShippingOrder packingList = shippingOrderService.get(ShippingOrder.class, model.getPackingList().getId());
 
@@ -163,34 +187,49 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 	
 	//删除多条
 	public String delete(){
-		shippingOrderService.delete(ShippingOrder.class, model.getId().split(", "));
-		
+		try {
+			shippingOrderService.delete(ShippingOrder.class, model.getId().split(", "));
+		} catch (Exception e) {
+			logger.error("delete exception:{}",e);
+		}
+
 		return "alist";
 	}
 	
 	//查看
 	public String toview(){
-		ShippingOrder obj = shippingOrderService.get(ShippingOrder.class, model.getId());
-        pushVS(obj);
+		try {
+			ShippingOrder obj = shippingOrderService.get(ShippingOrder.class, model.getId());
+			pushVS(obj);
 
-        PackingList packingList = packingListService.get(PackingList.class, model.getId());
-        putContext("o",packingList);
-        //转向查看页面
+			PackingList packingList = packingListService.get(PackingList.class, model.getId());
+			putContext("o",packingList);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
+		//转向查看页面
         return "view";
 	}
 	
 	//提交
 	public String submit(){
-        String[] split = model.getId().split(", ");
-        shippingOrderService.changeState(split,1);
-
+		try {
+			String[] split = model.getId().split(", ");
+			shippingOrderService.changeState(split,1);
+		} catch (Exception e) {
+			logger.error("submit exception:{}",e);
+		}
 		return "alist";
 	}
 
 	//取消
 	public String cancel(){
-        String[] split = model.getId().split(", ");
-        shippingOrderService.changeState(split,0);
+		try {
+			String[] split = model.getId().split(", ");
+			shippingOrderService.changeState(split,0);
+		} catch (Exception e) {
+			logger.error("cancel exception:{}",e);
+		}
 
 		return "alist";
 	}
@@ -199,10 +238,14 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 	 * 打印委托单
 	 */
 	public String print() throws Exception {
-		//调用print方法
-		WebApplicationContext currentWebApplicationContext = ContextLoader.getCurrentWebApplicationContext();
-		ShippingOrderPrint shippingOrderPrint = (ShippingOrderPrint)currentWebApplicationContext.getBean("shippingOrderPrint");
-		shippingOrderPrint.print(model);
+		try {
+			//调用print方法
+			WebApplicationContext currentWebApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+			ShippingOrderPrint shippingOrderPrint = (ShippingOrderPrint)currentWebApplicationContext.getBean("shippingOrderPrint");
+			shippingOrderPrint.print(model);
+		} catch (Exception e) {
+			logger.error("print exception:{}",e);
+		}
 		return NONE;
 	}
 }

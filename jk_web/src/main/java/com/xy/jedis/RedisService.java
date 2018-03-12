@@ -5,11 +5,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.xy.shiro.JSONObject;
 import com.xy.shiro.SerializeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -37,7 +38,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisService {
 
-    private static Logger logger = Logger.getLogger(RedisService.class);
+    private static Logger logger = LoggerFactory.getLogger(RedisService.class);
 
     private static ObjectMapper mapper = new ObjectMapper();
 

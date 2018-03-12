@@ -2,13 +2,14 @@ package com.xy.action.cargo;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
-import com.xy.domain.ContractProduct;
 import com.xy.domain.ExtCproduct;
 import com.xy.domain.Factory;
 import com.xy.service.ExtCproductService;
 import com.xy.service.FactoryService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -21,8 +22,10 @@ import java.util.List;
  * @date 2017/12/26.
  */
 public class ExtCproductAction extends BaseAction implements ModelDriven<ExtCproduct>{
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(ExtCproductAction.class);
+
 	private ExtCproduct model = new ExtCproduct();
 	@Override
 	public ExtCproduct getModel() {
@@ -51,20 +54,24 @@ private static final long serialVersionUID = 1L;
 	 * <a href="/jk_web/cargo/ExtCproductAction_tocreate?contract.id=2c90c5004ad63735014ad6d204060005">[货物]</a>
 	 */
 	public String tocreate()throws Exception{
-		//根据购销合同查询生产货物
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(!StringUtils.isEmpty(parameter)){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			//根据购销合同查询生产货物
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(!StringUtils.isEmpty(parameter)){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			extCproductService.findPage("from ExtCproduct where contractProduct.id = ?", page, ExtCproduct.class, new String []{model.getContractProduct().getId()});
+			page.setUrl("extCproductAction_tocreate");
+			pushVS(page);
+			//查询生产厂家
+			List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
+
+			putContext("factoryList", fList);
+		} catch (NumberFormatException e) {
+			logger.error("tocreate exception:{}",e);
 		}
-		extCproductService.findPage("from ExtCproduct where contractProduct.id = ?", page, ExtCproduct.class, new String []{model.getContractProduct().getId()});
-		page.setUrl("extCproductAction_tocreate");
-		pushVS(page);
-		//查询生产厂家
-		List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
-		
-		putContext("factoryList", fList);
 		return "tocreate";
 	}
 	/**
@@ -73,7 +80,11 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
-		extCproductService.saveOrUpdate(model);
+		try {
+			extCproductService.saveOrUpdate(model);
+		} catch (Exception e) {
+			logger.error("insert exception:{}",e);
+		}
 		return tocreate();
 	}
 	/**
@@ -83,12 +94,16 @@ private static final long serialVersionUID = 1L;
 	 * <a href="ExtCproductAction_toupdate.action?id=4028817a3357462e0133591b86ec0004">[修改]</a>
 	 */
 	public String toupdate()throws Exception{
-		ExtCproduct ExtCproduct = extCproductService.get(ExtCproduct.class, model.getId());
-		pushVS(ExtCproduct);
-		//查询生产厂家
-		List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
-		
-		putContext("factoryList", fList);
+		try {
+			ExtCproduct ExtCproduct = extCproductService.get(ExtCproduct.class, model.getId());
+			pushVS(ExtCproduct);
+			//查询生产厂家
+			List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
+
+			putContext("factoryList", fList);
+		} catch (Exception e) {
+			logger.error("toupdate exception:{}",e);
+		}
 		return "toUpdate";
 	}
 	/**
@@ -98,8 +113,12 @@ private static final long serialVersionUID = 1L;
 	 * <a href="ExtCproductAction_delete.action?id=4028817a3357462e0133591b86ec0004&contract.id=4028817a3357462e0133591b86ec0002">[删除]</a>
 	 */
 	public String delete()throws Exception{
-        //删除
-		extCproductService.delete(ExtCproduct.class,model);
+		try {
+			//删除
+			extCproductService.delete(ExtCproduct.class,model);
+		} catch (Exception e) {
+			logger.error("delete exception:{}",e);
+		}
 		return tocreate();
 	}
 	/*
@@ -111,22 +130,26 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String update()throws Exception{
-		//先查询
-		ExtCproduct extCproduct = extCproductService.get(ExtCproduct.class, model.getId());
-		//设置修改的属性
-		extCproduct.setFactory(model.getFactory());
-		extCproduct.setFactoryName(model.getFactoryName());
-		extCproduct.setProductNo(model.getProductNo());
-		extCproduct.setProductImage(model.getProductImage());
-		extCproduct.setCnumber(model.getCnumber());
-	    extCproduct.setAmount(model.getAmount());
-	    extCproduct.setPackingUnit(model.getPackingUnit());
-	    extCproduct.setPrice(model.getPrice());
-	    extCproduct.setOrderNo(model.getOrderNo());
-	    extCproduct.setProductDesc(model.getProductDesc());   
-	    extCproduct.setProductRequest(model.getProductRequest());
-	    
-		extCproductService.saveOrUpdate(extCproduct);
+		try {
+			//先查询
+			ExtCproduct extCproduct = extCproductService.get(ExtCproduct.class, model.getId());
+			//设置修改的属性
+			extCproduct.setFactory(model.getFactory());
+			extCproduct.setFactoryName(model.getFactoryName());
+			extCproduct.setProductNo(model.getProductNo());
+			extCproduct.setProductImage(model.getProductImage());
+			extCproduct.setCnumber(model.getCnumber());
+			extCproduct.setAmount(model.getAmount());
+			extCproduct.setPackingUnit(model.getPackingUnit());
+			extCproduct.setPrice(model.getPrice());
+			extCproduct.setOrderNo(model.getOrderNo());
+			extCproduct.setProductDesc(model.getProductDesc());
+			extCproduct.setProductRequest(model.getProductRequest());
+
+			extCproductService.saveOrUpdate(extCproduct);
+		} catch (Exception e) {
+			logger.error("update exception:{}",e);
+		}
 		return tocreate();
 	}
 	/**
@@ -135,13 +158,17 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String toview()throws Exception{
-		//查询货物
-		ExtCproduct ExtCproduct = extCproductService.get(ExtCproduct.class, model.getId());
-		pushVS(ExtCproduct);
-		//查询生产厂家
-		List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
+		try {
+			//查询货物
+			ExtCproduct ExtCproduct = extCproductService.get(ExtCproduct.class, model.getId());
+			pushVS(ExtCproduct);
+			//查询生产厂家
+			List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '附件'", Factory.class, null);
 
-		putContext("factoryList", fList);
+			putContext("factoryList", fList);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
 		return "toView";
 	}
 }

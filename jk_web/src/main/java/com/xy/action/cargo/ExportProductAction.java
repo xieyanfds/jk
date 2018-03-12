@@ -7,11 +7,10 @@ import com.xy.domain.Factory;
 import com.xy.service.ExportProductService;
 import com.xy.service.FactoryService;
 import com.xy.utils.Page;
-import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -20,8 +19,10 @@ import java.util.List;
  * @date 2018/03/01.
  */
 public class ExportProductAction extends BaseAction implements ModelDriven<ExportProduct>{
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(ExportProductAction.class);
+
 	private ExportProduct model = new ExportProduct();
 	
 	@Override
@@ -53,12 +54,16 @@ private static final long serialVersionUID = 1L;
 	 */
 	public String toview()throws Exception{
 		//查询货物
-		ExportProduct contractProduct = exportProductService.get(ExportProduct.class, model.getId());
-		pushVS(contractProduct);
-		//查询生产厂家
-		List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '货物'", Factory.class, null);
+		try {
+			ExportProduct contractProduct = exportProductService.get(ExportProduct.class, model.getId());
+			pushVS(contractProduct);
+			//查询生产厂家
+			List<Factory> fList = factoryService.find("from Factory where state = 1 and ctype = '货物'", Factory.class, null);
 
-		putContext("factoryList", fList);
+			putContext("factoryList", fList);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
 		return "toview";
 	}
 

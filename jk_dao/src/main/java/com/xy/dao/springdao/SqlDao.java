@@ -1,14 +1,14 @@
 package com.xy.dao.springdao;
 
+import com.xy.utils.UtilFuns;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import com.xy.utils.UtilFuns;
 
 /*
  * 执行sql语句类
@@ -17,7 +17,7 @@ import com.xy.utils.UtilFuns;
  * 
  */
 public class SqlDao {
-	private static Logger log = Logger.getLogger(SqlDao.class);
+	private static Logger log = LoggerFactory.getLogger(SqlDao.class);
 	private UtilFuns utilFuns = new UtilFuns();
     private JdbcTemplate jdbcTemplate;
 
@@ -171,7 +171,7 @@ public class SqlDao {
 	}
 	
 	public int[] batchSQL(String[] sql){
-		log.debug(sql);
+		log.debug(sql.toString());
 		return jdbcTemplate.batchUpdate(sql);
 	}
 

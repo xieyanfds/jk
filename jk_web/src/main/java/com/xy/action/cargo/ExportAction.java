@@ -14,7 +14,10 @@ import com.xy.service.ExportService;
 import com.xy.utils.Page;
 import com.xy.utils.UtilFuns;
 import com.xy.webservice.EpService;
+import com.xy.webservice.Exception_Exception;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -31,8 +34,10 @@ import java.util.Set;
  * @date 2017/12/26.
  */
 public class ExportAction extends BaseAction implements ModelDriven<Export>{
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(ExportAction.class);
+
 	private Export model = new Export();
 	
 	@Override
@@ -69,21 +74,25 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String contractList() throws Exception {
-		//查询状态为1的购销合同
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(parameter!=null){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			//查询状态为1的购销合同
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(parameter!=null){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			String hql = "from Contract where state=1 order by createTime desc";
+			//分页查询
+			contractService.findPage(hql, page, Contract.class, null);
+			page.setUrl("exportAction_contractList");
+
+			//放入值栈
+			super.pushVS(page);
+		} catch (NumberFormatException e) {
+			logger.error("contractList exception:{}",e);
 		}
-		String hql = "from Contract where state=1 order by createTime desc";
-		//分页查询
-		contractService.findPage(hql, page, Contract.class, null);
-		page.setUrl("exportAction_contractList");
-		 
-		//放入值栈
-		super.pushVS(page);
-		
+
 		return "contractList";
 	}
 	/**
@@ -92,41 +101,45 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String list() throws Exception {
-		//根据权限控制显示的数据
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(!StringUtils.isEmpty(parameter)){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			//根据权限控制显示的数据
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(!StringUtils.isEmpty(parameter)){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			String hql = "from Export where 1=1 ";
+			User currUser = super.getCurrUser();
+			//获取用户等级
+			int degree = currUser.getUserInfo().getDegree();
+			if(degree==4){
+                //说明是员工
+                hql+=" and createBy = '"+currUser.getId()+"'";
+
+            }else if(degree==3){
+                //说明是部门经理，管理本部门
+                hql+=" and createDept = '"+currUser.getDept().getId()+"'";
+
+            }else if(degree==2){
+                //说明是管理本部门及下属部门？？？？？
+                hql+=" and createDept in (select id from Dept where id like '"+super.getCurrUser().getDept().getId()+"%')";
+            }else if(degree==1){
+                //说明是副总？？？？？
+
+            }else if(degree==0){
+                //说明是总经理
+
+            }
+			hql += " order by createTime desc";
+			page = exportService.findPage(hql, page, Export.class, null);
+			//设置分页的url地址
+			page.setUrl("exportAction_list");
+			//将page对象压入栈顶
+			pushVS(page);
+		} catch (NumberFormatException e) {
+			logger.error("list exception:{}",e);
 		}
-		String hql = "from Export where 1=1 ";
-		User currUser = super.getCurrUser();
-		//获取用户等级
-		int degree = currUser.getUserInfo().getDegree();
-		if(degree==4){
-			//说明是员工
-			hql+=" and createBy = '"+currUser.getId()+"'";
-			
-		}else if(degree==3){
-			//说明是部门经理，管理本部门
-			hql+=" and createDept = '"+currUser.getDept().getId()+"'";
-			
-		}else if(degree==2){
-			//说明是管理本部门及下属部门？？？？？
-			hql+=" and createDept in (select id from Dept where id like '"+super.getCurrUser().getDept().getId()+"%')";
-		}else if(degree==1){
-			//说明是副总？？？？？
-			
-		}else if(degree==0){
-			//说明是总经理
-			
-		}
-		hql += " order by createTime desc";
-		page = exportService.findPage(hql, page, Export.class, null);
-		//设置分页的url地址
-		page.setUrl("exportAction_list");
-		//将page对象压入栈顶
-		pushVS(page);
 		return "list";
 	}
 	/**
@@ -135,8 +148,12 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String toview()throws Exception{
-		Export export = exportService.get(Export.class, model.getId());
-		pushVS(export);
+		try {
+			Export export = exportService.get(Export.class, model.getId());
+			pushVS(export);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
 		return "toview";
 	}
 	/**
@@ -145,19 +162,23 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String tocreate()throws Exception{
-		//查询选择的购销合同，显示在添加页面
-		ArrayList<Contract> results = Lists.newArrayList();
-		String[] split = model.getId().split(", ");
-		for(String id:split){
-			if(id.trim() != ""){
-				Contract contract = contractService.get(Contract.class, id);
-				results.add(contract);
-			}
-		}
-		//放入栈顶
+		try {
+			//查询选择的购销合同，显示在添加页面
+			ArrayList<Contract> results = Lists.newArrayList();
+			String[] split = model.getId().split(", ");
+			for(String id:split){
+                if(id.trim() != ""){
+                    Contract contract = contractService.get(Contract.class, id);
+                    results.add(contract);
+                }
+            }
+			//放入栈顶
 //		page.setResults(results);
 //		pushVS(page);
-		putContext("results",results);
+			putContext("results",results);
+		} catch (Exception e) {
+			logger.error("tocreate exception:{}",e);
+		}
 		return "tocreate";
 	}
 	/**
@@ -166,14 +187,18 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
-		//添加细粒度权限控制
-		//获取当前用户
-		User user = super.getCurrUser();
-		model.setCreateBy(user.getId());
-		model.setCreateDept(user.getDept().getId());
-		model.setCreateTime(new Date());
+		try {
+			//添加细粒度权限控制
+			//获取当前用户
+			User user = super.getCurrUser();
+			model.setCreateBy(user.getId());
+			model.setCreateDept(user.getDept().getId());
+			model.setCreateTime(new Date());
 
-		exportService.saveOrUpdate(model);
+			exportService.saveOrUpdate(model);
+		} catch (Exception e) {
+			logger.error("insert exception:{}",e);
+		}
 		return contractList();
 	}
 	/**
@@ -182,32 +207,36 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String toupdate()throws Exception{
-		//1.根据id,得到一个对象
-		Export export = exportService.get(Export.class, model.getId());
-		
-		//2.将对象放入值栈中
-		pushVS(export);
-		
-		//3.addTRRecord("mRecordTable", "id", "productNo", "cnumber", "grossWeight", "netWeight", "sizeLength", "sizeWidth", "sizeHeight", "exPrice", "tax");
-		StringBuilder sb = new StringBuilder();
-		Set<ExportProduct> exportProducts = export.getExportProducts();//关联级别的数据检索
-		//遍历集合
-		for(ExportProduct ep :exportProducts){
-			sb.append("addTRRecord(\"mRecordTable\", \"").append(ep.getId());
-			sb.append("\", \"").append(ep.getProductNo());
-			sb.append("\", \"").append(UtilFuns.convertNull(ep.getCnumber()));
-			sb.append("\", \"").append(UtilFuns.convertNull(ep.getGrossWeight()));
-			sb.append("\", \"").append(UtilFuns.convertNull(ep.getNetWeight()));
-			sb.append("\", \"").append(UtilFuns.convertNull(ep.getSizeLength()));
-			sb.append("\", \"").append(UtilFuns.convertNull(ep.getSizeWidth()));
-			sb.append("\", \"").append(UtilFuns.convertNull(ep.getSizeHeight()));
-			sb.append("\", \"").append(UtilFuns.convertNull(ep.getExPrice()));
-			sb.append("\", \"").append(UtilFuns.convertNull(ep.getTax())).append("\");");
+		try {
+			//1.根据id,得到一个对象
+			Export export = exportService.get(Export.class, model.getId());
+
+			//2.将对象放入值栈中
+			pushVS(export);
+
+			//3.addTRRecord("mRecordTable", "id", "productNo", "cnumber", "grossWeight", "netWeight", "sizeLength", "sizeWidth", "sizeHeight", "exPrice", "tax");
+			StringBuilder sb = new StringBuilder();
+			Set<ExportProduct> exportProducts = export.getExportProducts();//关联级别的数据检索
+			//遍历集合
+			for(ExportProduct ep :exportProducts){
+                sb.append("addTRRecord(\"mRecordTable\", \"").append(ep.getId());
+                sb.append("\", \"").append(ep.getProductNo());
+                sb.append("\", \"").append(UtilFuns.convertNull(ep.getCnumber()));
+                sb.append("\", \"").append(UtilFuns.convertNull(ep.getGrossWeight()));
+                sb.append("\", \"").append(UtilFuns.convertNull(ep.getNetWeight()));
+                sb.append("\", \"").append(UtilFuns.convertNull(ep.getSizeLength()));
+                sb.append("\", \"").append(UtilFuns.convertNull(ep.getSizeWidth()));
+                sb.append("\", \"").append(UtilFuns.convertNull(ep.getSizeHeight()));
+                sb.append("\", \"").append(UtilFuns.convertNull(ep.getExPrice()));
+                sb.append("\", \"").append(UtilFuns.convertNull(ep.getTax())).append("\");");
+            }
+
+			//4.将接好的串放入值栈中
+			putContext("mRecordData", sb.toString());
+		} catch (Exception e) {
+			logger.error("toupdate exception:{}",e);
 		}
-		
-		 //4.将接好的串放入值栈中
-		putContext("mRecordData", sb.toString());
-		
+
 		//5.跳页面
 		return "toupdate";
 	}
@@ -258,54 +287,62 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String update()throws Exception{
-		// 先查询
-		Export export = exportService.get(Export.class, model.getId());
-		
-		//设置修改的属性
+		try {
+			// 先查询
+			Export export = exportService.get(Export.class, model.getId());
 
-		//2.设置修改的属性
-		export.setInputDate(model.getInputDate());
-		
-		
-        export.setLcno(model.getLcno());
-        export.setConsignee(model.getConsignee());
-        export.setShipmentPort(model.getShipmentPort());
-        export.setDestinationPort(model.getDestinationPort());
-        export.setTransportMode(model.getTransportMode());
-        export.setPriceCondition(model.getPriceCondition());
-        export.setMarks(model.getMarks());//唛头是指具有一定格式的备注信息
-        export.setRemark(model.getRemark());
-       
-        Set<ExportProduct> epSet =new HashSet<ExportProduct>();//商品列表
+			//设置修改的属性
+
+			//2.设置修改的属性
+			export.setInputDate(model.getInputDate());
+
+
+			export.setLcno(model.getLcno());
+			export.setConsignee(model.getConsignee());
+			export.setShipmentPort(model.getShipmentPort());
+			export.setDestinationPort(model.getDestinationPort());
+			export.setTransportMode(model.getTransportMode());
+			export.setPriceCondition(model.getPriceCondition());
+			export.setMarks(model.getMarks());//唛头是指具有一定格式的备注信息
+			export.setRemark(model.getRemark());
+
+			Set<ExportProduct> epSet =new HashSet<ExportProduct>();//商品列表
 //        Set<ExportProduct> epSet = export.getExportProducts();
 //        epSet.clear();
-        for(int i=0;i<mr_id.length;i++){
-        	//遍历数组，得到每个商品对象
-        	ExportProduct ep = exportProductService.get(ExportProduct.class, mr_id[i]);
-        	
-        	if("1".equals(mr_changed[i])){
-        		ep.setCnumber(mr_cnumber[i]);
-        		ep.setGrossWeight(mr_grossWeight[i]);
-        		ep.setNetWeight(mr_netWeight[i]);
-        		ep.setSizeLength(mr_sizeLength[i]);
-        		ep.setSizeWidth(mr_sizeWidth[i]);
-        		ep.setSizeHeight(mr_sizeHeight[i]);
-        		ep.setExPrice(mr_exPrice[i]);
-        		ep.setTax(mr_tax[i]);
-        	}
-        	epSet.add(ep);
-        }
-        
-        //设置报运单与商品列表的关系 
-        export.setExportProducts(epSet);
-        //更新
-		exportService.saveOrUpdate(export);
+			for(int i=0;i<mr_id.length;i++){
+                //遍历数组，得到每个商品对象
+                ExportProduct ep = exportProductService.get(ExportProduct.class, mr_id[i]);
+
+                if("1".equals(mr_changed[i])){
+                    ep.setCnumber(mr_cnumber[i]);
+                    ep.setGrossWeight(mr_grossWeight[i]);
+                    ep.setNetWeight(mr_netWeight[i]);
+                    ep.setSizeLength(mr_sizeLength[i]);
+                    ep.setSizeWidth(mr_sizeWidth[i]);
+                    ep.setSizeHeight(mr_sizeHeight[i]);
+                    ep.setExPrice(mr_exPrice[i]);
+                    ep.setTax(mr_tax[i]);
+                }
+                epSet.add(ep);
+            }
+
+			//设置报运单与商品列表的关系
+			export.setExportProducts(epSet);
+			//更新
+			exportService.saveOrUpdate(export);
+		} catch (Exception e) {
+			logger.error("update exception:{}",e);
+		}
 		return list();
 	}
 	
 	public String delete()throws Exception{
-		exportService.delete(Export.class, model.getId().split(", "));
-		
+		try {
+			exportService.delete(Export.class, model.getId().split(", "));
+		} catch (Exception e) {
+			logger.error("delete exception:{}",e);
+		}
+
 		return list();
 	}
 	/**
@@ -314,18 +351,26 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String submit()throws Exception{
-		String[] split = model.getId().split(", ");
-		exportService.changeState(split, 1);
-		
+		try {
+			String[] split = model.getId().split(", ");
+			exportService.changeState(split, 1);
+		} catch (Exception e) {
+			logger.error("submit exception:{}",e);
+		}
+
 		return list();
 	}
 	/**
 	 * 取消
 	 */
 	public String cancel() throws Exception {
-		String[] split = model.getId().split(", ");
-		exportService.changeState(split, 0);
-		
+		try {
+			String[] split = model.getId().split(", ");
+			exportService.changeState(split, 0);
+		} catch (Exception e) {
+			logger.error("cancel exception:{}",e);
+		}
+
 		return list();
 	}
 	/**
@@ -334,21 +379,25 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String export() throws Exception {
-		//获取报运单对象
-		Export export = exportService.get(Export.class, model.getId());
-		//判断报运单下是否有货物，没有就不发送报运请求
-		if(export.getExportProducts().size()==0){
-			return NONE;
+		try {
+			//获取报运单对象
+			Export export = exportService.get(Export.class, model.getId());
+			//判断报运单下是否有货物，没有就不发送报运请求
+			if(export.getExportProducts().size()==0){
+                return NONE;
+            }
+			//转json串
+			String jsonString = JSON.toJSONString(export);
+			System.out.println(jsonString);
+			//调用webservice服务
+			String resultJson = epService.exportE(jsonString);
+			//处理返回结果
+			Export result = JSON.parseObject(resultJson,Export.class);
+			exportService.updateE(result);
+		} catch (Exception_Exception e) {
+			logger.error("export exception:{}",e);
 		}
-		//转json串
-		String jsonString = JSON.toJSONString(export);
-		System.out.println(jsonString);
-		//调用webservice服务
-		String resultJson = epService.exportE(jsonString);
-		//处理返回结果
-		Export result = JSON.parseObject(resultJson,Export.class);
-		exportService.updateE(result);
-		
+
 		//跳转
 		return list();
 	}
@@ -358,11 +407,15 @@ private static final long serialVersionUID = 1L;
 	 * @throws Exception
 	 */
 	public String toProductList() throws Exception {
-		//获取报运单对象
-		exportProductService.findPage("from ExportProduct where export.id = ?", page,ExportProduct.class,
-				new String[]{model.getId()});
-		page.setUrl("exportAction_toProductList");
-		pushVS(page);
+		try {
+			//获取报运单对象
+			exportProductService.findPage("from ExportProduct where export.id = ?", page,ExportProduct.class,
+                    new String[]{model.getId()});
+			page.setUrl("exportAction_toProductList");
+			pushVS(page);
+		} catch (Exception e) {
+			logger.error("toProductList exception:{}",e);
+		}
 //		putContext("page",page);
 
 		//跳转

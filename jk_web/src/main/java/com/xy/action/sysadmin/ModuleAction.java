@@ -6,11 +6,10 @@ import com.xy.domain.Module;
 import com.xy.domain.User;
 import com.xy.service.ModuleService;
 import com.xy.utils.Page;
-import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +21,8 @@ import java.util.List;
 public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 
 	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(ModuleAction.class);
 	
 	private Module model = new Module();
 	@Override
@@ -53,10 +54,14 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 		if(!StringUtils.isEmpty(parameter)){
 			page.setPageNo(Integer.parseInt(parameter));
 		}*/
-		page = moduleService.findPage("from Module", page, Module.class, null);
-		page.setUrl("moduleAction_list");
-		//将page对象压入栈顶
-		pushVS(page);
+		try {
+			page = moduleService.findPage("from Module", page, Module.class, null);
+			page.setUrl("moduleAction_list");
+			//将page对象压入栈顶
+			pushVS(page);
+		} catch (Exception e) {
+			logger.error("list exception:{}",e);
+		}
 		return "list";
 	}
 	/**
@@ -65,10 +70,14 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String toview()throws Exception{
-		List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
-		putContext("moduleList", mlist);
-		Module Module = moduleService.get(Module.class, model.getId());
-		pushVS(Module);
+		try {
+			List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
+			putContext("moduleList", mlist);
+			Module Module = moduleService.get(Module.class, model.getId());
+			pushVS(Module);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
 		return "toview";
 	}
 	/**
@@ -77,8 +86,12 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String tocreate()throws Exception{
-		List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
-		putContext("moduleList", mlist);
+		try {
+			List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
+			putContext("moduleList", mlist);
+		} catch (Exception e) {
+			logger.error("tocreate exception:{}",e);
+		}
 		return "tocreate";
 	}
 	/**
@@ -87,16 +100,20 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
-		//添加细粒度权限控制
-		//获取当前用户
-		User user = super.getCurrUser();
-		model.setCreateBy(user.getId());
-		model.setCreateDept(user.getDept().getId());
-		model.setCreateTime(new Date());
-		Module module = moduleService.get(Module.class, model.getParentId());
-		model.setParentName(module.getName());
+		try {
+			//添加细粒度权限控制
+			//获取当前用户
+			User user = super.getCurrUser();
+			model.setCreateBy(user.getId());
+			model.setCreateDept(user.getDept().getId());
+			model.setCreateTime(new Date());
+			Module module = moduleService.get(Module.class, model.getParentId());
+			model.setParentName(module.getName());
 
-		moduleService.saveOrUpdate(model);
+			moduleService.saveOrUpdate(model);
+		} catch (Exception e) {
+			logger.error("insert exception:{}",e);
+		}
 		return "mlist";
 	}
 	/**
@@ -105,10 +122,14 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String toupdate()throws Exception{
-		List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
-		putContext("moduleList", mlist);
-		Module Module = moduleService.get(Module.class, model.getId());
-		pushVS(Module);
+		try {
+			List<Module> mlist = moduleService.find("from Module where state = 1 and (ctype = 0 or ctype = 1)", Module.class, null);
+			putContext("moduleList", mlist);
+			Module Module = moduleService.get(Module.class, model.getId());
+			pushVS(Module);
+		} catch (Exception e) {
+			logger.error("toupdate exception:{}",e);
+		}
 		return "toUpdate";
 	}
 	/**
@@ -117,26 +138,30 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 * @throws Exception
 	 */
 	public String update()throws Exception{
-		// 先查询
-		Module module = moduleService.get(Module.class, model.getId());
-		//获取当前用户
-		User user = super.getCurrUser();
+		try {
+			// 先查询
+			Module module = moduleService.get(Module.class, model.getId());
+			//获取当前用户
+			User user = super.getCurrUser();
 
-		//设置修改的属性
-		module.setName(model.getName());
-		module.setLayerNum(model.getLayerNum());
-		module.setCpermission(model.getCpermission());
-		module.setCurl(model.getCurl());
-		module.setCtype(model.getCtype());
-		module.setState(model.getState());
-		module.setBelong(model.getBelong());
-		module.setCwhich(model.getCwhich());
-		module.setRemark(model.getRemark());
-		module.setOrderNo(model.getOrderNo());
-		module.setUpdateBy(user.getId());
-		module.setUpdateTime(new Date());
+			//设置修改的属性
+			module.setName(model.getName());
+			module.setLayerNum(model.getLayerNum());
+			module.setCpermission(model.getCpermission());
+			module.setCurl(model.getCurl());
+			module.setCtype(model.getCtype());
+			module.setState(model.getState());
+			module.setBelong(model.getBelong());
+			module.setCwhich(model.getCwhich());
+			module.setRemark(model.getRemark());
+			module.setOrderNo(model.getOrderNo());
+			module.setUpdateBy(user.getId());
+			module.setUpdateTime(new Date());
 
-		moduleService.saveOrUpdate(module);
+			moduleService.saveOrUpdate(module);
+		} catch (Exception e) {
+			logger.error("update exception:{}",e);
+		}
 		return "mlist";
 	}
 	/**
@@ -157,10 +182,13 @@ public class ModuleAction extends BaseAction implements ModelDriven<Module>{
 	 *                       
 	 */
 	public String delete()throws Exception{
-		// 先获取需要删除的id
-		String[] ids = model.getId().split(", ");
-		moduleService.delete(Module.class, ids);
-		
+		try {
+			// 先获取需要删除的id
+			String[] ids = model.getId().split(", ");
+			moduleService.delete(Module.class, ids);
+		} catch (Exception e) {
+			logger.error("delete exception:{}",e);
+		}
 		return "mlist";
 	}
 }

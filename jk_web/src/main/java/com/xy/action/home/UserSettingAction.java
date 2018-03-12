@@ -9,11 +9,16 @@ import com.xy.utils.Encrypt;
 import com.xy.utils.SysConstant;
 import com.xy.utils.UtilFuns;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserSettingAction extends BaseAction implements ModelDriven<User> {
 
 	private static final long serialVersionUID = -4434166390823568036L;
+
+	private Logger logger = LoggerFactory.getLogger(UserSettingAction.class);
+
 	private User model = new User();
 	@Override
 	public User getModel() {
@@ -27,12 +32,16 @@ public class UserSettingAction extends BaseAction implements ModelDriven<User> {
 
 	//准备数据跳转到修改页面
 	public String toupdate() throws Exception {
-		//获取当前session中的用户
-		User currUser = (User) this.getSession().get(SysConstant.CURRENT_USER_INFO);
-		//获取当前完整用户信息
-		User user = userService.get(User.class, currUser.getId());
-		//存入值栈
-		super.pushVS(user);
+		try {
+			//获取当前session中的用户
+			User currUser = (User) this.getSession().get(SysConstant.CURRENT_USER_INFO);
+			//获取当前完整用户信息
+			User user = userService.get(User.class, currUser.getId());
+			//存入值栈
+			super.pushVS(user);
+		} catch (Exception e) {
+			logger.error("toupdate exception:{}",e);
+		}
 		//跳页面
 		return "toupdate";
 	}
@@ -40,26 +49,29 @@ public class UserSettingAction extends BaseAction implements ModelDriven<User> {
 	
 	//接收页面数据进行用户属性修改
 	public String update() throws Exception {
-		//查询数据库中用户
-		User user = userService.get(User.class, model.getId());
-		
-		//复制前台传来的属性
-		user.setUserName(model.getUserName());                      //用户名
-		user.getUserInfo().setName(model.getUserInfo().getName());  //姓名
-		if(model.getUserInfo().getBirthday()!=null){
-			user.getUserInfo().setBirthday(model.getUserInfo().getBirthday());//生日
+		try {
+			//查询数据库中用户
+			User user = userService.get(User.class, model.getId());
+
+			//复制前台传来的属性
+			user.setUserName(model.getUserName());                      //用户名
+			user.getUserInfo().setName(model.getUserInfo().getName());  //姓名
+			if(model.getUserInfo().getBirthday()!=null){
+                user.getUserInfo().setBirthday(model.getUserInfo().getBirthday());//生日
+            }
+			user.getUserInfo().setGender(model.getUserInfo().getGender());//性别
+			user.getUserInfo().setStation(model.getUserInfo().getStation());//岗位
+			user.getUserInfo().setTelephone(model.getUserInfo().getTelephone());//电话
+			user.getUserInfo().setEmail(model.getUserInfo().getEmail());      //邮箱
+			user.getUserInfo().setRemark(model.getUserInfo().getRemark());	//备注
+
+			//保存
+			userService.saveOrUpdate(user);
+		} catch (Exception e) {
+			logger.error("update exception:{}",e);
 		}
-		user.getUserInfo().setGender(model.getUserInfo().getGender());//性别
-		user.getUserInfo().setStation(model.getUserInfo().getStation());//岗位
-		user.getUserInfo().setTelephone(model.getUserInfo().getTelephone());//电话
-		user.getUserInfo().setEmail(model.getUserInfo().getEmail());      //邮箱
-		user.getUserInfo().setRemark(model.getUserInfo().getRemark());	//备注
-		
-		//保存
-		userService.saveOrUpdate(user);
 		//跳页面
 		return "update";
-		//return toupdate();
 	}
 	
 	public String toupdatePassword() throws Exception {
@@ -68,19 +80,19 @@ public class UserSettingAction extends BaseAction implements ModelDriven<User> {
 	}
 	
 	public String updatePassword() throws Exception {
-		//获取当前session中的用户
-		User currUser = (User) this.getSession().get(SysConstant.CURRENT_USER_INFO);
-		//获取当前完整用户信息
-		User user = userService.get(User.class, currUser.getId());
-		String passwordNow = user.getPassword();
-		//获取输入的旧密码
-		String passwordOld =  ServletActionContext.getRequest().getParameter("passwordOld");
-		System.out.println(passwordOld);
-		//获取新密码
-		String password =  model.getPassword();
-		String passwordNew =  ServletActionContext.getRequest().getParameter("passwordNew");
-		
 		try {
+			//获取当前session中的用户
+			User currUser = (User) this.getSession().get(SysConstant.CURRENT_USER_INFO);
+			//获取当前完整用户信息
+			User user = userService.get(User.class, currUser.getId());
+			String passwordNow = user.getPassword();
+			//获取输入的旧密码
+			String passwordOld =  ServletActionContext.getRequest().getParameter("passwordOld");
+			System.out.println(passwordOld);
+			//获取新密码
+			String password =  model.getPassword();
+			String passwordNew =  ServletActionContext.getRequest().getParameter("passwordNew");
+		
 			if(UtilFuns.isEmpty(passwordOld.trim())){
 				request.put("errorInfo1", "对不起，不能为空！");
 				throw new Exception("输入不能为空!!");
@@ -106,6 +118,7 @@ public class UserSettingAction extends BaseAction implements ModelDriven<User> {
 			}
 			return "logout";
 		} catch (Exception e) {
+			logger.error("updatePassword exception:{}",e);
 			return "toupdatePassword";
 		}
 	}

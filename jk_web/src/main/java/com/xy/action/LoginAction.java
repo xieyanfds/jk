@@ -5,21 +5,22 @@ import com.google.common.collect.Sets;
 import com.xy.domain.*;
 import com.xy.interceptor.bean.ActionBean;
 import com.xy.jedis.RedisService;
-import com.xy.service.*;
+import com.xy.service.AccessLogService;
+import com.xy.service.LoginLogService;
+import com.xy.service.ModuleService;
+import com.xy.service.ShortcutService;
+import com.xy.utils.SysConstant;
+import com.xy.utils.UtilFuns;
 import com.xy.utils.redis.RedisCacheKey;
-import org.apache.commons.lang.time.DateUtils;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-
-import com.xy.utils.SysConstant;
-import com.xy.utils.UtilFuns;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +32,8 @@ import java.util.concurrent.TimeUnit;
 public class LoginAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(LoginAction.class);
 
 	private String username;
 	private String password;
@@ -48,23 +51,24 @@ public class LoginAction extends BaseAction {
 
 	//SSH传统登录方式
 	public String login() throws Exception {
-		
-		if(UtilFuns.isNotEmpty(getCurrUser())){
-			return SUCCESS;
-		}
-		if(UtilFuns.isEmpty(username)){
-			return "login";
-		}
+
 		try {
+			User currUser = getCurrUser();
+			if(UtilFuns.isNotEmpty(currUser) && redisService.get(String.format(RedisCacheKey.USER_PERMISSION_ID,currUser.getId()))!=null){
+				return SUCCESS;
+			}
+			if(UtilFuns.isEmpty(username)){
+				return "login";
+			}
 			//1.得到Subject
 			Subject subject = SecurityUtils.getSubject();
 			//2.调用登录方法
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			subject.login(token);//当这一代码执行时，就会自动跳入到AuthRealm中认证方法
-			
+
 			//3.登录成功时，就从Shiro中取出用户的登录信息
 			User user = (User) subject.getPrincipal();
-			
+
 			//4.将用户放入session域中
 			session.put(SysConstant.CURRENT_USER_INFO, user);
 
@@ -74,7 +78,7 @@ public class LoginAction extends BaseAction {
 			initPermission(user);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("login exception:{}",e);
 			request.put("errorInfo", "对不起，用户名或密码错误！");
 			return "login";
 		}
@@ -84,14 +88,18 @@ public class LoginAction extends BaseAction {
 	
 	//退出
 	public String logout(){
-		//删除redis中数据
-		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		//session没过期
-		if(user!=null){
-			redisService.delete(String.format(RedisCacheKey.USER_PERMISSION_ID,user.getId()));
+		try {
+			//删除redis中数据
+			User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+			//session没过期
+			if(user!=null){
+                redisService.delete(String.format(RedisCacheKey.USER_PERMISSION_ID,user.getId()));
+            }
+			//删除session中数据
+			ServletActionContext.getRequest().getSession().invalidate();
+		} catch (Exception e) {
+			logger.error("logout exception:{}",e);
 		}
-		//删除session中数据
-		ServletActionContext.getRequest().getSession().invalidate();
 		return "logout";
 	}
 

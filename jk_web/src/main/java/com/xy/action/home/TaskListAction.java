@@ -6,10 +6,11 @@ import com.xy.domain.TaskList;
 import com.xy.domain.User;
 import com.xy.service.TaskListService;
 import com.xy.service.UserService;
-import com.xy.utils.FastJsonUtil;
 import com.xy.utils.Page;
 import com.xy.utils.SysConstant;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -26,6 +27,9 @@ import java.util.List;
  */
 
 public class TaskListAction extends BaseAction implements ModelDriven<TaskList> {
+
+	private Logger logger = LoggerFactory.getLogger(TaskListAction.class);
+
 	@Autowired
 	private TaskListService taskListService;
 	@Autowired
@@ -46,154 +50,194 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 
 	// 列表展示
 	public String list() {
-		// 查询所有内容
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(!StringUtils.isEmpty(parameter)){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			// 查询所有内容
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(!StringUtils.isEmpty(parameter)){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			String hql = "from TaskList order by pushDate desc";
+			// 配置分页按钮的转向链接
+			page.setUrl("taskListAction_list");
+			// 给页面提供分页数据
+			page = taskListService.findPage(hql, page, TaskList.class, null);
+			pushVS(page);
+		} catch (NumberFormatException e) {
+			logger.error("list exception:{}",e);
 		}
-		String hql = "from TaskList order by pushDate desc";
-		// 配置分页按钮的转向链接
-		page.setUrl("taskListAction_list");
-		// 给页面提供分页数据
-		page = taskListService.findPage(hql, page, TaskList.class, null);
-		pushVS(page);
 		return "plist";
 	}
 	
 	
 	// 我发布的
 	public String findMyTask() {
-		// 获取当前登录用户
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(!StringUtils.isEmpty(parameter)){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			// 获取当前登录用户
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(!StringUtils.isEmpty(parameter)){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+			// 查询自己发布的任务
+			String hql = "from TaskList where  pusherId='" + user.getId() + "' order by pushDate desc";
+			page.setUrl("taskListAction_findMyTask");
+			// 给页面提供分页数据
+			page = taskListService.findPage(hql, page, TaskList.class, null);
+			pushVS(page);
+		} catch (NumberFormatException e) {
+			logger.error("findMyTask exception:{}",e);
 		}
-		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		// 查询自己发布的任务
-		String hql = "from TaskList where  pusherId='" + user.getId() + "' order by pushDate desc";
-		page.setUrl("taskListAction_findMyTask");
-		// 给页面提供分页数据
-		page = taskListService.findPage(hql, page, TaskList.class, null);
-		pushVS(page);
 		return "flist";
 	}
 
 	// 我待办的
 	public String myTask() {
-		// 获取当前登录用户
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(!StringUtils.isEmpty(parameter)){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			// 获取当前登录用户
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(!StringUtils.isEmpty(parameter)){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+			// 查询执行者是自己的任务
+			String hql = "from TaskList where userId='" + user.getId() + "' and state = 0 order by pushDate desc";
+			page.setUrl("taskListAction_myTask");
+			// 给页面提供分页数据
+			page = taskListService.findPage(hql, page, TaskList.class, null);
+			pushVS(page);
+		} catch (NumberFormatException e) {
+			logger.error("myTask exception:{}",e);
 		}
-		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		// 查询执行者是自己的任务
-		String hql = "from TaskList where userId='" + user.getId() + "' and state = 0 order by pushDate desc";
-		page.setUrl("taskListAction_myTask");
-		// 给页面提供分页数据
-		page = taskListService.findPage(hql, page, TaskList.class, null);
-		pushVS(page);
 		return "mlist";
 	}
 	
 	// 是否是我发布的任务
 	public void isMyTask() throws IOException {
-		// 获取当前登录用户
-		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		String[] split = model.getId().split(",");
-		PrintWriter writer = ServletActionContext.getResponse().getWriter();
-		for(String id : split){
-			if(!id.trim().isEmpty()) {
-				TaskList taskList = taskListService.get(TaskList.class, id);
-				if (!taskList.getPusherId().equals(user.getId())) {
-					writer.print(0);
-					return;
-				}
-			}
+		try {
+			// 获取当前登录用户
+			User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+			String[] split = model.getId().split(",");
+			PrintWriter writer = ServletActionContext.getResponse().getWriter();
+			for(String id : split){
+                if(!id.trim().isEmpty()) {
+                    TaskList taskList = taskListService.get(TaskList.class, id);
+                    if (!taskList.getPusherId().equals(user.getId())) {
+                        writer.print(0);
+                        return;
+                    }
+                }
+            }
+			writer.print(1);
+		} catch (IOException e) {
+			logger.error("isMyTask exception:{}",e);
 		}
-		writer.print(1);
 	}
 
 	// 转向新增页面
 	public String tocreate() {
-		// 获取当前登录用户
-		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		// 查询出当前登录用户下的直接下属
-		List<User> userList = userService.find("from User where userInfo.manager.id='" + user.getId() + "'", User.class,null);
-		// 放入值栈中
-		super.putContext("userList", userList);
-
+		try {
+			// 获取当前登录用户
+			User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+			// 查询出当前登录用户下的直接下属
+			List<User> userList = userService.find("from User where userInfo.manager.id='" + user.getId() + "'", User.class,null);
+			// 放入值栈中
+			super.putContext("userList", userList);
+		} catch (Exception e) {
+			logger.error("tocreate exception:{}",e);
+		}
 		return "pcreate";
 	}
 
 	// 新增保存
 	public String insert() {
-		User user = userService.get(User.class, model.getUserId());
-		model.setUserName(user.getUserName());
-		model.setPushDate(new Date());
-		taskListService.saveOrUpdate(model);
+		try {
+			User user = userService.get(User.class, model.getUserId());
+			model.setUserName(user.getUserName());
+			model.setPushDate(new Date());
+			taskListService.saveOrUpdate(model);
+		} catch (Exception e) {
+			logger.error("insert exception:{}",e);
+		}
 		// 返回列表
 		return list();
 	}
 
 	// 转向修改页面
 	public String toupdate() {
-		// 获取当前登录用户
-		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		// 查询出当前登录用户下的直接下属
-		List<User> userList = userService.find("from User where userInfo.manager.id='" + user.getId() + "'", User.class,
-				null);
-		// 放入值栈中
-		super.putContext("userList", userList);
-		// 准备修改的数据
-		TaskList obj = taskListService.get(TaskList.class, model.getId());
-		super.pushVS(obj);
+		try {
+			// 获取当前登录用户
+			User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+			// 查询出当前登录用户下的直接下属
+			List<User> userList = userService.find("from User where userInfo.manager.id='" + user.getId() + "'", User.class,
+                    null);
+			// 放入值栈中
+			super.putContext("userList", userList);
+			// 准备修改的数据
+			TaskList obj = taskListService.get(TaskList.class, model.getId());
+			super.pushVS(obj);
+		} catch (Exception e) {
+			logger.error("toupdate exception:{}",e);
+		}
 		return "pupdate";
 	}
 
 	// 修改保存
 	public String update() {
-		TaskList taskList = taskListService.get(TaskList.class, model.getId());
+		try {
+			TaskList taskList = taskListService.get(TaskList.class, model.getId());
 
-		User user = userService.get(User.class, model.getUserId());
-		model.setUserName(user.getUserName());
-		// 设置修改的属性，根据业务去掉自动生成多余的属性
-		taskList.setUserId(model.getUserId());
-		taskList.setUserName(model.getUserName());
-		taskList.setContent(model.getContent());
-		taskList.setPushDate(model.getPushDate());
-		taskList.setEndDate(model.getEndDate());
-		taskList.setMajor(model.getMajor());
+			User user = userService.get(User.class, model.getUserId());
+			model.setUserName(user.getUserName());
+			// 设置修改的属性，根据业务去掉自动生成多余的属性
+			taskList.setUserId(model.getUserId());
+			taskList.setUserName(model.getUserName());
+			taskList.setContent(model.getContent());
+			taskList.setPushDate(model.getPushDate());
+			taskList.setEndDate(model.getEndDate());
+			taskList.setMajor(model.getMajor());
 
-		taskListService.saveOrUpdate(taskList);
-
+			taskListService.saveOrUpdate(taskList);
+		} catch (Exception e) {
+			logger.error("update exception:{}",e);
+		}
 		return list();
 	}
 
 	// 删除一条
 	public String deleteById() {
-		taskListService.deleteById(TaskList.class, model.getId());
-
+		try {
+			taskListService.deleteById(TaskList.class, model.getId());
+		} catch (Exception e) {
+			logger.error("deleteById exception:{}",e);
+		}
 		return list();
 	}
 
 	// 删除多条
 	public String delete() {
-		// 调用service
-		taskListService.delete(TaskList.class, model.getId().split(", "));
+		try {
+			// 调用service
+			taskListService.delete(TaskList.class, model.getId().split(", "));
+		} catch (Exception e) {
+			logger.error("delete exception:{}",e);
+		}
 		return list();
 	}
 
 	// 查看
 	public String toview() {
-		TaskList obj = taskListService.get(TaskList.class, model.getId());
-		super.pushVS(obj);
-
+		try {
+			TaskList obj = taskListService.get(TaskList.class, model.getId());
+			super.pushVS(obj);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
 		return "pview"; // 转向查看页面
 	}
 	/**
@@ -201,21 +245,24 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	 * @throws IOException
 	 */
 	public void isManager() throws IOException {
-		// 获取当前登录用户
-		User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
-		// 查询出当前登录用户下的直接下属
-		List<User> userList = userService.find("from User where userInfo.manager.id='" + user.getId() + "'", User.class,
-				null);
-		// 判断是否存在下属
-		PrintWriter writer = ServletActionContext.getResponse().getWriter();
-		if (userList != null && userList.size() > 0) {
-			// 存在,写回1
-			writer.println("1");
-		} else {
-			// 不存在,写回0
-			writer.println("0");
+		try {
+			// 获取当前登录用户
+			User user = (User) session.get(SysConstant.CURRENT_USER_INFO);
+			// 查询出当前登录用户下的直接下属
+			List<User> userList = userService.find("from User where userInfo.manager.id='" + user.getId() + "'", User.class,
+                    null);
+			// 判断是否存在下属
+			PrintWriter writer = ServletActionContext.getResponse().getWriter();
+			if (userList != null && userList.size() > 0) {
+                // 存在,写回1
+                writer.println("1");
+            } else {
+                // 不存在,写回0
+                writer.println("0");
+            }
+		} catch (IOException e) {
+			logger.error("isManager exception:{}",e);
 		}
-
 	}
 	/**
 	 * 将任务提交给上级领导
@@ -223,16 +270,19 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	 * @throws Exception
 	 */
 	public String updateToManager() throws Exception {
-		
-		//根据主键获取任务对象
-		TaskList taskList = taskListService.get(TaskList.class, model.getId());
-		System.out.println(model.getUserId());
-		//修改任务的执行者id
-		taskList.setUserId(model.getUserId());
-		//修改任务的执行者名称
-		User user = userService.get(User.class, model.getUserId());
-		taskList.setUserName(user.getUserName());
-		
+
+		try {
+			//根据主键获取任务对象
+			TaskList taskList = taskListService.get(TaskList.class, model.getId());
+			System.out.println(model.getUserId());
+			//修改任务的执行者id
+			taskList.setUserId(model.getUserId());
+			//修改任务的执行者名称
+			User user = userService.get(User.class, model.getUserId());
+			taskList.setUserName(user.getUserName());
+		} catch (Exception e) {
+			logger.error("updateToManager exception:{}",e);
+		}
 		return list();
 	}
 
@@ -242,12 +292,16 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	 * @throws Exception
 	 */
 	public String slove() throws Exception {
-		String[] split = model.getId().split(",");
-		for(String id : split){
-			if(!id.trim().isEmpty()) {
-				TaskList taskList = taskListService.get(TaskList.class, id);
-				taskList.setState(1);
-			}
+		try {
+			String[] split = model.getId().split(",");
+			for(String id : split){
+                if(!id.trim().isEmpty()) {
+                    TaskList taskList = taskListService.get(TaskList.class, id);
+                    taskList.setState(1);
+                }
+            }
+		} catch (Exception e) {
+			logger.error("slove exception:{}",e);
 		}
 		return myTask();
 	}
@@ -258,12 +312,16 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	 * @throws Exception
 	 */
 	public String audit() throws Exception {
-		String[] split = model.getId().split(",");
-		for(String id : split){
-			if(!id.trim().isEmpty()) {
-				TaskList taskList = taskListService.get(TaskList.class, id);
-				taskList.setState(2);
-			}
+		try {
+			String[] split = model.getId().split(",");
+			for(String id : split){
+                if(!id.trim().isEmpty()) {
+                    TaskList taskList = taskListService.get(TaskList.class, id);
+                    taskList.setState(2);
+                }
+            }
+		} catch (Exception e) {
+			logger.error("audit exception:{}",e);
 		}
 		return findMyTask();
 	}
@@ -274,12 +332,16 @@ public class TaskListAction extends BaseAction implements ModelDriven<TaskList> 
 	 * @throws Exception
 	 */
 	public String reject() throws Exception {
-		String[] split = model.getId().split(",");
-		for(String id : split){
-			if(!id.trim().isEmpty()) {
-				TaskList taskList = taskListService.get(TaskList.class, id);
-				taskList.setState(0);
-			}
+		try {
+			String[] split = model.getId().split(",");
+			for(String id : split){
+                if(!id.trim().isEmpty()) {
+                    TaskList taskList = taskListService.get(TaskList.class, id);
+                    taskList.setState(0);
+                }
+            }
+		} catch (Exception e) {
+			logger.error("reject exception:{}",e);
 		}
 		return findMyTask();
 	}

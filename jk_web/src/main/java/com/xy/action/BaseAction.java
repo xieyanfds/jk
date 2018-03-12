@@ -1,17 +1,16 @@
 package com.xy.action;
 
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ApplicationAware;
-import org.apache.struts2.interceptor.RequestAware;
-import org.apache.struts2.interceptor.SessionAware;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.xy.domain.User;
 import com.xy.utils.SysConstant;
+import org.apache.struts2.interceptor.ApplicationAware;
+import org.apache.struts2.interceptor.RequestAware;
+import org.apache.struts2.interceptor.SessionAware;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 
 //通过RequestAware, SessionAware, ApplicationAware
@@ -22,7 +21,7 @@ import com.xy.utils.SysConstant;
  * @date 2017/12/26.
  */
 public class BaseAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware{
-	private static Logger log = Logger.getLogger(BaseAction.class);
+	private static Logger log = LoggerFactory.getLogger(BaseAction.class);
 	
 	private static final long serialVersionUID = 1L;
 

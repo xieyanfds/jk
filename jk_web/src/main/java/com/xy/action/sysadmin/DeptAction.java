@@ -6,6 +6,8 @@ import com.xy.domain.Dept;
 import com.xy.service.DeptService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -20,6 +22,8 @@ import java.util.List;
 public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 
 	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(DeptAction.class);
 	
 	private Dept model = new Dept();
 	@Override
@@ -46,17 +50,21 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	 * @throws Exception
 	 */
 	public String list() throws Exception {
-		//设置分页的url地址
-		HttpServletRequest request = ServletActionContext.getRequest();
-		//查询所有内容
-		String parameter = request.getParameter("page.pageNo");
-		if(!StringUtils.isEmpty(parameter)){
-			page.setPageNo(Integer.parseInt(parameter));
+		try {
+			//设置分页的url地址
+			HttpServletRequest request = ServletActionContext.getRequest();
+			//查询所有内容
+			String parameter = request.getParameter("page.pageNo");
+			if(!StringUtils.isEmpty(parameter)){
+                page.setPageNo(Integer.parseInt(parameter));
+            }
+			page = deptService.findPage("from Dept", page, Dept.class, null);
+			page.setUrl("deptAction_list");
+			//将page对象压入栈顶
+			pushVS(page);
+		} catch (NumberFormatException e) {
+			logger.error("list exception:{}",e);
 		}
-		page = deptService.findPage("from Dept", page, Dept.class, null);
-		page.setUrl("deptAction_list");
-		//将page对象压入栈顶
-		pushVS(page);
 		return "list";
 	}
 	/**
@@ -65,8 +73,12 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	 * @throws Exception
 	 */
 	public String toview()throws Exception{
-		Dept dept = deptService.get(Dept.class, model.getId());
-		pushVS(dept);
+		try {
+			Dept dept = deptService.get(Dept.class, model.getId());
+			pushVS(dept);
+		} catch (Exception e) {
+			logger.error("toview exception:{}",e);
+		}
 		return "toview";
 	}
 	/**
@@ -75,8 +87,12 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	 * @throws Exception
 	 */
 	public String tocreate()throws Exception{
-		List<Dept> list = deptService.find("from Dept where state = 1", Dept.class, null);
-		putContext("deptList", list);
+		try {
+			List<Dept> list = deptService.find("from Dept where state = 1", Dept.class, null);
+			putContext("deptList", list);
+		} catch (Exception e) {
+			logger.error("tocreate exception:{}",e);
+		}
 		return "tocreate";
 	}
 	/**
@@ -85,7 +101,11 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	 * @throws Exception
 	 */
 	public String insert()throws Exception{
-		deptService.saveOrUpdate(model);
+		try {
+			deptService.saveOrUpdate(model);
+		} catch (Exception e) {
+			logger.error("insert exception:{}",e);
+		}
 		return "dlist";
 	}
 	/**
@@ -94,10 +114,14 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	 * @throws Exception
 	 */
 	public String toupdate()throws Exception{
-		Dept dept = deptService.get(Dept.class, model.getId());
-		pushVS(dept);
-		List<Dept> deptList = deptService.find("from Dept where state = 1", Dept.class, null);
-		putContext("deptList", deptList);
+		try {
+			Dept dept = deptService.get(Dept.class, model.getId());
+			pushVS(dept);
+			List<Dept> deptList = deptService.find("from Dept where state = 1", Dept.class, null);
+			putContext("deptList", deptList);
+		} catch (Exception e) {
+			logger.error("toupdate exception:{}",e);
+		}
 		return "toUpdate";
 	}
 	/**
@@ -106,14 +130,18 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	 * @throws Exception
 	 */
 	public String update()throws Exception{
-		// 先查询
-		Dept dept = deptService.get(Dept.class, model.getId());
-		
-		//设置修改的属性
-		dept.setDeptName(model.getDeptName());
-		dept.setParent(model.getParent());
-		
-		deptService.saveOrUpdate(dept);
+		try {
+			// 先查询
+			Dept dept = deptService.get(Dept.class, model.getId());
+
+			//设置修改的属性
+			dept.setDeptName(model.getDeptName());
+			dept.setParent(model.getParent());
+
+			deptService.saveOrUpdate(dept);
+		} catch (Exception e) {
+			logger.error("update exception:{}",e);
+		}
 		return "dlist";
 	}
 	/**
@@ -134,10 +162,13 @@ public class DeptAction extends BaseAction implements ModelDriven<Dept>{
 	 *                       
 	 */
 	public String delete()throws Exception{
-		// 先获取需要删除的id
-		String[] ids = model.getId().split(", ");
-		deptService.delete(Dept.class, ids);
-		
+		try {
+			// 先获取需要删除的id
+			String[] ids = model.getId().split(", ");
+			deptService.delete(Dept.class, ids);
+		} catch (Exception e) {
+			logger.error("delete exception:{}",e);
+		}
 		return "dlist";
 	}
 }

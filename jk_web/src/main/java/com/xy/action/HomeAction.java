@@ -1,10 +1,11 @@
 package com.xy.action;
 
 import com.xy.dao.springdao.SqlDao;
-import com.xy.domain.Dept;
 import com.xy.domain.Message;
 import com.xy.domain.User;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,8 @@ import java.util.Map;
  */
 public class HomeAction extends BaseAction{
 	private static final long serialVersionUID = 1L;
+
+	private Logger logger = LoggerFactory.getLogger(HomeAction.class);
 
 	@Autowired
 	private SqlDao sqlDao;
@@ -47,26 +50,30 @@ public class HomeAction extends BaseAction{
 
 	//转向moduleName指向的模块
 	public String tomain(){
-		if(moduleName.equals("home")) {
-			// 加载最新6条留言
-			// 获取当前用户
-			User user = super.getCurrUser();
-			// 查询当前用户下最新的6条留言
-			String sql = "select * from MESSAGE_C where RECEIVE_ID = '" + user.getId() + "' and state = 1 limit 0,6";
-			List<Map<String, Object>> result = sqlDao.executeSQLforListMap(sql);
-			List<Message> megList = new ArrayList<>();
-			for (Map<String, Object> map : result) {
+		try {
+			if(moduleName.equals("home")) {
+                // 加载最新6条留言
+                // 获取当前用户
+                User user = super.getCurrUser();
+                // 查询当前用户下最新的6条留言
+                String sql = "select * from MESSAGE_C where RECEIVE_ID = '" + user.getId() + "' and state = 1 limit 0,6";
+                List<Map<String, Object>> result = sqlDao.executeSQLforListMap(sql);
+                List<Message> megList = new ArrayList<>();
+                for (Map<String, Object> map : result) {
 
-				Message message = new Message();
-				message.setId((String) map.get("MESSAGES_ID"));
-				message.setMessageTime((Date) map.get("MESSAGE_TIME"));
-				message.setTitle((String) map.get("TITLE"));
-				message.setMessage((String)map.get("MESSAGE"));
-				message.setCreateName((String) map.get("CREATE_NAME"));
-				megList.add(message);
-			}
+                    Message message = new Message();
+                    message.setId((String) map.get("MESSAGES_ID"));
+                    message.setMessageTime((Date) map.get("MESSAGE_TIME"));
+                    message.setTitle((String) map.get("TITLE"));
+                    message.setMessage((String)map.get("MESSAGE"));
+                    message.setCreateName((String) map.get("CREATE_NAME"));
+                    megList.add(message);
+                }
 
-			super.putContext("megList", megList);
+                super.putContext("megList", megList);
+            }
+		} catch (Exception e) {
+			logger.error("tomain exception:{}",e);
 		}
 		return "tomain";
 	}
