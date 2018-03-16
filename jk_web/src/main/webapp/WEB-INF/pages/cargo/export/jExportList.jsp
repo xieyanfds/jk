@@ -141,7 +141,7 @@
         function to_work_assign(url) {
             if (isOnlyChecked()){
                 var s = $("input:checked");
-                alert($("input:checked").next().next().next().value)
+//                alert($("input:checked").next().next().next().value)
                 var oid = s.val();
                 var state = document.getElementById(oid).value;
                 if(state==0){
