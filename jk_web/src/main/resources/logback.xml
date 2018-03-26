@@ -9,8 +9,8 @@
 	<appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
 		<smtpHost>smtp.163.com</smtpHost>
 		<smtpPort>25</smtpPort>
-		<username>xy_fds@163.com</username>
-		<password>xieyan12357</password>
+		<username></username>
+		<password></password>
 		<asynchronousSending>false</asynchronousSending>
 		<SSL>false</SSL>
 		<to>644934121@qq.com</to>
