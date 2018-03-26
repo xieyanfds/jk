@@ -36,6 +36,23 @@
 		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
 	</bean>
 
+	<!-- PlatformConstants -->
+	<!--<bean id="platformConstants" class="com.xy.utils.distributed.PlatformConstants">
+
+		<property name="apacheTomcatPath" value="/usr/local/apache-tomcat-8.0.9/"/>
+
+		<property name="ckinderUploadPath" value="/usr/local/apache-tomcat-8.0.9/webapps/ROOT/images/KBUserfiles/"/>
+
+		<property name="cookieDomainName" value="platform.tinet.tcc"/>
+		<property name="cookieMaxAge" value="1209600"/>  &lt;!&ndash;60 * 60 * 24 * 7 * 2 两个星期 &ndash;&gt;
+		<property name="webKey" value="platform"/>
+
+		<property name="socketTimeout" value="5000"/>
+		<property name="connectTimeout" value="2000"/>
+		&lt;!&ndash;<property name="webSocketUserName" value="ws_username"/>&ndash;&gt;
+		&lt;!&ndash;<property name="defaultSessionName" value="des_username"/>&ndash;&gt;
+	</bean>-->
+
 	
 	<!--Shiro安全框架产生代理子类的方式： 使用cglib方式-->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
