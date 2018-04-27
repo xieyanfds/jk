@@ -158,7 +158,7 @@
                     return;
                 }
 
-//                formSubmit(url, '_self');
+                formSubmit(url, '_self');
 
             } else {
                 $("#envon #mess").html("请先选择一项并且只能选择一项，再进行操作！");

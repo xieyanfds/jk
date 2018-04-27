@@ -56,6 +56,7 @@ public class MessageAction extends BaseAction implements ModelDriven<Message> {
 			if(!StringUtils.isEmpty(parameter)){
                 page.setPageNo(Integer.parseInt(parameter));
             }
+            //自己创建的或者是自己要接收的
 			String hql = "from Message where createBy='"+this.getCurrUser().getId()+"' or receiveId = '"+this.getCurrUser().getId()+"' order by createTime desc";
 			//给页面提供分页数据
 			page.setUrl("messageAction_list");		//配置分页按钮的转向链接

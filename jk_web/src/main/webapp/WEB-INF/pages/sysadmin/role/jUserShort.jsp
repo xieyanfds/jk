@@ -47,7 +47,7 @@
 				str += nodes[i].id;
 				str += ",";
 			}
-			alert(str);
+//			alert(str);
 			$('#moduleIds').val(str);
             formSubmit('${ctx}/shortcutAction_update','_self');
             obj.blur();

@@ -64,7 +64,7 @@ public class ContractProductAction extends BaseAction implements ModelDriven<Con
 			if(!StringUtils.isEmpty(parameter)){
                 page.setPageNo(Integer.parseInt(parameter));
             }
-			contractProductService.findPage("from ContractProduct where contract.id = ? order by createTime desc", page,ContractProduct.class,
+			contractProductService.findPage("from ContractProduct where contract.id = ? order by orderNo desc", page,ContractProduct.class,
                     new String[]{model.getContract().getId()});
 			page.setUrl("contractProductAction_tocreateAndList");
 			pushVS(page);
