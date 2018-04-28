@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="../base.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <html>
 <head>
@@ -15,10 +16,10 @@
 	.curbody{ CURSOR: url(${ctx}/images/olmsg/shubiao.ani);background:url(${ctx}/images/olmsg/pic738x571.jpg); }
 	.msgcontent{ width:218px;overflow:hidden;word-break:break-all;padding:10px;font-size:14px;color:#339966;font-family:Tahoma;line-height:180%; }
 	.msgcontent p{ text-indent:0px;}
-	.msgcontent ul( margin:0px;}
+	/*.msgcontent ul( margin:0px;}*/
 	.msgbackcontent{ width:218px;overflow:hidden;word-break:break-all;padding:10px;font-size:14px;color:#339966;font-family:Tahoma;line-height:180%; }
 	.msgbackcontent p{ text-indent:0px;}
-	.msgbackcontent ul( margin:0px;}
+	/*.msgbackcontent ul( margin:0px;}*/
 	li{ text-indent:0px;margin:0px;list-style:default; }
 </style>
 	
@@ -239,9 +240,9 @@ window.onerror = killErrors;
 				</tr>
 				<tr>
 					<td background="${ctx}/images/olmsg/C0FFE52.gif">
-					<div class="msgcontent">
-					欢迎使用综合管理平台<br/>双击查看留言
-					</div>
+						<div class="msgcontent">
+						欢迎使用综合管理平台<br/>双击查看留言
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -309,6 +310,7 @@ window.onerror = killErrors;
 		</div>--%>
 	<div id='main'>
 		<c:forEach items="${megList }" var="meg" varStatus="v">
+			<input type="hidden" name="${v.index}">
 			<dl class='paper a${v.count }' style="height: 300px;" ondblclick="to_view('${meg.id}')">
 				<dt class="name">
 					<span class='username'>${meg.createName }</span>
@@ -316,7 +318,7 @@ window.onerror = killErrors;
 				</dt>
 				<dt class='content'>${meg.message }</dt>
 				<dt class='bottom'>
-					<span class='time'><fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd' /></span>
+					<span class='time'><fmt:formatDate value='${meg.createTime }' pattern='yyyy-MM-dd HH:mm:ss' /></span>
 					<span class='close'></span>
 				</dt>
 			</dl>

@@ -57,8 +57,8 @@
 	        <tr>
 	            <td class="columnTitle">时间：</td>
 	            <td class="tableContent">
-					<input type="text" style="width:112px;" name="messageTime"
-						   value="<fmt:formatDate value='${messageTime}' pattern="yyyy-MM-dd HH:mm:ss" />"
+					<input type="text" style="width:112px;" name="createTime"
+						   value="<fmt:formatDate value='${createTime}' pattern="yyyy-MM-dd HH:mm:ss" />"
 						   onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd HH:mm:ss'});" readonly/>
 				</td>
 	        </tr>

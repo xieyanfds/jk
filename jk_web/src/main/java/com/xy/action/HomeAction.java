@@ -56,17 +56,17 @@ public class HomeAction extends BaseAction{
                 // 获取当前用户
                 User user = super.getCurrUser();
                 // 查询当前用户下最新的6条留言
-                String sql = "select * from MESSAGE_C where RECEIVE_ID = '" + user.getId() + "' and state = 1 limit 0,6";
+                String sql = "select * from MESSAGE_C where RECEIVE_ID = '" + user.getId() + "' and state = 1 order by create_time desc limit 0,6";
                 List<Map<String, Object>> result = sqlDao.executeSQLforListMap(sql);
                 List<Message> megList = new ArrayList<>();
                 for (Map<String, Object> map : result) {
 
                     Message message = new Message();
                     message.setId((String) map.get("MESSAGES_ID"));
-                    message.setMessageTime((Date) map.get("MESSAGE_TIME"));
-                    message.setTitle((String) map.get("TITLE"));
-                    message.setMessage((String)map.get("MESSAGE"));
-                    message.setCreateName((String) map.get("CREATE_NAME"));
+					message.setCreateName((String) map.get("CREATE_NAME"));
+					message.setTitle((String) map.get("TITLE"));
+					message.setMessage((String)map.get("MESSAGE"));
+					message.setCreateTime((Date) map.get("create_time"));
                     megList.add(message);
                 }
 

@@ -70,7 +70,7 @@
 			<td>${o.createName}</td>
 			<td>${o.receive}</td>
 			<td>${o.title}</td>
-			<td>${o.messageTime}</td>
+			<td>${o.createTime}</td>
 			<td>
 				<c:if test="${o.state==1}"><font color="red"><b>未查看</b></font></c:if>
 				<c:if test="${o.state==2}"><font color="green"><b>已查看</b></font></c:if>

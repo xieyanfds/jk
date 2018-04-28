@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title></title>
-	<script type="text/javascript" src="${ctx }/js/datepicker/WdatePicker.js""></script>
-<!--  	<script type="text/javascript">
+	<script type="text/javascript" src="${ctx }/js/datepicker/WdatePicker.js"></script>
+  	<script type="text/javascript">
 		function test() {
 			alert("测试");
 			alert($("select option:selected").html());
@@ -20,7 +20,7 @@
 				return true;
 			}
 		} 
-	</script> -->
+	</script>
 
 </head>
 
@@ -60,14 +60,14 @@
 					</select>
 	            </td>
 	        </tr>
-	            <td class="columnTitle">时间：</td>
+	            <%--<td class="columnTitle">时间：</td>
 	 	           <td class="tableContent">
 	            <input type="text" style="width:90px;" name="messageTime"
 	            	 value=""
 	             	onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
-	            </td>
+	            </td>--%>
 	            
-	        <tr> 
+	        <tr>
 	        	<td class="columnTitle">标题：</td>
 	        	 <td class="tableContent"><input type="text" name="title" style="width: 70%" value="${message}"/></td>
 	        </tr>
