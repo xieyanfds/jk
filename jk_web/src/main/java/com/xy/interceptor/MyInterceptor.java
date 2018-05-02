@@ -61,10 +61,10 @@ public class MyInterceptor implements Interceptor{
             if(actionBean==null){
                 ActionBean result = new ActionBean();
                 switch (ActionEnum.getByString(actionPath)){
-                    case leaveMessageAction:
-                        result.setModuleName(ActionEnum.leaveMessageAction.getModuleName());
-                        result.setCurl(ActionEnum.leaveMessageAction.getCurl());
-                        result.setIco(ActionEnum.leaveMessageAction.getIco());
+                    case messageAction:
+                        result.setModuleName(ActionEnum.messageAction.getModuleName());
+                        result.setCurl(ActionEnum.messageAction.getCurl());
+                        result.setIco(ActionEnum.messageAction.getIco());
                         result.setNumber(1);
                         break;
                     case taskListAction:
@@ -197,7 +197,7 @@ public class MyInterceptor implements Interceptor{
                     List<AccessLog> accessLogs = accessLogService.find("from AccessLog where userId = ? and moduleKey = ?", AccessLog.class, new String[]{currUser.getId(), split[0]});
                     if(accessLogs.size()==1){
                         accessLog = accessLogs.get(0);
-                        actionBean.setAccessId(accessLogs.get(0).getId());
+                        actionBean.setAccessId(accessLog.getId());
                     }else{
                         System.out.println("此时已有多个记录。。。。。。。。，userId="+currUser.getId()+",moduleKey ="+split[0]);
                     }

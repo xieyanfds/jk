@@ -138,7 +138,7 @@
         
         <div class="panel-content">
 			<ul>
-				<li><a href="${ctx}/userSettingAction_toupdate" target="main" id="aa_5" onclick="linkHighlighted(this)">个人信息修改</a></li>
+				<li><a href="${ctx}/userSettingAction_toupdate" target="main" id="aa_5" onclick="linkHighlighted(this)">个人信息</a></li>
 				<li><a href="${ctx}/systemFeedbackAction_list" target="main" id="aa_6" onclick="linkHighlighted(this)">系统使用反馈</a></li>
 			</ul>
         </div>

@@ -6,9 +6,9 @@ package com.xy.interceptor.bean;
  * @date 2018/1/23.
  */
 public enum ActionEnum {
-    leaveMessageAction("我的留言板","leaveMessageAction","leaveMessageAction_tomain.action",""),
-    taskListAction("我的代办任务","taskListAction","taskListAction_list",""),
-    feedbackAction("意见反馈","feedbackAction","feedbackAction_list.action",""),
+    messageAction("我的留言板","messageAction","messageAction_list","home_message"),
+    taskListAction("我的代办任务","taskListAction","taskListAction_list","home_task"),
+    feedbackAction("意见反馈","feedbackAction","feedbackAction_list","home_feedback"),
     contractAction("购销合同","contractAction","cargo/contractAction_list","cargo_contract"),
     outProductAction("出货表","outProductAction","cargo/outProductAction_toedit","cargo_outProduct"),
     exportAction("出口报运","exportAction","cargo/exportAction_contractList","cargo_export"),

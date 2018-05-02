@@ -92,7 +92,9 @@
 	        </tr>
 	        <tr>
 	            <td class="columnTitle">权限：</td>
-	            <td class="tableContent"><input type="text" disabled name="userInfo.degree" value="${userInfo.degree }"/></td>
+	            <td class="tableContent">
+					<input type="text" disabled name="userInfo.degree" value="${userInfo.degree==4?"员工":userInfo.degree==3?"部门经理":userInfo.degree==2?"部门总监":userInfo.degree==1?"副总":userInfo.degree==0?"总经理":userInfo.degree }"/>
+				</td>
 	            <td class="columnTitle">备注：</td>
 	            <td class="tableContent"><input type="text" name="userInfo.remark" value="${userInfo.remark }"/></td>
 	        </tr>

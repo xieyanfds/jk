@@ -211,7 +211,7 @@ window.onerror = killErrors;
 </div>
  
 <logic:notEmpty name="olmsgList">
- 
+
 	
 		
 	<div id='ff8080813d00613e013d0067909e0009' style='position:absolute;right:2px;top:14px;z-index:1001; height:164px;background:none;' onmousedown='getFocus(this)'>
@@ -310,7 +310,6 @@ window.onerror = killErrors;
 		</div>--%>
 	<div id='main'>
 		<c:forEach items="${megList }" var="meg" varStatus="v">
-			<input type="hidden" name="${v.index}">
 			<dl class='paper a${v.count }' style="height: 300px;" ondblclick="to_view('${meg.id}')">
 				<dt class="name">
 					<span class='username'>${meg.createName }</span>
@@ -366,7 +365,7 @@ window.onerror = killErrors;
 	<![endif]-->
 
 </logic:notEmpty>
- 
+
  
 </body>
 <script type="text/javascript">

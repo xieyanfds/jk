@@ -4,8 +4,13 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+	<!-- 当页面使用struts2标签的时候，一般配置成simple，默认是xhtml，
+		theme:设置struts2标签的主题.
+		theme=xhtml:会额外生成tr,td.
+		theme=simple:生成所对应的html标签形式.  -->
 	<constant name="struts.ui.theme" value="simple"/>
-	<constant name="struts.devMode" value="true" />
+	<!-- 开启使用开发模式，为true时详细错误提示，配合web.xml中404设置成false  -->
+	<constant name="struts.devMode" value="false" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 
 	<package name="default" namespace="/" extends="struts-default">
