@@ -128,10 +128,11 @@
 		<tr align="center">
 			<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
 			<td class="tableHeader">序号</td>
-			<td class="tableHeader">装箱单号</td>
-			<td class="tableHeader">发票号</td>
+			<td class="tableHeader">报运合同号</td>
 			<td class="tableHeader">提单号</td>
 			<td class="tableHeader">交易条款</td>
+			<td class="tableHeader">创建人</td>
+			<td class="tableHeader">创建时间</td>
 			<td class="tableHeader">状态</td>
 		</tr>
 	</thead>
@@ -147,6 +148,8 @@
 		<td>${o.scNo}</td>
 		<td>${o.blNo}</td>
 		<td>${o.tradeTerms}</td>
+		<td>${o.createBy}</td>
+		<td>${o.createTime}</td>
 		<td>
 			<c:if test="${o.state==0}"><font color="grey">草稿</font></c:if>
 			<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>

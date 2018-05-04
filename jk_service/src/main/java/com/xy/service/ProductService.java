@@ -22,10 +22,6 @@ public interface ProductService {
 	public void saveOrUpdate(Product entity);
 	public void saveOrUpdateAll(Collection<Product> entitys);
 
-	/**
-	 * 修改状态
-	 */
-	public void changeState(String[] ids, Integer state);
 
 	public void deleteById(Class<Product> entityClass, Serializable id);
 	public void delete(Class<Product> entityClass, Serializable[] ids);

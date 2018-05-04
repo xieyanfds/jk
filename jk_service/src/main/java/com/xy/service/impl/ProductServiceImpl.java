@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * @author xieyan
- * @description 发票
+ * @description 产品信息
  * @date 2017/12/26.
  */
 @Service
@@ -43,14 +43,6 @@ public class ProductServiceImpl implements ProductService {
 		baseDao.saveOrUpdate(entity);
 	}
 
-	@Override
-	public void changeState(String [] ids, Integer state) {
-		for(String id :ids){
-			Product invoice = baseDao.get(Product.class, id);
-			//可以不写
-			baseDao.saveOrUpdate(invoice);
-		}
-	}
 
 	@Override
 	public void saveOrUpdateAll(Collection<Product> entitys) {
@@ -59,9 +51,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void deleteById(Class<Product> entityClass, Serializable id) {
-		//将委托单状态改为1
-		ShippingOrder shippingOrder = baseDao.get(ShippingOrder.class, id);
-		shippingOrder.setState(1);
 		baseDao.deleteById(Product.class, id);
 	}
 

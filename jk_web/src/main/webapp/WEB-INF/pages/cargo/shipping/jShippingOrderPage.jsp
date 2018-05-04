@@ -182,6 +182,7 @@
 		<td>
 			<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
 			<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>
+			<c:if test="${o.state==2}"><font color="green">已完成</font></c:if>
 			<input type="hidden" value="${o.state}" id="${o.id}">
 		</td>
 	</tr>

@@ -39,7 +39,7 @@
 	            <td class="columnTitle">买方：</td>
 	            <td class="tableContent"><input type="text" name="buyer" value="${buyer}"/></td>
 	        </tr>	
-	        <tr>
+	        <%--<tr>
 	            <td class="columnTitle">发票号：</td>
 	            <td class="tableContent"><input type="text" name="invoiceNo" value="${invoiceNo}"/></td>
 	        
@@ -49,7 +49,7 @@
 	            	 value="${invoiceDate}"
 	             	onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
 	            </td>
-	        </tr>	
+	        </tr>--%>
 	        <tr>
 	            <td class="columnTitle">唛头：</td>
 	            <td class="tableContent"><input type="text" name="marks" value="${marks}"/></td>

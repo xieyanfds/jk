@@ -5,9 +5,11 @@ import com.xy.action.BaseAction;
 import com.xy.action.print.InvoicePrint;
 import com.xy.domain.Invoice;
 import com.xy.domain.PackingList;
+import com.xy.domain.ShippingOrder;
 import com.xy.domain.User;
 import com.xy.service.InvoiceService;
 import com.xy.service.PackingListService;
+import com.xy.service.ShippingOrderService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
@@ -35,6 +37,8 @@ public class InvoiceAction extends BaseAction implements ModelDriven<Invoice> {
 	private InvoiceService invoiceService;
 	@Autowired
 	private PackingListService packingListService;
+	@Autowired
+	private ShippingOrderService shippingOrderService;
 
 	/**
 	 * model驱动
@@ -113,6 +117,10 @@ public class InvoiceAction extends BaseAction implements ModelDriven<Invoice> {
 			packingList.setInvoiceNo(model.getId());
 			//已开发票
 			packingList.setState(3);
+			//修改委托单状态已完成
+			ShippingOrder shippingOrder = shippingOrderService.get(model.getId());
+			shippingOrder.setState(2);
+
 			invoiceService.saveOrUpdate(model);
 		} catch (Exception e) {
 			logger.error("insert exception:{}",e);

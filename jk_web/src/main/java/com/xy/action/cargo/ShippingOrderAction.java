@@ -74,7 +74,7 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 			//给页面提供分页数据
 			//配置分页按钮的转向链接
 			page.setUrl("shippingOrderAction_list");
-			page = shippingOrderService.findPage(hql, page, ShippingOrder.class, null);
+			page = shippingOrderService.findPage(hql, page, null);
 			pushVS(page);
 		} catch (Exception e) {
 			logger.error("list exception:{}",e);
@@ -119,7 +119,7 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 			List<PackingList> list = packingListService.find("from PackingList where state = 1", PackingList.class, null);
 
 			//准备修改的数据
-			ShippingOrder obj = shippingOrderService.get(ShippingOrder.class, model.getId());
+			ShippingOrder obj = shippingOrderService.get(model.getId());
 			PackingList packingList = obj.getPackingList();
 			list.add(packingList);
 
@@ -138,11 +138,11 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 			if(model.getId() != model.getPackingList().getId()){
                 //说明修改了对应的装箱单
                 //修改之前装箱单的状态为提交未委托
-                PackingList oldPackingList = packingListService.get(PackingList.class, model.getPackingList().getId());
+                PackingList oldPackingList = packingListService.get(PackingList.class,model.getPackingList().getId());
                 oldPackingList.setState(1);
                 //修改选择装箱单的状态，saveOrUpdate方法中有
                 //删除之前生成的委托单
-                shippingOrderService.deleteById(ShippingOrder.class,model.getPackingList().getId());
+                shippingOrderService.deleteById(model.getPackingList().getId());
                 //添加一条记录，新的委托单
                 User user = super.getCurrUser();
                 model.setCreateBy(user.getId());
@@ -188,7 +188,7 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 	//删除多条
 	public String delete(){
 		try {
-			shippingOrderService.delete(ShippingOrder.class, model.getId().split(", "));
+			shippingOrderService.delete(model.getId().split(", "));
 		} catch (Exception e) {
 			logger.error("delete exception:{}",e);
 		}
@@ -199,7 +199,7 @@ public class ShippingOrderAction extends BaseAction implements ModelDriven<Shipp
 	//查看
 	public String toview(){
 		try {
-			ShippingOrder obj = shippingOrderService.get(ShippingOrder.class, model.getId());
+			ShippingOrder obj = shippingOrderService.get(model.getId());
 			pushVS(obj);
 
 			PackingList packingList = packingListService.get(PackingList.class, model.getId());

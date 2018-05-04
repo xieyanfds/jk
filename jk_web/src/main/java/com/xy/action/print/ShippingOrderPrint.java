@@ -35,7 +35,7 @@ public class ShippingOrderPrint {
 
 	public void print(ShippingOrder model) throws Exception{
 		//根据id查询委托单
-		ShippingOrder shippingOrder = shippingOrderService.get(ShippingOrder.class, model.getId());
+		ShippingOrder shippingOrder = shippingOrderService.get(model.getId());
 		//设置路径
 		// 读取工作薄
 		String path = ServletActionContext.getServletContext().getRealPath("/") + "/make/xlsprint/tSHIPPINGORDER.xls";

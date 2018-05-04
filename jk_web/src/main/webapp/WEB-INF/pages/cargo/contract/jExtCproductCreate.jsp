@@ -62,7 +62,7 @@
 	            <td class="tableContent"><input type="text" name="cnumber" value=""/></td>
 	            <td class="columnTitle">包装单位：</td>
 	            <td class="tableContentAuto">
-	            	<input type="radio" name="packingUnit" value="PCS" class="input">只
+	            	<input type="radio" name="packingUnit" value="PCS" checked class="input">只
 	            	<input type="radio" name="packingUnit" value="SETS" class="input">套
 	            </td>
 	        </tr>		

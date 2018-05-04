@@ -14,15 +14,15 @@ public class PackingList extends BaseEntity {
 
 	private ShippingOrder shippingOrder;
 
-	private String seller;			
-	private String buyer;
-	private String invoiceNo;			//选择
-	private Date invoiceDate;			
-	private String marks;			
-	private String descriptions;
-	private String exportIds;			//报运ID集合
-	private String exportNos;			//报运NO集合x,y|z,h
-	private Integer state;			//0草稿 1已上报
+	private String seller;//卖方
+	private String buyer;//买方
+	private String invoiceNo;//发票号，在新增发票时设置
+	private Date invoiceDate;//发票日期
+	private String marks;//唛头
+	private String descriptions;//描述
+	private String exportIds;//报运ID集合
+	private String exportNos;//报运NO集合x,y|z,h
+	private Integer state;//0草稿 1已上报
 
 	
 	public String getId() {

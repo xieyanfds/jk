@@ -54,8 +54,11 @@ public class LoginAction extends BaseAction {
 
 		try {
 			User currUser = getCurrUser();
-			if(UtilFuns.isNotEmpty(currUser) && redisService.smembers(String.format(RedisCacheKey.USER_PERMISSION_ID,currUser.getId()))!=null){
-				return SUCCESS;
+			if(UtilFuns.isNotEmpty(currUser)){
+				Set<String> smembers = redisService.smembers(String.format(RedisCacheKey.USER_PERMISSION_ID, currUser.getId()));
+				if(smembers != null && smembers.size() != 0){
+					return SUCCESS;
+				}
 			}
 			if(UtilFuns.isEmpty(username)){
 				return "login";

@@ -4,9 +4,11 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.xy.action.BaseAction;
 import com.xy.domain.Finance;
 import com.xy.domain.PackingList;
+import com.xy.domain.ShippingOrder;
 import com.xy.domain.User;
 import com.xy.service.FinanceService;
 import com.xy.service.PackingListService;
+import com.xy.service.ShippingOrderService;
 import com.xy.utils.Page;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
@@ -32,6 +34,8 @@ public class FinanceAction extends BaseAction implements ModelDriven<Finance> {
 	private FinanceService financeService;
 	@Autowired
 	private PackingListService packingListService;
+	@Autowired
+	private ShippingOrderService shippingOrderService;
 
 	/**
 	 * model驱动
@@ -104,6 +108,10 @@ public class FinanceAction extends BaseAction implements ModelDriven<Finance> {
 			PackingList packingList = packingListService.get(PackingList.class, model.getId());
 			//已报账
 			packingList.setState(4);
+			//修改委托单状态已完成
+			ShippingOrder shippingOrder = shippingOrderService.get(model.getId());
+			shippingOrder.setState(2);
+
 
 			financeService.saveOrUpdate(model);
 		} catch (Exception e) {

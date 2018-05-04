@@ -110,24 +110,26 @@
 
 		<c:forEach items="${contractProducts}" var="cp" varStatus="status">
 			<tr bgcolor="#c3f3c3" height="30" class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" style="height: 42px;">
-				<td>${status.index+1}</td>
+				<td style="cursor: pointer;" onclick="statusToAction('contractProductAction_toview?id=${o.id}')"><a href="contractProductAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 				<td>${cp.factoryName}</td>
 				<td>${cp.productNo}</td>
 				<td>${cp.loadingRate}</td>
 				<td>${cp.boxNum}</td>
-				<td>${cp.packingUnit}</td>
+				<td>
+					${cp.packingUnit=='PCS'?'只':'套'}
+				</td>
 				<td>${cp.cnumber}</td>
 				<td>${cp.price}</td>
 				<td>${cp.amount}</td>
 			</tr>
 				<c:forEach items="${cp.extCproducts}" var="ext" varStatus="status">
-					<tr height="30" class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
-						<td align="right"><font color="blue">附件：${status.index+1}&nbsp;</font></td>
+					<tr height=42px; class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
+						<td align="right" onclick="statusToAction('extCproductAction_toview?id=${ext.id}')"><font color="blue"><a href="extCproductAction_toview?id=${ext.id}">附件：${status.index+1}&nbsp;</a></font></td>
 						<td>${ext.factoryName}</td>
 						<td>${ext.productNo}</td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
-						<td>${ext.packingUnit}</td>
+						<td>${ext.packingUnit=='PCS'?'只':'套'}</td>
 						<td>${ext.cnumber}</td>
 						<td>${ext.price}</td>
 						<td>${ext.amount}</td>

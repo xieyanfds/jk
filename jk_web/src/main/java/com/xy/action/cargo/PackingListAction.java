@@ -73,7 +73,32 @@ public class PackingListAction extends BaseAction implements ModelDriven<Packing
                 page.setPageNo(Integer.parseInt(parameter));
             }
 			//查询所有内容
-			String hql = "from PackingList order by createTime desc";
+			String hql = "from PackingList where 1=1 ";
+			User currUser = super.getCurrUser();
+			//获取用户等级
+			int degree = currUser.getUserInfo().getDegree();
+			if(degree==4){
+				//说明是员工
+				hql+=" and createBy = '"+currUser.getId()+"'";
+
+			}else if(degree==3){
+				//说明是部门经理，管理本部门
+				hql+=" and createDept = '"+currUser.getDept().getId()+"'";
+
+			}else if(degree==2){
+				//说明是管理本部门及下属部门？？？？？
+				hql+=" and createDept in (select id from Dept where id like '"+super.getCurrUser().getDept().getId()+"%')";
+
+			}else if(degree==1){
+				//说明是副总？？？？？
+				//需要创建一个中间表
+				hql+=" and createBy in (select id from 中间表 where uid = "+super.getCurrUser().getId()+" and type='员工') "
+						+ "or createDept in (select id from 中间表 where uid = "+super.getCurrUser().getId()+" and type='部门')";
+			}else if(degree==0){
+				//说明是总经理
+
+			}
+			hql += " order by createTime desc";
 			//配置分页按钮的转向链接
 			page.setUrl("packingListAction_list");
 			page = packingListService.findPage(hql, page, PackingList.class, null);

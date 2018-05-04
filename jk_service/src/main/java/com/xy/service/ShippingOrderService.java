@@ -15,9 +15,9 @@ import java.util.List;
  */
 public interface ShippingOrderService {
 
-	public List<ShippingOrder> find(String hql, Class<ShippingOrder> entityClass, Object[] params);
-	public ShippingOrder get(Class<ShippingOrder> entityClass, Serializable id);
-	public Page<ShippingOrder> findPage(String hql, Page<ShippingOrder> page, Class<ShippingOrder> entityClass, Object[] params);
+	public List<ShippingOrder> find(String hql, Object[] params);
+	public ShippingOrder get(Serializable id);
+	public Page<ShippingOrder> findPage(String hql, Page<ShippingOrder> page, Object[] params);
 	
 	public void saveOrUpdate(ShippingOrder entity);
 	public void saveOrUpdateAll(Collection<ShippingOrder> entitys);
@@ -27,6 +27,6 @@ public interface ShippingOrderService {
 	 */
 	public void changeState(String [] ids,Integer state);
 
-	public void deleteById(Class<ShippingOrder> entityClass, Serializable id);
-	public void delete(Class<ShippingOrder> entityClass, Serializable[] ids);
+	public void deleteById(Serializable id);
+	public void delete(Serializable[] ids);
 }

@@ -114,12 +114,6 @@
 				<td class="columnTitle">复核人：</td>
 				<td class="tableContent"><input type="text" name="checkBy" value="${checkBy}" /></td>
 
-				<td class="columnTitle">正本通知人：</td>
-				<td class="tableContent">
-					<input type="text" style="width:90px;" name="invoiceDate"
-						   value="${invoiceDate}"
-						   onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});" />
-				</td>
 			</tr>
 		</table>
 	</div>

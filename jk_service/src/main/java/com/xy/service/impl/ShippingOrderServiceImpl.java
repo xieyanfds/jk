@@ -25,17 +25,17 @@ public class ShippingOrderServiceImpl implements ShippingOrderService {
 	private BaseDao baseDao;
 
 	@Override
-	public List<ShippingOrder> find(String hql, Class<ShippingOrder> entityClass, Object[] params) {
+	public List<ShippingOrder> find(String hql, Object[] params) {
 		return baseDao.find(hql, ShippingOrder.class, params);
 	}
 
 	@Override
-	public ShippingOrder get(Class<ShippingOrder> entityClass, Serializable id) {
+	public ShippingOrder get(Serializable id) {
 		return baseDao.get(ShippingOrder.class, id);
 	}
 
 	@Override
-	public Page<ShippingOrder> findPage(String hql, Page<ShippingOrder> page, Class<ShippingOrder> entityClass, Object[] params) {
+	public Page<ShippingOrder> findPage(String hql, Page<ShippingOrder> page, Object[] params) {
 		return baseDao.findPage(hql, page, ShippingOrder.class, params);
 	}
 
@@ -67,7 +67,7 @@ public class ShippingOrderServiceImpl implements ShippingOrderService {
 	}
 
 	@Override
-	public void deleteById(Class<ShippingOrder> entityClass, Serializable id) {
+	public void deleteById(Serializable id) {
 		//将委托单下的装箱单状态改为1
 		PackingList packingList = baseDao.get(PackingList.class, id);
 		packingList.setState(1);
@@ -75,9 +75,9 @@ public class ShippingOrderServiceImpl implements ShippingOrderService {
 	}
 
 	@Override
-	public void delete(Class<ShippingOrder> entityClass, Serializable[] ids) {
+	public void delete(Serializable[] ids) {
 		for(Serializable id:ids){
-			this.deleteById(ShippingOrder.class,id);
+			this.deleteById(id);
 		}
 	}
 

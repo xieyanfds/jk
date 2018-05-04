@@ -101,52 +101,57 @@ public class OutProductAction extends BaseAction{
 			CellStyle tradeTermsCellStyle = nRow.getCell(cellNo++).getCellStyle();
 
 
-			String hql= "from ContractProduct  where date_format(contract.shipTime,'%Y-%m') ='"+inputDate+"'";
+			String hql= "from ContractProduct  where date_format(contract.shipTime,'%Y-%m') ='"+inputDate+"' and contract.state > 0";
 			List<ContractProduct> list = contractProductService.find(hql, ContractProduct.class, null);//查询出符合指定船期的货物列表
 
-			for(ContractProduct cp :list){
-                nRow = sheet.createRow(rowNo++);//产生数据行
-                nRow.setHeightInPoints(24);//设置行高
+			if(list.size() > 0) {
+				for (ContractProduct cp : list) {
+					nRow = sheet.createRow(rowNo++);//产生数据行
+					nRow.setHeightInPoints(24);//设置行高
 
-                cellNo=1;
-                nCell = nRow.createCell(cellNo++);//产生单元格对象
-                nCell.setCellValue(cp.getContract().getCustomName());//客户名称
-                nCell.setCellStyle(customCellStyle);//设置文本样式
+					cellNo = 1;
+					nCell = nRow.createCell(cellNo++);//产生单元格对象
+					nCell.setCellValue(cp.getContract().getCustomName());//客户名称
+					nCell.setCellStyle(customCellStyle);//设置文本样式
 
-                nCell = nRow.createCell(cellNo++);//产生单元格对象
-                nCell.setCellValue(cp.getContract().getContractNo());//订单号--- 合同号
-                nCell.setCellStyle(orderNoCellStyle);//设置文本样式
+					nCell = nRow.createCell(cellNo++);//产生单元格对象
+					nCell.setCellValue(cp.getContract().getContractNo());//订单号--- 合同号
+					nCell.setCellStyle(orderNoCellStyle);//设置文本样式
 
-                nCell = nRow.createCell(cellNo++);//产生单元格对象
-                nCell.setCellValue(cp.getProductNo());     //        货号
-                nCell.setCellStyle(productNoCellStyle);//设置文本样式
-
-
-                nCell = nRow.createCell(cellNo++);//产生单元格对象
-                nCell.setCellValue(cp.getCnumber());//      数量
-                nCell.setCellStyle(cNumberCellStyle);//设置文本样式
+					nCell = nRow.createCell(cellNo++);//产生单元格对象
+					nCell.setCellValue(cp.getProductNo());     //        货号
+					nCell.setCellStyle(productNoCellStyle);//设置文本样式
 
 
-                nCell = nRow.createCell(cellNo++);//产生单元格对象
-                nCell.setCellValue(cp.getFactoryName());//工厂名
-                nCell.setCellStyle(factoryCellStyle);//设置文本样式
+					nCell = nRow.createCell(cellNo++);//产生单元格对象
+					nCell.setCellValue(cp.getCnumber());//      数量
+					nCell.setCellStyle(cNumberCellStyle);//设置文本样式
 
 
-                nCell = nRow.createCell(cellNo++);//产生单元格对象
-                nCell.setCellValue(UtilFuns.dateTimeFormat(cp.getContract().getDeliveryPeriod()));//交期
-                nCell.setCellStyle(deliveryPeriodCellStyle);//设置文本样式
+					nCell = nRow.createCell(cellNo++);//产生单元格对象
+					nCell.setCellValue(cp.getFactoryName());//工厂名
+					nCell.setCellStyle(factoryCellStyle);//设置文本样式
 
 
-                nCell = nRow.createCell(cellNo++);//产生单元格对象
-                nCell.setCellValue(UtilFuns.dateTimeFormat(cp.getContract().getShipTime()));//船期
-                nCell.setCellStyle(shipTimeCellStyle);//设置文本样式
+					nCell = nRow.createCell(cellNo++);//产生单元格对象
+					nCell.setCellValue(UtilFuns.dateTimeFormat(cp.getContract().getDeliveryPeriod()));//交期
+					nCell.setCellStyle(deliveryPeriodCellStyle);//设置文本样式
 
 
-                nCell = nRow.createCell(cellNo++);//产生单元格对象
-                nCell.setCellValue(cp.getContract().getTradeTerms());//贸易条款
-                nCell.setCellStyle(tradeTermsCellStyle);//设置文本样式
+					nCell = nRow.createCell(cellNo++);//产生单元格对象
+					nCell.setCellValue(UtilFuns.dateTimeFormat(cp.getContract().getShipTime()));//船期
+					nCell.setCellStyle(shipTimeCellStyle);//设置文本样式
 
-            }
+
+					nCell = nRow.createCell(cellNo++);//产生单元格对象
+					nCell.setCellValue(cp.getContract().getTradeTerms());//贸易条款
+					nCell.setCellStyle(tradeTermsCellStyle);//设置文本样式
+
+				}
+			}else{
+				//没有符合要求的contract
+				sheet.removeRow(nRow);
+			}
 
 
 			//======================================输出到客户端（下载）========================================

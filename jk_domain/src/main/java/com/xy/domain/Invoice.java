@@ -12,8 +12,8 @@ public class Invoice extends BaseEntity {
     private PackingList packingList;//一对一的装箱单
 
     private String scNo;//报运合同号
-    private String blNo;
-    private String tradeTerms;
+    private String blNo;//提单号
+    private String tradeTerms;//交易条款
     private int state;
 
     public String getId() {
