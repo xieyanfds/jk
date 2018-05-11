@@ -6,20 +6,18 @@ import com.xy.domain.Role;
 import com.xy.domain.User;
 import com.xy.jedis.RedisService;
 import com.xy.service.UserService;
-import com.xy.utils.SysConstant;
 import com.xy.utils.redis.RedisCacheKey;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class AuthRealm extends AuthorizingRealm{
 
@@ -32,8 +30,28 @@ public class AuthRealm extends AuthorizingRealm{
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		User user = (User) arg0.fromRealm(this.getName()).iterator().next();
-		if(user!=null) {
+		if(user != null) {
 			Set<String> allPermission = redisService.smembers(String.format(RedisCacheKey.USER_PERMISSION_ID, user.getId()));
+			if(allPermission != null || allPermission.size() == 0){
+				//redis中key过期
+				Set<Role> roles = user.getRoles();
+				HashSet<String> mSet = Sets.newHashSet();
+				for (Role role : roles) {
+					//获取每个角色的权限
+					Set<Module> modules = role.getModules();
+					for (Module module : modules) {
+						//将用户的所有权限添加到集合中
+						if(module.getCtype()==0) {
+							mSet.add(module.getName());
+						}
+					}
+				}
+				//设置和session一样的一小时的有效期
+				String key = String.format(RedisCacheKey.USER_PERMISSION_ID, user.getId());
+				redisService.sadd(key,mSet);
+				redisService.expire(key,1, TimeUnit.HOURS);
+				allPermission = mSet;
+			}
 			SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 			//添加用户主菜单的权限
 			authorizationInfo.addStringPermissions(allPermission);

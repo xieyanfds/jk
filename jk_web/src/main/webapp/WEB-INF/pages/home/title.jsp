@@ -234,8 +234,8 @@
 						<shiro:hasPermission name="基础信息">
 							<span id="topmenu" onclick="toModule('baseinfo');">基础信息</span><span id="tm_separator"></span>
 						</shiro:hasPermission>
-						<shiro:hasPermission name="系统管理">
-							<span id="topmenu" onclick="toModule('sysadmin');">系统管理</span>
+						<shiro:hasPermission name="系统维护">
+							<span id="topmenu" onclick="toModule('sysadmin');">系统维护</span>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="流程管理">
 							<span id="topmenu" onclick="toModule('activiti');">流程管理</span>

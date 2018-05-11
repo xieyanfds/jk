@@ -12,7 +12,7 @@
 
         <table class="modelTable" cellspacing="1">
         	<tr>
-        		<td colspan="2" class="modelTitle">基础信息管理模块介绍</td>
+        		<td colspan="2" class="modelTitle">基础信息模块介绍</td>
         	</tr>
 			<tr>
 				<td class="subModelTitle">产品信息：</td>

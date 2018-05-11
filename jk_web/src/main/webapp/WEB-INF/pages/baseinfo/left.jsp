@@ -20,7 +20,7 @@
         <div class="panel">
         <div class="panel_icon"><img src="${ctx}/skin/default/images/icon/document_into.png" /></div>
         <div class="panel-header">
-        <div class="panel-title">基础代码管理</div>
+        <div class="panel-title">基础信息</div>
         <div class="panel-content">
 			<%-- <ul>
 				<li>

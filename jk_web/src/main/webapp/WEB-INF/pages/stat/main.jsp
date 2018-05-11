@@ -14,7 +14,7 @@
 
         <table class="modelTable" cellspacing="1">
         	<tr>
-        		<td colspan="2" class="modelTitle">统计分析介绍</td>
+        		<td colspan="2" class="modelTitle">统计分析模块介绍</td>
         	</tr>
         	<tr>
         		<td class="subModelTitle">生产厂家销售情况</td>

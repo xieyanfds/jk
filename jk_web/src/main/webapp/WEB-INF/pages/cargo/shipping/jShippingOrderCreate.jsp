@@ -131,15 +131,19 @@
 	<div class="eXtremeTable" >
 		<table id="ec_table" class="tableRegion" width="98%" >
 			<thead>
-			<tr align="center" style="height: 42px;">
-				<td class="tableHeader"></td>
-				<td class="tableHeader">序号</td>
-				<td class="tableHeader">卖方</td>
-				<td class="tableHeader">买方</td>
-				<td class="tableHeader">发票号</td>
-				<td class="tableHeader">发票日期</td>
-				<td class="tableHeader">状态</td>
-			</tr>
+				<tr align="center">
+					<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
+					<td class="tableHeader">序号</td>
+					<td class="tableHeader">买方</td>
+					<td class="tableHeader">卖方</td>
+					<td class="tableHeader">发票号</td>
+					<td class="tableHeader">发票日期</td>
+					<td class="tableHeader">唛头</td>
+					<td class="tableHeader">描述</td>
+					<td class="tableHeader">创建人</td>
+					<td class="tableHeader">创建日期</td>
+					<td class="tableHeader">状态</td>
+				</tr>
 			</thead>
 			<tbody class="tableBody" >
 			${links}
@@ -147,15 +151,22 @@
 			<c:forEach items="${results}" var="o" varStatus="status">
 				<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" style="height: 42px;">
 					<td><input type="radio" name="id" value="${o.id}"/></td>
-					<td>${status.index+1}</td>
-					<td>${o.seller}</td>
+					<td style="cursor: pointer;" onclick="statusToAction('packingListAction_toview?id=${o.id}')"><a href="packingListAction_toview?id=${o.id}" style="color:blue;">${status.index+1}</a></td>
 					<td>${o.buyer}</td>
+					<td>${o.seller}</td>
 					<td>${o.invoiceNo}</td>
 					<td>${o.invoiceDate}</td>
+					<td>${o.marks}</td>
+					<td>${o.descriptions}</td>
+					<td>${o.createBy}</td>
+					<td>${o.createTime}</td>
 					<td>
 						<c:if test="${o.state==0}"><font color="red">草稿</font></c:if>
 						<c:if test="${o.state==1}"><font color="green">已提交</font></c:if>
 						<c:if test="${o.state==2}"><font color="#00bfff">已委托</font></c:if>
+						<c:if test="${o.state==3}"><font color="rgb(92, 37, 177)">已开发票</font></c:if>
+						<c:if test="${o.state==4}"><font color="rgb(0, 96, 0)">已报账</font></c:if>
+						<input type="hidden" value="${o.state}" id="${o.id}">
 					</td>
 				</tr>
 			</c:forEach>

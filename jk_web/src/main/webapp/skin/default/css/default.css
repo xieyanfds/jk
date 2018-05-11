@@ -16,7 +16,7 @@ body {
 textarea, input{ padding:2px; border:1px solid; border-color:#369e92;font-size:12px;height:25px;}
 select{ padding:2px; border:1px solid; border-color:#369e92;font-size:12px;*height:30px;}
 label{ cursor:hand; }
-td{ font:9pt 华文行楷; }
+/*td{ font:9pt 华文行楷; }*/
 th{ font:9pt 微软雅黑; font-weight:bold; text-align:left; }
 .gzdt_list_date{float:right; font-size:12px; font-weight:normal; margin-top:-22px; padding-right:6px; color:#EA9634;}
 

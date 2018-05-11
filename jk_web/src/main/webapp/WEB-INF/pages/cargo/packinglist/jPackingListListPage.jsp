@@ -136,19 +136,19 @@
 <div class="eXtremeTable" >
 <table id="ec_table" class="tableRegion" width="98%" >
 	<thead>
-	<tr align="center">
-		<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
-		<td class="tableHeader">序号</td>
-		<td class="tableHeader">买方</td>
-		<td class="tableHeader">卖方</td>
-		<td class="tableHeader">发票号</td>
-		<td class="tableHeader">发票日期</td>
-		<td class="tableHeader">唛头</td>
-		<td class="tableHeader">描述</td>
-		<td class="tableHeader">创建人</td>
-		<td class="tableHeader">创建日期</td>
-		<td class="tableHeader">状态</td>
-	</tr>
+		<tr align="center">
+			<td class="tableHeader"><input type="checkbox" name="selid" onclick="checkAll('id',this)"></td>
+			<td class="tableHeader">序号</td>
+			<td class="tableHeader">买方</td>
+			<td class="tableHeader">卖方</td>
+			<td class="tableHeader">发票号</td>
+			<td class="tableHeader">发票日期</td>
+			<td class="tableHeader">唛头</td>
+			<td class="tableHeader">描述</td>
+			<td class="tableHeader">创建人</td>
+			<td class="tableHeader">创建日期</td>
+			<td class="tableHeader">状态</td>
+		</tr>
 	</thead>
 	<tbody class="tableBody" >
 

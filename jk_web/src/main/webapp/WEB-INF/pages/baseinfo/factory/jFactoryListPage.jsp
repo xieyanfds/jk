@@ -42,7 +42,6 @@
 			<td class="tableHeader">编号</td>
 			<td class="tableHeader">厂家简称</td>
 			<td class="tableHeader">货物/附件</td>
-			<td class="tableHeader">创建时间</td>
 			<td class="tableHeader">厂家全称</td>
 			<td class="tableHeader">联系人</td>
 			<td class="tableHeader">电话</td>
@@ -53,6 +52,7 @@
 			<td class="tableHeader">说明</td>
 			<td class="tableHeader">排序号</td>
 			<td class="tableHeader">厂家状态</td>
+			<td class="tableHeader">创建时间</td>
 		</tr>
 	</thead>
 	<tbody class="tableBody" >
@@ -64,7 +64,6 @@
 		<td>${o.id}</td>
 		<td>${o.factoryName}</td>
 		<td>${o.ctype}</td>
-		<td><fmt:formatDate value="${o.createTime }" pattern="yyyy-MM-dd"/></td>
 		<td>${o.fullName}</td>
 		<td>${o.contacts}</td>
 		<td>${o.phone}</td>
@@ -78,7 +77,9 @@
 			<c:if test="${o.state==0}">停用</c:if>
 			<c:if test="${o.state==1}">正常</c:if>
 		</td>
-	
+		<td>${o.createTime }</td>
+		<%--<td><fmt:formatDate value="${o.createTime }" pattern="yyyy-MM-dd"/></td>--%>
+
 	</tr>
 	</c:forEach>
 	

@@ -21,7 +21,7 @@
     	<div class="panel_icon"><img src="${ctx}/skin/default/images/icon/document_chart.png"/></div>
         <div class="panel-header">
         <div class="panel-title">
-		统计查询
+		统计分析
         </div>
         
         <div class="panel-content">
